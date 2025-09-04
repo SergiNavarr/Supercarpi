@@ -1,0 +1,37 @@
+﻿
+Microsoft Visual Studio Solution File, Format Version 12.00
+# Visual Studio Version 17
+VisualStudioVersion = 17.14.36414.22
+MinimumVisualStudioVersion = 10.0.40219.1
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Interfaz", "Supercarpi\Interfaz.csproj", "{59B7038B-11B5-4108-824B-DB48954207F7}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Negocio", "Negocio\Negocio.csproj", "{779598AC-C415-40A1-9D86-F6DFF21A1735}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Datos", "Datos\Datos.csproj", "{68B40D9F-D08E-486F-863F-BB362384FD06}"
+EndProject
+Global
+	GlobalSection(SolutionConfigurationPlatforms) = preSolution
+		Debug|Any CPU = Debug|Any CPU
+		Release|Any CPU = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(ProjectConfigurationPlatforms) = postSolution
+		{59B7038B-11B5-4108-824B-DB48954207F7}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{59B7038B-11B5-4108-824B-DB48954207F7}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{59B7038B-11B5-4108-824B-DB48954207F7}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{59B7038B-11B5-4108-824B-DB48954207F7}.Release|Any CPU.Build.0 = Release|Any CPU
+		{779598AC-C415-40A1-9D86-F6DFF21A1735}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{779598AC-C415-40A1-9D86-F6DFF21A1735}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{779598AC-C415-40A1-9D86-F6DFF21A1735}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{779598AC-C415-40A1-9D86-F6DFF21A1735}.Release|Any CPU.Build.0 = Release|Any CPU
+		{68B40D9F-D08E-486F-863F-BB362384FD06}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{68B40D9F-D08E-486F-863F-BB362384FD06}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{68B40D9F-D08E-486F-863F-BB362384FD06}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{68B40D9F-D08E-486F-863F-BB362384FD06}.Release|Any CPU.Build.0 = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(SolutionProperties) = preSolution
+		HideSolutionNode = FALSE
+	EndGlobalSection
+	GlobalSection(ExtensibilityGlobals) = postSolution
+		SolutionGuid = {5FA6DC15-E0B8-4D95-A3F6-DC1A774CAB10}
+	EndGlobalSection
+EndGlobal
