@@ -1,17 +1,44 @@
+using Microsoft.EntityFrameworkCore;
+using Microsoft.Extensions.Configuration;
+using Microsoft.Extensions.DependencyInjection;
+using System.IO;
+
+using Datos.DBContext;
+
 namespace Supercarpi
 {
+    
     internal static class Program
     {
-        /// <summary>
-        ///  The main entry point for the application.
-        /// </summary>
         [STAThread]
         static void Main()
         {
-            // To customize application configuration such as set high DPI settings or default font,
-            // see https://aka.ms/applicationconfiguration.
-            ApplicationConfiguration.Initialize();
-            Application.Run(new Login());
+            Application.EnableVisualStyles();
+            Application.SetCompatibleTextRenderingDefault(false);
+
+            // Configuración
+            var builder = new ConfigurationBuilder()
+                .SetBasePath(Directory.GetCurrentDirectory())
+                .AddJsonFile("appsettings.json", optional: false, reloadOnChange: true);
+
+            var config = builder.Build();
+            string connectionString = config.GetConnectionString("MiConexion");
+
+            // Configuración de servicios (DI)
+            var services = new ServiceCollection();
+
+            // Registrar DbContext
+            services.AddDbContext<SupercarpiDbContext>(options =>
+                options.UseSqlServer(connectionString));
+
+            // Registrar formularios
+            services.AddTransient<Login>();
+
+            var serviceProvider = services.BuildServiceProvider();
+
+            // Ejecutar la app con Form1 desde DI
+            Application.Run(serviceProvider.GetRequiredService<Login>());
         }
     }
+
 }
