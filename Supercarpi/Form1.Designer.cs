@@ -37,16 +37,16 @@
             // LUsuario
             // 
             LUsuario.AutoSize = true;
-            LUsuario.Location = new Point(241, 113);
+            LUsuario.Location = new Point(142, 98);
             LUsuario.Name = "LUsuario";
-            LUsuario.Size = new Size(47, 15);
+            LUsuario.Size = new Size(27, 15);
             LUsuario.TabIndex = 0;
-            LUsuario.Text = "Usuario";
+            LUsuario.Text = "DNI";
             // 
             // LContrasenia
             // 
             LContrasenia.AutoSize = true;
-            LContrasenia.Location = new Point(241, 202);
+            LContrasenia.Location = new Point(142, 176);
             LContrasenia.Name = "LContrasenia";
             LContrasenia.Size = new Size(67, 15);
             LContrasenia.TabIndex = 1;
@@ -54,14 +54,14 @@
             // 
             // textBox1
             // 
-            textBox1.Location = new Point(241, 142);
+            textBox1.Location = new Point(142, 116);
             textBox1.Name = "textBox1";
             textBox1.Size = new Size(212, 23);
             textBox1.TabIndex = 2;
             // 
             // textBox2
             // 
-            textBox2.Location = new Point(241, 220);
+            textBox2.Location = new Point(142, 194);
             textBox2.Name = "textBox2";
             textBox2.Size = new Size(212, 23);
             textBox2.TabIndex = 3;
@@ -70,7 +70,7 @@
             // 
             AutoScaleDimensions = new SizeF(7F, 15F);
             AutoScaleMode = AutoScaleMode.Font;
-            ClientSize = new Size(768, 438);
+            ClientSize = new Size(506, 320);
             Controls.Add(textBox2);
             Controls.Add(textBox1);
             Controls.Add(LContrasenia);
