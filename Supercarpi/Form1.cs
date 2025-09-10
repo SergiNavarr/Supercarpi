@@ -22,15 +22,15 @@ namespace Supercarpi
 
             if (usuario != null)
             {
-                MessageBox.Show("Login Exitoso");
-
                 var inicio = new Inicio();
+                this.Hide();
+
                 inicio.Show();
 
             }
             else
             {
-                MessageBox.Show("usuario No encontrado");
+                MessageBox.Show("Credenciales invalidas");
             }
 
         }
