@@ -1,4 +1,5 @@
 using Datos.DBContext;
+using Interfaz;
 
 namespace Supercarpi
 {
@@ -22,6 +23,9 @@ namespace Supercarpi
             if (usuario != null)
             {
                 MessageBox.Show("Login Exitoso");
+
+                var inicio = new Inicio();
+                inicio.Show();
 
             }
             else

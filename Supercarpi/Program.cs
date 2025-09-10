@@ -36,7 +36,7 @@ namespace Supercarpi
 
             var serviceProvider = services.BuildServiceProvider();
 
-            // Ejecutar la app con Form1 desde DI
+            // Ejecutar la app con Login desde DI
             Application.Run(serviceProvider.GetRequiredService<Login>());
         }
     }
