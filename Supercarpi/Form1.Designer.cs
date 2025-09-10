@@ -30,51 +30,66 @@
         {
             LUsuario = new Label();
             LContrasenia = new Label();
-            textBox1 = new TextBox();
-            textBox2 = new TextBox();
+            TBDni = new TextBox();
+            TBPassword = new TextBox();
+            BLogin = new Button();
             SuspendLayout();
             // 
             // LUsuario
             // 
             LUsuario.AutoSize = true;
-            LUsuario.Location = new Point(142, 98);
+            LUsuario.Location = new Point(162, 131);
             LUsuario.Name = "LUsuario";
-            LUsuario.Size = new Size(27, 15);
+            LUsuario.Size = new Size(35, 20);
             LUsuario.TabIndex = 0;
             LUsuario.Text = "DNI";
             // 
             // LContrasenia
             // 
             LContrasenia.AutoSize = true;
-            LContrasenia.Location = new Point(142, 176);
+            LContrasenia.Location = new Point(162, 235);
             LContrasenia.Name = "LContrasenia";
-            LContrasenia.Size = new Size(67, 15);
+            LContrasenia.Size = new Size(83, 20);
             LContrasenia.TabIndex = 1;
             LContrasenia.Text = "Contraseña";
             // 
-            // textBox1
+            // TBDni
             // 
-            textBox1.Location = new Point(142, 116);
-            textBox1.Name = "textBox1";
-            textBox1.Size = new Size(212, 23);
-            textBox1.TabIndex = 2;
+            TBDni.Location = new Point(162, 155);
+            TBDni.Margin = new Padding(3, 4, 3, 4);
+            TBDni.Name = "TBDni";
+            TBDni.Size = new Size(242, 27);
+            TBDni.TabIndex = 2;
             // 
-            // textBox2
+            // TBPassword
             // 
-            textBox2.Location = new Point(142, 194);
-            textBox2.Name = "textBox2";
-            textBox2.Size = new Size(212, 23);
-            textBox2.TabIndex = 3;
+            TBPassword.Location = new Point(162, 259);
+            TBPassword.Margin = new Padding(3, 4, 3, 4);
+            TBPassword.Name = "TBPassword";
+            TBPassword.Size = new Size(242, 27);
+            TBPassword.TabIndex = 3;
+            // 
+            // BLogin
+            // 
+            BLogin.Location = new Point(162, 327);
+            BLogin.Name = "BLogin";
+            BLogin.Size = new Size(242, 29);
+            BLogin.TabIndex = 4;
+            BLogin.Text = "Entrar";
+            BLogin.UseVisualStyleBackColor = true;
+            BLogin.Click += BLogin_Click;
             // 
             // Login
             // 
-            AutoScaleDimensions = new SizeF(7F, 15F);
+            AutoScaleDimensions = new SizeF(8F, 20F);
             AutoScaleMode = AutoScaleMode.Font;
-            ClientSize = new Size(506, 320);
-            Controls.Add(textBox2);
-            Controls.Add(textBox1);
+            ClientSize = new Size(578, 427);
+            Controls.Add(BLogin);
+            Controls.Add(TBPassword);
+            Controls.Add(TBDni);
             Controls.Add(LContrasenia);
             Controls.Add(LUsuario);
+            Margin = new Padding(3, 4, 3, 4);
             Name = "Login";
             Text = "Login";
             ResumeLayout(false);
@@ -85,7 +100,8 @@
 
         private Label LUsuario;
         private Label LContrasenia;
-        private TextBox textBox1;
-        private TextBox textBox2;
+        private TextBox TBDni;
+        private TextBox TBPassword;
+        private Button BLogin;
     }
 }
