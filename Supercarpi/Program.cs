@@ -4,6 +4,7 @@ using Microsoft.Extensions.DependencyInjection;
 using System.IO;
 
 using Datos.DBContext;
+using Entidades.Models;
 
 namespace Supercarpi
 {
@@ -33,6 +34,8 @@ namespace Supercarpi
 
             // Registrar formularios
             services.AddTransient<Login>();
+            services.AddTransient<Interfaz.Inicio>();
+            services.AddTransient<Venta>();
 
             var serviceProvider = services.BuildServiceProvider();
 
