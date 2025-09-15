@@ -17,9 +17,23 @@ namespace Interfaz
             InitializeComponent();
         }
 
-        private void panel1_Paint(object sender, PaintEventArgs e)
+        private void AbrirFormHija(object formhija)
         {
-
+            if (this.panelContenedor.Controls.Count > 0)
+                this.panelContenedor.Controls.RemoveAt(0);
+            Form fh = formhija as Form;
+            fh.TopLevel = false;
+            fh.Dock = DockStyle.Fill;
+            this.panelContenedor.Controls.Add(fh);
+            this.panelContenedor.Tag = fh;
+            fh.Show();
         }
+
+        private void btnUsuario_Click(object sender, EventArgs e)
+        {
+            AbrirFormHija(new FormUsuarios());
+        }
+
+        
     }
 }
