@@ -1,4 +1,5 @@
-﻿using System;
+﻿using Entidades.Models;
+using System;
 using System.Collections.Generic;
 using System.ComponentModel;
 using System.Data;
@@ -12,6 +13,8 @@ namespace Interfaz
 {
     public partial class Inicio : Form
     {
+        public Empleado empleado { get; set; }
+
         public Inicio()
         {
             InitializeComponent();
@@ -34,6 +37,9 @@ namespace Interfaz
             AbrirFormHija(new FormUsuarios());
         }
 
-        
+        private void button1_Click(object sender, EventArgs e)
+        {
+            LPrueba.Text = empleado.Nombre.Trim();
+        }
     }
 }

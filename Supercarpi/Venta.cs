@@ -16,5 +16,12 @@ namespace Interfaz
         {
             InitializeComponent();
         }
+
+        private void BtnGenerarVenta_Click(object sender, EventArgs e)
+        {
+               Venta venta = new Venta();
+              
+            
+        }
     }
 }
