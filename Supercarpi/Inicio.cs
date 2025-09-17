@@ -13,33 +13,38 @@ namespace Interfaz
 {
     public partial class Inicio : Form
     {
+        private readonly FormVenta _formVenta;
+        private readonly FormUsuarios _formUsuarios;
+
         public Empleado empleado { get; set; }
 
-        public Inicio()
+        public Inicio(FormVenta formVenta, FormUsuarios formUsuarios)
         {
+
             InitializeComponent();
+            _formVenta = formVenta;
+            _formUsuarios = formUsuarios;
         }
 
-        private void AbrirFormHija(object formhija)
+        private void AbrirFormHija(Form formhija)
         {
             if (this.panelContenedor.Controls.Count > 0)
                 this.panelContenedor.Controls.RemoveAt(0);
-            Form fh = formhija as Form;
-            fh.TopLevel = false;
-            fh.Dock = DockStyle.Fill;
-            this.panelContenedor.Controls.Add(fh);
-            this.panelContenedor.Tag = fh;
-            fh.Show();
+            formhija.TopLevel = false;
+            formhija.Dock = DockStyle.Fill;
+            this.panelContenedor.Controls.Add(formhija);
+            this.panelContenedor.Tag = formhija;
+            formhija.Show();
         }
 
         private void btnUsuario_Click(object sender, EventArgs e)
         {
-            AbrirFormHija(new FormUsuarios());
+            AbrirFormHija(_formUsuarios);
         }
 
-        private void button1_Click(object sender, EventArgs e)
+        private void btnVentas_Click(object sender, EventArgs e)
         {
-            LPrueba.Text = empleado.Nombre.Trim();
+            AbrirFormHija(_formVenta);
         }
     }
 }

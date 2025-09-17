@@ -292,7 +292,7 @@
             AutoScaleDimensions = new SizeF(7F, 15F);
             AutoScaleMode = AutoScaleMode.Font;
             BackColor = Color.FromArgb(49, 66, 82);
-            ClientSize = new Size(1284, 611);
+            ClientSize = new Size(1089, 576);
             Controls.Add(lLista);
             Controls.Add(dataGridView1);
             Controls.Add(rBtnHombre);

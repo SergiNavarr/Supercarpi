@@ -1,6 +1,6 @@
 ﻿namespace Interfaz
 {
-    partial class Venta
+    partial class FormVenta
     {
         /// <summary>
         /// Required designer variable.
@@ -48,64 +48,60 @@
             // dataGridView1
             // 
             dataGridView1.ColumnHeadersHeightSizeMode = DataGridViewColumnHeadersHeightSizeMode.AutoSize;
-            dataGridView1.Location = new Point(14, 121);
-            dataGridView1.Margin = new Padding(3, 4, 3, 4);
+            dataGridView1.Location = new Point(12, 44);
             dataGridView1.Name = "dataGridView1";
             dataGridView1.RowHeadersWidth = 51;
-            dataGridView1.Size = new Size(1440, 487);
+            dataGridView1.Size = new Size(1025, 365);
             dataGridView1.TabIndex = 0;
             // 
             // LNombre
             // 
             LNombre.AutoSize = true;
-            LNombre.Location = new Point(19, 659);
+            LNombre.Location = new Point(17, 447);
             LNombre.Name = "LNombre";
-            LNombre.Size = new Size(64, 20);
+            LNombre.Size = new Size(51, 15);
             LNombre.TabIndex = 1;
             LNombre.Text = "Nombre";
             // 
             // TBNombre
             // 
-            TBNombre.Location = new Point(85, 655);
-            TBNombre.Margin = new Padding(3, 4, 3, 4);
+            TBNombre.Location = new Point(74, 444);
             TBNombre.Name = "TBNombre";
-            TBNombre.Size = new Size(229, 27);
+            TBNombre.Size = new Size(201, 23);
             TBNombre.TabIndex = 2;
             // 
             // LTitulo
             // 
             LTitulo.AutoSize = true;
             LTitulo.Font = new Font("Century Gothic", 20.25F, FontStyle.Bold, GraphicsUnit.Point, 0);
-            LTitulo.Location = new Point(610, 43);
+            LTitulo.Location = new Point(460, 9);
             LTitulo.Name = "LTitulo";
-            LTitulo.Size = new Size(280, 40);
+            LTitulo.Size = new Size(223, 32);
             LTitulo.TabIndex = 3;
             LTitulo.Text = "Panel de ventas";
             // 
             // LCodigo
             // 
             LCodigo.AutoSize = true;
-            LCodigo.Location = new Point(26, 716);
+            LCodigo.Location = new Point(23, 490);
             LCodigo.Name = "LCodigo";
-            LCodigo.Size = new Size(58, 20);
+            LCodigo.Size = new Size(46, 15);
             LCodigo.TabIndex = 4;
             LCodigo.Text = "Codigo";
             // 
             // textBox1
             // 
-            textBox1.Location = new Point(85, 712);
-            textBox1.Margin = new Padding(3, 4, 3, 4);
+            textBox1.Location = new Point(74, 487);
             textBox1.Name = "textBox1";
-            textBox1.Size = new Size(229, 27);
+            textBox1.Size = new Size(201, 23);
             textBox1.TabIndex = 5;
             // 
             // BtnBuscar
             // 
             BtnBuscar.BackColor = Color.FromArgb(26, 32, 40);
-            BtnBuscar.Location = new Point(345, 653);
-            BtnBuscar.Margin = new Padding(3, 4, 3, 4);
+            BtnBuscar.Location = new Point(302, 443);
             BtnBuscar.Name = "BtnBuscar";
-            BtnBuscar.Size = new Size(113, 31);
+            BtnBuscar.Size = new Size(99, 23);
             BtnBuscar.TabIndex = 6;
             BtnBuscar.Text = "Buscar";
             BtnBuscar.UseVisualStyleBackColor = false;
@@ -113,10 +109,9 @@
             // BtnGenerarVenta
             // 
             BtnGenerarVenta.BackColor = Color.FromArgb(26, 32, 40);
-            BtnGenerarVenta.Location = new Point(1210, 617);
-            BtnGenerarVenta.Margin = new Padding(3, 4, 3, 4);
+            BtnGenerarVenta.Location = new Point(824, 425);
             BtnGenerarVenta.Name = "BtnGenerarVenta";
-            BtnGenerarVenta.Size = new Size(243, 105);
+            BtnGenerarVenta.Size = new Size(213, 79);
             BtnGenerarVenta.TabIndex = 7;
             BtnGenerarVenta.Text = "Generar Venta";
             BtnGenerarVenta.UseVisualStyleBackColor = false;
@@ -126,10 +121,9 @@
             // 
             BtnLimpiar.BackColor = Color.Red;
             BtnLimpiar.ForeColor = Color.White;
-            BtnLimpiar.Location = new Point(961, 616);
-            BtnLimpiar.Margin = new Padding(3, 4, 3, 4);
+            BtnLimpiar.Location = new Point(606, 424);
             BtnLimpiar.Name = "BtnLimpiar";
-            BtnLimpiar.Size = new Size(242, 105);
+            BtnLimpiar.Size = new Size(212, 79);
             BtnLimpiar.TabIndex = 8;
             BtnLimpiar.Text = "Limpiar";
             BtnLimpiar.UseVisualStyleBackColor = false;
@@ -138,9 +132,9 @@
             // 
             LTotal.AutoSize = true;
             LTotal.Font = new Font("Segoe UI", 18F, FontStyle.Regular, GraphicsUnit.Point, 0);
-            LTotal.Location = new Point(1283, 747);
+            LTotal.Location = new Point(888, 507);
             LTotal.Name = "LTotal";
-            LTotal.Size = new Size(188, 41);
+            LTotal.Size = new Size(149, 32);
             LTotal.TabIndex = 9;
             LTotal.Text = "TOTAL: $0.00";
             // 
@@ -148,47 +142,45 @@
             // 
             LItems.AutoSize = true;
             LItems.Font = new Font("Segoe UI", 18F, FontStyle.Regular, GraphicsUnit.Point, 0);
-            LItems.Location = new Point(1134, 747);
+            LItems.Location = new Point(757, 507);
             LItems.Name = "LItems";
-            LItems.Size = new Size(131, 41);
+            LItems.Size = new Size(105, 32);
             LItems.TabIndex = 10;
             LItems.Text = "ITEMS: 0";
             // 
             // CBMetodoPago
             // 
             CBMetodoPago.FormattingEnabled = true;
-            CBMetodoPago.Location = new Point(714, 655);
-            CBMetodoPago.Margin = new Padding(3, 4, 3, 4);
+            CBMetodoPago.Location = new Point(423, 452);
             CBMetodoPago.Name = "CBMetodoPago";
-            CBMetodoPago.Size = new Size(186, 28);
+            CBMetodoPago.Size = new Size(163, 23);
             CBMetodoPago.TabIndex = 11;
             // 
             // LMetodoPago
             // 
             LMetodoPago.AutoSize = true;
-            LMetodoPago.Location = new Point(757, 631);
+            LMetodoPago.Location = new Point(460, 434);
             LMetodoPago.Name = "LMetodoPago";
-            LMetodoPago.Size = new Size(120, 20);
+            LMetodoPago.Size = new Size(95, 15);
             LMetodoPago.TabIndex = 12;
             LMetodoPago.Text = "Metodo de Pago";
             // 
             // BtnAgregar
             // 
             BtnAgregar.BackColor = Color.FromArgb(26, 32, 40);
-            BtnAgregar.Location = new Point(345, 711);
-            BtnAgregar.Margin = new Padding(3, 4, 3, 4);
+            BtnAgregar.Location = new Point(302, 486);
             BtnAgregar.Name = "BtnAgregar";
-            BtnAgregar.Size = new Size(113, 31);
+            BtnAgregar.Size = new Size(99, 23);
             BtnAgregar.TabIndex = 13;
             BtnAgregar.Text = "Agregar";
             BtnAgregar.UseVisualStyleBackColor = false;
             // 
-            // Venta
+            // FormVenta
             // 
-            AutoScaleDimensions = new SizeF(8F, 20F);
+            AutoScaleDimensions = new SizeF(7F, 15F);
             AutoScaleMode = AutoScaleMode.Font;
             BackColor = Color.FromArgb(49, 66, 82);
-            ClientSize = new Size(1467, 815);
+            ClientSize = new Size(1089, 576);
             Controls.Add(BtnAgregar);
             Controls.Add(LMetodoPago);
             Controls.Add(CBMetodoPago);
@@ -205,8 +197,7 @@
             Controls.Add(dataGridView1);
             ForeColor = Color.White;
             FormBorderStyle = FormBorderStyle.None;
-            Margin = new Padding(3, 4, 3, 4);
-            Name = "Venta";
+            Name = "FormVenta";
             Text = "Form2";
             ((System.ComponentModel.ISupportInitialize)dataGridView1).EndInit();
             ResumeLayout(false);

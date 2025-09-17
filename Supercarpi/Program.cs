@@ -4,6 +4,7 @@ using Microsoft.Extensions.DependencyInjection;
 using System.IO;
 
 using Datos.DBContext;
+using Interfaz;
 using Entidades.Models;
 
 namespace Supercarpi
@@ -34,8 +35,10 @@ namespace Supercarpi
 
             // Registrar formularios
             services.AddTransient<Login>();
-            services.AddTransient<Interfaz.Inicio>();
-            services.AddTransient<Venta>();
+            services.AddTransient<Inicio>();
+            services.AddTransient<FormVenta>();
+            services.AddTransient<FormUsuarios>();
+
 
             var serviceProvider = services.BuildServiceProvider();
 
