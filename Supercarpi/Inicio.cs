@@ -8,6 +8,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using System.Windows.Forms;
+using System.Runtime.InteropServices;
 
 namespace Interfaz
 {
@@ -46,5 +47,44 @@ namespace Interfaz
         {
             AbrirFormHija(_formVenta);
         }
+
+        private void PBCerrar_Click(object sender, EventArgs e)
+        {
+            Application.Exit();
+        }
+
+        private void PBMaximizar_Click(object sender, EventArgs e)
+        {
+            this.WindowState = FormWindowState.Maximized;
+            PBMaximizar.Visible = false;
+            PBContraer.Visible = true;
+        }
+
+        private void PBContraer_Click(object sender, EventArgs e)
+        {
+            this.WindowState = FormWindowState.Normal;
+            PBContraer.Visible = false;
+            PBMaximizar.Visible = true;
+        }
+
+        private void PBMinimizar_Click(object sender, EventArgs e)
+        {
+            this.WindowState = FormWindowState.Minimized;
+        }
+
+        // Mover formulario
+        [DllImport("user32.DLL", EntryPoint = "ReleaseCapture")]
+        private extern static void ReleaseCapture();
+        [DllImport("user32.DLL", EntryPoint = "SendMessage")]
+        private extern static void SendMessage(System.IntPtr hWnd, int wMsg, int wParam, int lParam);
+
+        private void BarraTitulo_MouseDown(object sender, MouseEventArgs e)
+        {
+            ReleaseCapture();
+            SendMessage(this.Handle, 0x112, 0xf012, 0);
+        }
+        // Fin mover formulario
+
+
     }
 }

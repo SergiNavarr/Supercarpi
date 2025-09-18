@@ -29,6 +29,10 @@
         private void InitializeComponent()
         {
             BarraTitulo = new Panel();
+            PBContraer = new PictureBox();
+            PBCerrar = new PictureBox();
+            PBMaximizar = new PictureBox();
+            PBMinimizar = new PictureBox();
             panelContenido = new Panel();
             menuVertical = new Panel();
             panelMenu = new Panel();
@@ -44,16 +48,24 @@
             btnVentas = new Button();
             panel1 = new Panel();
             btnProductos = new Button();
-            pictureBox1 = new PictureBox();
+            PBLogo = new PictureBox();
             panelContenedor = new Panel();
             BarraTitulo.SuspendLayout();
+            ((System.ComponentModel.ISupportInitialize)PBContraer).BeginInit();
+            ((System.ComponentModel.ISupportInitialize)PBCerrar).BeginInit();
+            ((System.ComponentModel.ISupportInitialize)PBMaximizar).BeginInit();
+            ((System.ComponentModel.ISupportInitialize)PBMinimizar).BeginInit();
             panelMenu.SuspendLayout();
-            ((System.ComponentModel.ISupportInitialize)pictureBox1).BeginInit();
+            ((System.ComponentModel.ISupportInitialize)PBLogo).BeginInit();
             SuspendLayout();
             // 
             // BarraTitulo
             // 
             BarraTitulo.BackColor = Color.FromArgb(0, 80, 200);
+            BarraTitulo.Controls.Add(PBContraer);
+            BarraTitulo.Controls.Add(PBCerrar);
+            BarraTitulo.Controls.Add(PBMaximizar);
+            BarraTitulo.Controls.Add(PBMinimizar);
             BarraTitulo.Controls.Add(panelContenido);
             BarraTitulo.Controls.Add(menuVertical);
             BarraTitulo.Dock = DockStyle.Top;
@@ -61,6 +73,60 @@
             BarraTitulo.Name = "BarraTitulo";
             BarraTitulo.Size = new Size(1284, 35);
             BarraTitulo.TabIndex = 0;
+            BarraTitulo.MouseDown += BarraTitulo_MouseDown;
+            // 
+            // PBContraer
+            // 
+            PBContraer.Anchor = AnchorStyles.Top | AnchorStyles.Right;
+            PBContraer.Cursor = Cursors.Hand;
+            PBContraer.Image = Properties.Resources.contraer;
+            PBContraer.Location = new Point(1215, 0);
+            PBContraer.Name = "PBContraer";
+            PBContraer.Size = new Size(30, 30);
+            PBContraer.SizeMode = PictureBoxSizeMode.Zoom;
+            PBContraer.TabIndex = 6;
+            PBContraer.TabStop = false;
+            PBContraer.Visible = false;
+            PBContraer.Click += PBContraer_Click;
+            // 
+            // PBCerrar
+            // 
+            PBCerrar.Anchor = AnchorStyles.Top | AnchorStyles.Right;
+            PBCerrar.Cursor = Cursors.Hand;
+            PBCerrar.Image = Properties.Resources.cerrar;
+            PBCerrar.Location = new Point(1251, 2);
+            PBCerrar.Name = "PBCerrar";
+            PBCerrar.Size = new Size(30, 30);
+            PBCerrar.SizeMode = PictureBoxSizeMode.Zoom;
+            PBCerrar.TabIndex = 3;
+            PBCerrar.TabStop = false;
+            PBCerrar.Click += PBCerrar_Click;
+            // 
+            // PBMaximizar
+            // 
+            PBMaximizar.Anchor = AnchorStyles.Top | AnchorStyles.Right;
+            PBMaximizar.Cursor = Cursors.Hand;
+            PBMaximizar.Image = Properties.Resources.maximizar;
+            PBMaximizar.Location = new Point(1215, 2);
+            PBMaximizar.Name = "PBMaximizar";
+            PBMaximizar.Size = new Size(30, 30);
+            PBMaximizar.SizeMode = PictureBoxSizeMode.Zoom;
+            PBMaximizar.TabIndex = 5;
+            PBMaximizar.TabStop = false;
+            PBMaximizar.Click += PBMaximizar_Click;
+            // 
+            // PBMinimizar
+            // 
+            PBMinimizar.Anchor = AnchorStyles.Top | AnchorStyles.Right;
+            PBMinimizar.Cursor = Cursors.Hand;
+            PBMinimizar.Image = Properties.Resources.minimizar;
+            PBMinimizar.Location = new Point(1179, 2);
+            PBMinimizar.Name = "PBMinimizar";
+            PBMinimizar.Size = new Size(30, 30);
+            PBMinimizar.SizeMode = PictureBoxSizeMode.Zoom;
+            PBMinimizar.TabIndex = 4;
+            PBMinimizar.TabStop = false;
+            PBMinimizar.Click += PBMinimizar_Click;
             // 
             // panelContenido
             // 
@@ -91,7 +157,7 @@
             panelMenu.Controls.Add(btnVentas);
             panelMenu.Controls.Add(panel1);
             panelMenu.Controls.Add(btnProductos);
-            panelMenu.Controls.Add(pictureBox1);
+            panelMenu.Controls.Add(PBLogo);
             panelMenu.Dock = DockStyle.Left;
             panelMenu.Location = new Point(0, 35);
             panelMenu.Name = "panelMenu";
@@ -241,15 +307,15 @@
             btnProductos.Text = "Productos";
             btnProductos.UseVisualStyleBackColor = true;
             // 
-            // pictureBox1
+            // PBLogo
             // 
-            pictureBox1.Image = Properties.Resources.logo_supercarpi;
-            pictureBox1.Location = new Point(12, 19);
-            pictureBox1.Name = "pictureBox1";
-            pictureBox1.Size = new Size(173, 137);
-            pictureBox1.SizeMode = PictureBoxSizeMode.Zoom;
-            pictureBox1.TabIndex = 0;
-            pictureBox1.TabStop = false;
+            PBLogo.Image = Properties.Resources.logo_supercarpi;
+            PBLogo.Location = new Point(12, 19);
+            PBLogo.Name = "PBLogo";
+            PBLogo.Size = new Size(173, 137);
+            PBLogo.SizeMode = PictureBoxSizeMode.Zoom;
+            PBLogo.TabIndex = 0;
+            PBLogo.TabStop = false;
             // 
             // panelContenedor
             // 
@@ -268,11 +334,16 @@
             Controls.Add(panelContenedor);
             Controls.Add(panelMenu);
             Controls.Add(BarraTitulo);
+            FormBorderStyle = FormBorderStyle.None;
             Name = "Inicio";
             Text = "Inicio";
             BarraTitulo.ResumeLayout(false);
+            ((System.ComponentModel.ISupportInitialize)PBContraer).EndInit();
+            ((System.ComponentModel.ISupportInitialize)PBCerrar).EndInit();
+            ((System.ComponentModel.ISupportInitialize)PBMaximizar).EndInit();
+            ((System.ComponentModel.ISupportInitialize)PBMinimizar).EndInit();
             panelMenu.ResumeLayout(false);
-            ((System.ComponentModel.ISupportInitialize)pictureBox1).EndInit();
+            ((System.ComponentModel.ISupportInitialize)PBLogo).EndInit();
             ResumeLayout(false);
         }
 
@@ -281,7 +352,7 @@
         private Panel BarraTitulo;
         private Panel menuVertical;
         private Panel panelMenu;
-        private PictureBox pictureBox1;
+        private PictureBox PBLogo;
         private Button btnProductos;
         private Panel panel1;
         private Button btnProveedores;
@@ -297,5 +368,9 @@
         private Panel panelContenido;
         private Panel panelContenedor;
         private Button BtnPrueba;
+        private PictureBox PBContraer;
+        private PictureBox PBCerrar;
+        private PictureBox PBMaximizar;
+        private PictureBox PBMinimizar;
     }
 }
