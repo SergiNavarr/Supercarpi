@@ -100,6 +100,8 @@
             // 
             BtnBuscar.BackColor = Color.FromArgb(0, 80, 200);
             BtnBuscar.Cursor = Cursors.Hand;
+            BtnBuscar.FlatAppearance.BorderSize = 0;
+            BtnBuscar.FlatStyle = FlatStyle.Flat;
             BtnBuscar.Location = new Point(302, 443);
             BtnBuscar.Name = "BtnBuscar";
             BtnBuscar.Size = new Size(99, 23);
@@ -111,6 +113,8 @@
             // 
             BtnGenerarVenta.BackColor = Color.FromArgb(0, 80, 200);
             BtnGenerarVenta.Cursor = Cursors.Hand;
+            BtnGenerarVenta.FlatAppearance.BorderSize = 0;
+            BtnGenerarVenta.FlatStyle = FlatStyle.Flat;
             BtnGenerarVenta.Location = new Point(824, 425);
             BtnGenerarVenta.Name = "BtnGenerarVenta";
             BtnGenerarVenta.Size = new Size(213, 79);
@@ -123,6 +127,8 @@
             // 
             BtnLimpiar.BackColor = Color.Red;
             BtnLimpiar.Cursor = Cursors.Hand;
+            BtnLimpiar.FlatAppearance.BorderSize = 0;
+            BtnLimpiar.FlatStyle = FlatStyle.Flat;
             BtnLimpiar.ForeColor = Color.White;
             BtnLimpiar.Location = new Point(606, 424);
             BtnLimpiar.Name = "BtnLimpiar";
@@ -135,7 +141,7 @@
             // 
             LTotal.AutoSize = true;
             LTotal.Font = new Font("Segoe UI", 18F, FontStyle.Regular, GraphicsUnit.Point, 0);
-            LTotal.Location = new Point(888, 507);
+            LTotal.Location = new Point(888, 523);
             LTotal.Name = "LTotal";
             LTotal.Size = new Size(149, 32);
             LTotal.TabIndex = 9;
@@ -145,7 +151,7 @@
             // 
             LItems.AutoSize = true;
             LItems.Font = new Font("Segoe UI", 18F, FontStyle.Regular, GraphicsUnit.Point, 0);
-            LItems.Location = new Point(757, 507);
+            LItems.Location = new Point(757, 523);
             LItems.Name = "LItems";
             LItems.Size = new Size(105, 32);
             LItems.TabIndex = 10;
@@ -172,6 +178,8 @@
             // 
             BtnAgregar.BackColor = Color.FromArgb(0, 80, 200);
             BtnAgregar.Cursor = Cursors.Hand;
+            BtnAgregar.FlatAppearance.BorderSize = 0;
+            BtnAgregar.FlatStyle = FlatStyle.Flat;
             BtnAgregar.Location = new Point(302, 486);
             BtnAgregar.Name = "BtnAgregar";
             BtnAgregar.Size = new Size(99, 23);

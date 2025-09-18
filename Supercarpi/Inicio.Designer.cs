@@ -336,7 +336,9 @@
             Controls.Add(BarraTitulo);
             FormBorderStyle = FormBorderStyle.None;
             Name = "Inicio";
+            StartPosition = FormStartPosition.CenterScreen;
             Text = "Inicio";
+            Load += Inicio_Load;
             BarraTitulo.ResumeLayout(false);
             ((System.ComponentModel.ISupportInitialize)PBContraer).EndInit();
             ((System.ComponentModel.ISupportInitialize)PBCerrar).EndInit();

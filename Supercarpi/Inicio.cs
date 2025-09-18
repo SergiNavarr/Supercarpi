@@ -85,6 +85,11 @@ namespace Interfaz
         }
         // Fin mover formulario
 
+        // Evita que el formulario se maximice sobre la barra de tareas
+        private void Inicio_Load(object sender, EventArgs e)
+        {
+            this.MaximizedBounds = Screen.FromHandle(this.Handle).WorkingArea;
+        }
 
     }
 }
