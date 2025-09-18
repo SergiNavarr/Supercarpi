@@ -98,7 +98,8 @@
             // 
             // BtnBuscar
             // 
-            BtnBuscar.BackColor = Color.FromArgb(26, 32, 40);
+            BtnBuscar.BackColor = Color.FromArgb(0, 80, 200);
+            BtnBuscar.Cursor = Cursors.Hand;
             BtnBuscar.Location = new Point(302, 443);
             BtnBuscar.Name = "BtnBuscar";
             BtnBuscar.Size = new Size(99, 23);
@@ -108,7 +109,8 @@
             // 
             // BtnGenerarVenta
             // 
-            BtnGenerarVenta.BackColor = Color.FromArgb(26, 32, 40);
+            BtnGenerarVenta.BackColor = Color.FromArgb(0, 80, 200);
+            BtnGenerarVenta.Cursor = Cursors.Hand;
             BtnGenerarVenta.Location = new Point(824, 425);
             BtnGenerarVenta.Name = "BtnGenerarVenta";
             BtnGenerarVenta.Size = new Size(213, 79);
@@ -120,6 +122,7 @@
             // BtnLimpiar
             // 
             BtnLimpiar.BackColor = Color.Red;
+            BtnLimpiar.Cursor = Cursors.Hand;
             BtnLimpiar.ForeColor = Color.White;
             BtnLimpiar.Location = new Point(606, 424);
             BtnLimpiar.Name = "BtnLimpiar";
@@ -167,7 +170,8 @@
             // 
             // BtnAgregar
             // 
-            BtnAgregar.BackColor = Color.FromArgb(26, 32, 40);
+            BtnAgregar.BackColor = Color.FromArgb(0, 80, 200);
+            BtnAgregar.Cursor = Cursors.Hand;
             BtnAgregar.Location = new Point(302, 486);
             BtnAgregar.Name = "BtnAgregar";
             BtnAgregar.Size = new Size(99, 23);
