@@ -55,6 +55,9 @@
             DNI = new DataGridViewTextBoxColumn();
             Rol = new DataGridViewTextBoxColumn();
             lLista = new Label();
+            btnGuardarUser = new Button();
+            btnEliminarUser = new Button();
+            btnEditarUser = new Button();
             ((System.ComponentModel.ISupportInitialize)dataGridView1).BeginInit();
             SuspendLayout();
             // 
@@ -241,7 +244,7 @@
             // 
             dataGridView1.ColumnHeadersHeightSizeMode = DataGridViewColumnHeadersHeightSizeMode.AutoSize;
             dataGridView1.Columns.AddRange(new DataGridViewColumn[] { Nombre, Apellido, Email, Telefono, DNI, Rol });
-            dataGridView1.Location = new Point(101, 381);
+            dataGridView1.Location = new Point(79, 323);
             dataGridView1.Name = "dataGridView1";
             dataGridView1.Size = new Size(643, 150);
             dataGridView1.TabIndex = 21;
@@ -281,11 +284,38 @@
             lLista.AutoSize = true;
             lLista.Font = new Font("Century Gothic", 12F, FontStyle.Regular, GraphicsUnit.Point, 0);
             lLista.ForeColor = SystemColors.ButtonHighlight;
-            lLista.Location = new Point(101, 337);
+            lLista.Location = new Point(79, 279);
             lLista.Name = "lLista";
             lLista.Size = new Size(143, 21);
             lLista.TabIndex = 22;
             lLista.Text = "Lista de Usuarios: ";
+            // 
+            // btnGuardarUser
+            // 
+            btnGuardarUser.Location = new Point(863, 71);
+            btnGuardarUser.Name = "btnGuardarUser";
+            btnGuardarUser.Size = new Size(75, 23);
+            btnGuardarUser.TabIndex = 23;
+            btnGuardarUser.Text = "Guardar";
+            btnGuardarUser.UseVisualStyleBackColor = true;
+            // 
+            // btnEliminarUser
+            // 
+            btnEliminarUser.Location = new Point(863, 153);
+            btnEliminarUser.Name = "btnEliminarUser";
+            btnEliminarUser.Size = new Size(75, 23);
+            btnEliminarUser.TabIndex = 24;
+            btnEliminarUser.Text = "Eliminar";
+            btnEliminarUser.UseVisualStyleBackColor = true;
+            // 
+            // btnEditarUser
+            // 
+            btnEditarUser.Location = new Point(863, 112);
+            btnEditarUser.Name = "btnEditarUser";
+            btnEditarUser.Size = new Size(75, 23);
+            btnEditarUser.TabIndex = 25;
+            btnEditarUser.Text = "Editar";
+            btnEditarUser.UseVisualStyleBackColor = true;
             // 
             // FormUsuarios
             // 
@@ -293,6 +323,9 @@
             AutoScaleMode = AutoScaleMode.Font;
             BackColor = Color.FromArgb(49, 66, 82);
             ClientSize = new Size(1284, 611);
+            Controls.Add(btnEditarUser);
+            Controls.Add(btnEliminarUser);
+            Controls.Add(btnGuardarUser);
             Controls.Add(lLista);
             Controls.Add(dataGridView1);
             Controls.Add(rBtnHombre);
@@ -352,5 +385,8 @@
         private DataGridViewTextBoxColumn DNI;
         private DataGridViewTextBoxColumn Rol;
         private Label lLista;
+        private Button btnGuardarUser;
+        private Button btnEliminarUser;
+        private Button btnEditarUser;
     }
 }
