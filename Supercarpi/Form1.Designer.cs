@@ -78,6 +78,7 @@
             // 
             TBPassword.Location = new Point(147, 212);
             TBPassword.Name = "TBPassword";
+            TBPassword.PasswordChar = '*';
             TBPassword.Size = new Size(212, 23);
             TBPassword.TabIndex = 8;
             // 
@@ -87,6 +88,7 @@
             TBDni.Name = "TBDni";
             TBDni.Size = new Size(212, 23);
             TBDni.TabIndex = 7;
+            TBDni.KeyPress += TBDni_KeyPress;
             // 
             // LContrasenia
             // 
@@ -115,6 +117,7 @@
             ClientSize = new Size(506, 320);
             Controls.Add(panel2);
             Name = "Login";
+            StartPosition = FormStartPosition.CenterScreen;
             Text = "Login";
             panel2.ResumeLayout(false);
             panel2.PerformLayout();

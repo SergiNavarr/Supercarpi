@@ -6,10 +6,12 @@ namespace Supercarpi
     public partial class Login : Form
     {
         private readonly SupercarpiDbContext _context;
-        public Login(SupercarpiDbContext context)
+        private readonly Inicio _formInicio;
+        public Login(SupercarpiDbContext context, Inicio inicio)
         {
             InitializeComponent();
             _context = context;
+            _formInicio = inicio;
         }
 
         private void BLogin_Click(object sender, EventArgs e)
@@ -17,15 +19,15 @@ namespace Supercarpi
             string dni = TBDni.Text.Trim();
             string pass = TBPassword.Text.Trim();
 
-            var usuario = _context.Empleados
+            var empleado = _context.Empleados
                                     .FirstOrDefault(u => u.Dni == dni && u.PasswordHash == pass);
 
-            if (usuario != null)
+            if (empleado != null)
             {
-                var inicio = new Inicio();
                 this.Hide();
 
-                inicio.Show();
+                _formInicio.empleado = empleado;
+                _formInicio.Show();
 
             }
             else
@@ -33,6 +35,14 @@ namespace Supercarpi
                 MessageBox.Show("Credenciales invalidas");
             }
 
+        }
+
+        private void TBDni_KeyPress(object sender, KeyPressEventArgs e)
+        {
+            if (!char.IsControl(e.KeyChar) && !char.IsDigit(e.KeyChar))
+            {
+                e.Handled = true;
+            }
         }
     }
 }

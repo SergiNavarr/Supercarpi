@@ -1,4 +1,4 @@
-﻿namespace Interfaz
+namespace Interfaz
 {
     partial class FormUsuarios
     {
@@ -326,6 +326,7 @@
             Controls.Add(btnEditarUser);
             Controls.Add(btnEliminarUser);
             Controls.Add(btnGuardarUser);
+            ClientSize = new Size(1089, 576);
             Controls.Add(lLista);
             Controls.Add(dataGridView1);
             Controls.Add(rBtnHombre);
