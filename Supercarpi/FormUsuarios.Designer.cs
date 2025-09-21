@@ -1,4 +1,4 @@
-﻿namespace Interfaz
+namespace Interfaz
 {
     partial class FormUsuarios
     {
@@ -69,9 +69,9 @@
             lUsuarios.ForeColor = SystemColors.ButtonHighlight;
             lUsuarios.Location = new Point(79, 9);
             lUsuarios.Name = "lUsuarios";
-            lUsuarios.Size = new Size(293, 36);
+            lUsuarios.Size = new Size(323, 36);
             lUsuarios.TabIndex = 0;
-            lUsuarios.Text = "Gestión de Usuarios";
+            lUsuarios.Text = "GESTION DE USUARIOS";
             // 
             // lNombreUser
             // 

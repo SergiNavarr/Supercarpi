@@ -57,9 +57,10 @@
             // LNombre
             // 
             LNombre.AutoSize = true;
-            LNombre.Location = new Point(17, 447);
+            LNombre.Font = new Font("Century Gothic", 9.75F, FontStyle.Bold, GraphicsUnit.Point, 0);
+            LNombre.Location = new Point(12, 450);
             LNombre.Name = "LNombre";
-            LNombre.Size = new Size(51, 15);
+            LNombre.Size = new Size(59, 16);
             LNombre.TabIndex = 1;
             LNombre.Text = "Nombre";
             // 
@@ -83,11 +84,13 @@
             // LCodigo
             // 
             LCodigo.AutoSize = true;
-            LCodigo.Location = new Point(23, 490);
+            LCodigo.Font = new Font("Century Gothic", 9.75F, FontStyle.Bold, GraphicsUnit.Point, 0);
+            LCodigo.Location = new Point(12, 489);
             LCodigo.Name = "LCodigo";
-            LCodigo.Size = new Size(46, 15);
+            LCodigo.Size = new Size(55, 16);
             LCodigo.TabIndex = 4;
             LCodigo.Text = "Codigo";
+            LCodigo.Click += LCodigo_Click;
             // 
             // textBox1
             // 
@@ -102,6 +105,7 @@
             BtnBuscar.Cursor = Cursors.Hand;
             BtnBuscar.FlatAppearance.BorderSize = 0;
             BtnBuscar.FlatStyle = FlatStyle.Flat;
+            BtnBuscar.Font = new Font("Century Gothic", 9.75F, FontStyle.Regular, GraphicsUnit.Point, 0);
             BtnBuscar.Location = new Point(302, 443);
             BtnBuscar.Name = "BtnBuscar";
             BtnBuscar.Size = new Size(99, 23);
@@ -115,6 +119,7 @@
             BtnGenerarVenta.Cursor = Cursors.Hand;
             BtnGenerarVenta.FlatAppearance.BorderSize = 0;
             BtnGenerarVenta.FlatStyle = FlatStyle.Flat;
+            BtnGenerarVenta.Font = new Font("Century Gothic", 15.75F, FontStyle.Bold, GraphicsUnit.Point, 0);
             BtnGenerarVenta.Location = new Point(824, 425);
             BtnGenerarVenta.Name = "BtnGenerarVenta";
             BtnGenerarVenta.Size = new Size(213, 79);
@@ -129,6 +134,7 @@
             BtnLimpiar.Cursor = Cursors.Hand;
             BtnLimpiar.FlatAppearance.BorderSize = 0;
             BtnLimpiar.FlatStyle = FlatStyle.Flat;
+            BtnLimpiar.Font = new Font("Century Gothic", 15.75F, FontStyle.Bold, GraphicsUnit.Point, 0);
             BtnLimpiar.ForeColor = Color.White;
             BtnLimpiar.Location = new Point(606, 424);
             BtnLimpiar.Name = "BtnLimpiar";
@@ -168,9 +174,10 @@
             // LMetodoPago
             // 
             LMetodoPago.AutoSize = true;
-            LMetodoPago.Location = new Point(460, 434);
+            LMetodoPago.Font = new Font("Century Gothic", 11.25F, FontStyle.Regular, GraphicsUnit.Point, 0);
+            LMetodoPago.Location = new Point(437, 429);
             LMetodoPago.Name = "LMetodoPago";
-            LMetodoPago.Size = new Size(95, 15);
+            LMetodoPago.Size = new Size(136, 20);
             LMetodoPago.TabIndex = 12;
             LMetodoPago.Text = "Metodo de Pago";
             // 
@@ -180,6 +187,7 @@
             BtnAgregar.Cursor = Cursors.Hand;
             BtnAgregar.FlatAppearance.BorderSize = 0;
             BtnAgregar.FlatStyle = FlatStyle.Flat;
+            BtnAgregar.Font = new Font("Century Gothic", 9F, FontStyle.Regular, GraphicsUnit.Point, 0);
             BtnAgregar.Location = new Point(302, 486);
             BtnAgregar.Name = "BtnAgregar";
             BtnAgregar.Size = new Size(99, 23);

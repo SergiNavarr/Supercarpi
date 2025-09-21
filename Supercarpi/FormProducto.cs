@@ -10,21 +10,14 @@ using System.Windows.Forms;
 
 namespace Interfaz
 {
-    public partial class FormVenta : Form
+    public partial class FormProducto : Form
     {
-        public FormVenta()
+        public FormProducto()
         {
             InitializeComponent();
         }
 
-        private void BtnGenerarVenta_Click(object sender, EventArgs e)
-        {
-            FormVenta venta = new FormVenta();
-
-
-        }
-
-        private void LCodigo_Click(object sender, EventArgs e)
+        private void label2_Click(object sender, EventArgs e)
         {
 
         }
