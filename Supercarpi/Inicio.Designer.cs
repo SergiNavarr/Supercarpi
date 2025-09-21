@@ -28,6 +28,7 @@
         /// </summary>
         private void InitializeComponent()
         {
+            System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(Inicio));
             BarraTitulo = new Panel();
             PBContraer = new PictureBox();
             PBCerrar = new PictureBox();
@@ -36,6 +37,8 @@
             panelContenido = new Panel();
             menuVertical = new Panel();
             panelMenu = new Panel();
+            pictureBox2 = new PictureBox();
+            pictureBox1 = new PictureBox();
             panel6 = new Panel();
             btnBackUp = new Button();
             panel5 = new Panel();
@@ -56,6 +59,8 @@
             ((System.ComponentModel.ISupportInitialize)PBMaximizar).BeginInit();
             ((System.ComponentModel.ISupportInitialize)PBMinimizar).BeginInit();
             panelMenu.SuspendLayout();
+            ((System.ComponentModel.ISupportInitialize)pictureBox2).BeginInit();
+            ((System.ComponentModel.ISupportInitialize)pictureBox1).BeginInit();
             ((System.ComponentModel.ISupportInitialize)PBLogo).BeginInit();
             SuspendLayout();
             // 
@@ -145,6 +150,8 @@
             // panelMenu
             // 
             panelMenu.BackColor = Color.FromArgb(26, 32, 40);
+            panelMenu.Controls.Add(pictureBox2);
+            panelMenu.Controls.Add(pictureBox1);
             panelMenu.Controls.Add(panel6);
             panelMenu.Controls.Add(btnBackUp);
             panelMenu.Controls.Add(panel5);
@@ -163,6 +170,30 @@
             panelMenu.Name = "panelMenu";
             panelMenu.Size = new Size(195, 576);
             panelMenu.TabIndex = 1;
+            // 
+            // pictureBox2
+            // 
+            pictureBox2.Anchor = AnchorStyles.Top | AnchorStyles.Right;
+            pictureBox2.Cursor = Cursors.Hand;
+            pictureBox2.Image = (Image)resources.GetObject("pictureBox2.Image");
+            pictureBox2.Location = new Point(21, 426);
+            pictureBox2.Name = "pictureBox2";
+            pictureBox2.Size = new Size(30, 30);
+            pictureBox2.SizeMode = PictureBoxSizeMode.CenterImage;
+            pictureBox2.TabIndex = 8;
+            pictureBox2.TabStop = false;
+            // 
+            // pictureBox1
+            // 
+            pictureBox1.Anchor = AnchorStyles.Top | AnchorStyles.Right;
+            pictureBox1.Cursor = Cursors.Hand;
+            pictureBox1.Image = (Image)resources.GetObject("pictureBox1.Image");
+            pictureBox1.Location = new Point(12, 235);
+            pictureBox1.Name = "pictureBox1";
+            pictureBox1.Size = new Size(30, 30);
+            pictureBox1.SizeMode = PictureBoxSizeMode.CenterImage;
+            pictureBox1.TabIndex = 7;
+            pictureBox1.TabStop = false;
             // 
             // panel6
             // 
@@ -189,7 +220,7 @@
             // panel5
             // 
             panel5.BackColor = Color.FromArgb(0, 80, 200);
-            panel5.Location = new Point(1, 378);
+            panel5.Location = new Point(0, 375);
             panel5.Name = "panel5";
             panel5.Size = new Size(5, 32);
             panel5.TabIndex = 3;
@@ -203,7 +234,7 @@
             btnReportes.ForeColor = SystemColors.ControlLightLight;
             btnReportes.Image = Properties.Resources.reportes;
             btnReportes.ImageAlign = ContentAlignment.MiddleLeft;
-            btnReportes.Location = new Point(4, 381);
+            btnReportes.Location = new Point(4, 375);
             btnReportes.Name = "btnReportes";
             btnReportes.Size = new Size(202, 32);
             btnReportes.TabIndex = 5;
@@ -256,8 +287,9 @@
             btnProveedores.Name = "btnProveedores";
             btnProveedores.Size = new Size(202, 32);
             btnProveedores.TabIndex = 3;
-            btnProveedores.Text = "Proveedores";
+            btnProveedores.Text = "Provedores";
             btnProveedores.UseVisualStyleBackColor = true;
+            btnProveedores.Click += btnProveedores_Click;
             // 
             // panel2
             // 
@@ -306,6 +338,7 @@
             btnProductos.TabIndex = 1;
             btnProductos.Text = "Productos";
             btnProductos.UseVisualStyleBackColor = true;
+            btnProductos.Click += btnProductos_Click;
             // 
             // PBLogo
             // 
@@ -345,6 +378,8 @@
             ((System.ComponentModel.ISupportInitialize)PBMaximizar).EndInit();
             ((System.ComponentModel.ISupportInitialize)PBMinimizar).EndInit();
             panelMenu.ResumeLayout(false);
+            ((System.ComponentModel.ISupportInitialize)pictureBox2).EndInit();
+            ((System.ComponentModel.ISupportInitialize)pictureBox1).EndInit();
             ((System.ComponentModel.ISupportInitialize)PBLogo).EndInit();
             ResumeLayout(false);
         }
@@ -374,5 +409,7 @@
         private PictureBox PBCerrar;
         private PictureBox PBMaximizar;
         private PictureBox PBMinimizar;
+        private PictureBox pictureBox2;
+        private PictureBox pictureBox1;
     }
 }

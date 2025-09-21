@@ -55,9 +55,9 @@ namespace Interfaz
             DNI = new DataGridViewTextBoxColumn();
             Rol = new DataGridViewTextBoxColumn();
             lLista = new Label();
-            btnGuardarUser = new Button();
-            btnEliminarUser = new Button();
-            btnEditarUser = new Button();
+            btnGuardarUsuario = new Button();
+            btnEliminarUsuario = new Button();
+            btnEditarUsuario = new Button();
             ((System.ComponentModel.ISupportInitialize)dataGridView1).BeginInit();
             SuspendLayout();
             // 
@@ -68,9 +68,9 @@ namespace Interfaz
             lUsuarios.ForeColor = SystemColors.ButtonHighlight;
             lUsuarios.Location = new Point(79, 9);
             lUsuarios.Name = "lUsuarios";
-            lUsuarios.Size = new Size(293, 36);
+            lUsuarios.Size = new Size(323, 36);
             lUsuarios.TabIndex = 0;
-            lUsuarios.Text = "Gestión de Usuarios";
+            lUsuarios.Text = "GESTION DE USUARIOS";
             // 
             // lNombreUser
             // 
@@ -290,43 +290,55 @@ namespace Interfaz
             lLista.TabIndex = 22;
             lLista.Text = "Lista de Usuarios: ";
             // 
-            // btnGuardarUser
+            // btnGuardarUsuario
             // 
-            btnGuardarUser.Location = new Point(863, 71);
-            btnGuardarUser.Name = "btnGuardarUser";
-            btnGuardarUser.Size = new Size(75, 23);
-            btnGuardarUser.TabIndex = 23;
-            btnGuardarUser.Text = "Guardar";
-            btnGuardarUser.UseVisualStyleBackColor = true;
+            btnGuardarUsuario.BackColor = Color.ForestGreen;
+            btnGuardarUsuario.FlatAppearance.BorderColor = Color.FromArgb(0, 80, 200);
+            btnGuardarUsuario.FlatAppearance.BorderSize = 0;
+            btnGuardarUsuario.FlatStyle = FlatStyle.Flat;
+            btnGuardarUsuario.Font = new Font("Century Gothic", 11.25F);
+            btnGuardarUsuario.Location = new Point(674, 220);
+            btnGuardarUsuario.Name = "btnGuardarUsuario";
+            btnGuardarUsuario.Size = new Size(88, 31);
+            btnGuardarUsuario.TabIndex = 25;
+            btnGuardarUsuario.Text = "Guardar";
+            btnGuardarUsuario.UseVisualStyleBackColor = false;
             // 
-            // btnEliminarUser
+            // btnEliminarUsuario
             // 
-            btnEliminarUser.Location = new Point(863, 153);
-            btnEliminarUser.Name = "btnEliminarUser";
-            btnEliminarUser.Size = new Size(75, 23);
-            btnEliminarUser.TabIndex = 24;
-            btnEliminarUser.Text = "Eliminar";
-            btnEliminarUser.UseVisualStyleBackColor = true;
+            btnEliminarUsuario.BackColor = Color.Red;
+            btnEliminarUsuario.FlatAppearance.BorderColor = Color.Red;
+            btnEliminarUsuario.FlatStyle = FlatStyle.Flat;
+            btnEliminarUsuario.Font = new Font("Century Gothic", 11.25F);
+            btnEliminarUsuario.Location = new Point(569, 220);
+            btnEliminarUsuario.Name = "btnEliminarUsuario";
+            btnEliminarUsuario.Size = new Size(88, 31);
+            btnEliminarUsuario.TabIndex = 24;
+            btnEliminarUsuario.Text = "Eliminar";
+            btnEliminarUsuario.UseVisualStyleBackColor = false;
             // 
-            // btnEditarUser
+            // btnEditarUsuario
             // 
-            btnEditarUser.Location = new Point(863, 112);
-            btnEditarUser.Name = "btnEditarUser";
-            btnEditarUser.Size = new Size(75, 23);
-            btnEditarUser.TabIndex = 25;
-            btnEditarUser.Text = "Editar";
-            btnEditarUser.UseVisualStyleBackColor = true;
+            btnEditarUsuario.BackColor = Color.FromArgb(0, 80, 200);
+            btnEditarUsuario.FlatAppearance.BorderColor = Color.FromArgb(0, 80, 200);
+            btnEditarUsuario.FlatStyle = FlatStyle.Flat;
+            btnEditarUsuario.Font = new Font("Century Gothic", 11.25F);
+            btnEditarUsuario.Location = new Point(462, 220);
+            btnEditarUsuario.Name = "btnEditarUsuario";
+            btnEditarUsuario.Size = new Size(88, 31);
+            btnEditarUsuario.TabIndex = 23;
+            btnEditarUsuario.Text = "Editar";
+            btnEditarUsuario.UseVisualStyleBackColor = false;
             // 
             // FormUsuarios
             // 
             AutoScaleDimensions = new SizeF(7F, 15F);
             AutoScaleMode = AutoScaleMode.Font;
             BackColor = Color.FromArgb(49, 66, 82);
-            ClientSize = new Size(1284, 611);
-            Controls.Add(btnEditarUser);
-            Controls.Add(btnEliminarUser);
-            Controls.Add(btnGuardarUser);
             ClientSize = new Size(1089, 576);
+            Controls.Add(btnGuardarUsuario);
+            Controls.Add(btnEliminarUsuario);
+            Controls.Add(btnEditarUsuario);
             Controls.Add(lLista);
             Controls.Add(dataGridView1);
             Controls.Add(rBtnHombre);
@@ -386,8 +398,8 @@ namespace Interfaz
         private DataGridViewTextBoxColumn DNI;
         private DataGridViewTextBoxColumn Rol;
         private Label lLista;
-        private Button btnGuardarUser;
-        private Button btnEliminarUser;
-        private Button btnEditarUser;
+        private Button btnGuardarUsuario;
+        private Button btnEliminarUsuario;
+        private Button btnEditarUsuario;
     }
 }

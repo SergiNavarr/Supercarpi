@@ -25,6 +25,7 @@ namespace Interfaz
             InitializeComponent();
             _formVenta = formVenta;
             _formUsuarios = formUsuarios;
+
         }
 
         private void AbrirFormHija(Form formhija)
@@ -43,9 +44,19 @@ namespace Interfaz
             AbrirFormHija(_formUsuarios);
         }
 
+        private void btnProductos_Click(object sender, EventArgs e)
+        {
+            AbrirFormHija(new FormProducto());
+        }
+
         private void btnVentas_Click(object sender, EventArgs e)
         {
             AbrirFormHija(_formVenta);
+        }
+
+        private void btnProveedores_Click(object sender, EventArgs e)
+        {
+            AbrirFormHija(new FormProveedores());
         }
 
         private void PBCerrar_Click(object sender, EventArgs e)
@@ -91,5 +102,6 @@ namespace Interfaz
             this.MaximizedBounds = Screen.FromHandle(this.Handle).WorkingArea;
         }
 
+        
     }
 }
