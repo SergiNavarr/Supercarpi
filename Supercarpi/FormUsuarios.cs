@@ -281,6 +281,10 @@ namespace Interfaz
                 e.Handled = true; // Bloquea la tecla
                 errorP1.SetError(txtNombreUser, "Solo se permiten letras");
             }
+            else
+            {
+                errorP1.Clear();
+            }
         }
 
         private void txtApellidoUser_KeyPress(object sender, KeyPressEventArgs e)
@@ -290,14 +294,25 @@ namespace Interfaz
                 e.Handled = true; // Bloquea la tecla
                 errorP1.SetError(txtApellidoUser, "Solo se permiten letras");
             }
+            else
+            {
+                errorP1.Clear();
+            }
         }
 
         private void txtEmailUser_KeyPress(object sender, KeyPressEventArgs e)
         {
-            if (!char.IsControl(e.KeyChar) && !char.IsLetter(e.KeyChar) && e.KeyChar != ' ')
+            if (!char.IsControl(e.KeyChar) &&
+           !char.IsLetterOrDigit(e.KeyChar) &&
+           e.KeyChar != '@' && e.KeyChar != '.' &&
+           e.KeyChar != '-' && e.KeyChar != '_')
             {
-                e.Handled = true; // Bloquea la tecla
-                errorP1.SetError(txtEmailUser, "Solo se permiten letras");
+                e.Handled = true;
+                errorP1.SetError(txtEmailUser, "Caracter no permitido en email");
+            }
+            else
+            {
+                errorP1.SetError(txtEmailUser, string.Empty);
             }
         }
 
@@ -309,6 +324,10 @@ namespace Interfaz
                 e.Handled = true; // Bloquea la tecla
                 errorP1.SetError(txtTelefonoUser, "Solo se permiten números");
             }
+            else
+            {
+                errorP1.Clear();
+            }
         }
 
         private void txtDniUser_KeyPress(object sender, KeyPressEventArgs e)
@@ -317,6 +336,10 @@ namespace Interfaz
             {
                 e.Handled = true; // Bloquea la tecla
                 errorP1.SetError(txtDniUser, "Solo se permiten números");
+            }
+            else
+            {
+                errorP1.Clear();
             }
         }
     }
