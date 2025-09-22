@@ -5,7 +5,10 @@ using System.IO;
 
 using Datos.DBContext;
 using Interfaz;
-using Entidades.Models;
+using Negocio.Interfaces;
+using Negocio.Implementacion;
+using Datos.Interfaces;
+using Datos.Implementacion;
 
 namespace Supercarpi
 {
@@ -42,6 +45,12 @@ namespace Supercarpi
             services.AddTransient<FormProveedores>();
             services.AddTransient<FormBackUp>();
             services.AddTransient<FormReportes>();
+
+            //Registrar servicios de negocio
+            services.AddTransient(typeof(IRepositorioGenerico<>), typeof(RepositorioGenerico<>));
+            services.AddTransient<IEmpleadoService, EmpleadoService>();
+            services.AddTransient<IUtilidadesService, UtilidadesService>();
+
 
 
             var serviceProvider = services.BuildServiceProvider();

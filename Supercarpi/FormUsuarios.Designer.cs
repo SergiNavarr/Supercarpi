@@ -36,29 +36,30 @@ namespace Interfaz
             lContraseñaUser = new Label();
             lDni = new Label();
             lTelefonoUser = new Label();
-            lSexoUser = new Label();
             lUserRol = new Label();
-            comboBox1 = new ComboBox();
+            cmbRoles = new ComboBox();
             txtNombreUser = new TextBox();
             txtApellidoUser = new TextBox();
             txtEmailUser = new TextBox();
             txtTelefonoUser = new TextBox();
             txtDniUser = new TextBox();
-            txtContraseñaUser = new TextBox();
-            rBtnNujer = new RadioButton();
-            rBtnHombre = new RadioButton();
-            dataGridView1 = new DataGridView();
+            txtPasswordUser = new TextBox();
+            dvgEmpleados = new DataGridView();
             Nombre = new DataGridViewTextBoxColumn();
             Apellido = new DataGridViewTextBoxColumn();
             Email = new DataGridViewTextBoxColumn();
             Telefono = new DataGridViewTextBoxColumn();
             DNI = new DataGridViewTextBoxColumn();
             Rol = new DataGridViewTextBoxColumn();
+            RolId = new DataGridViewTextBoxColumn();
+            EmpleadoId = new DataGridViewTextBoxColumn();
             lLista = new Label();
-            btnGuardarUsuario = new Button();
-            btnEliminarUsuario = new Button();
-            btnEditarUsuario = new Button();
-            ((System.ComponentModel.ISupportInitialize)dataGridView1).BeginInit();
+            btnCrear = new Button();
+            btnConfirmar = new Button();
+            btnCancelar = new Button();
+            btnEditar = new Button();
+            btnEliminar = new Button();
+            ((System.ComponentModel.ISupportInitialize)dvgEmpleados).BeginInit();
             SuspendLayout();
             // 
             // lUsuarios
@@ -146,17 +147,6 @@ namespace Interfaz
             lTelefonoUser.TabIndex = 7;
             lTelefonoUser.Text = "Telefono:";
             // 
-            // lSexoUser
-            // 
-            lSexoUser.AutoSize = true;
-            lSexoUser.Font = new Font("Century Gothic", 12F, FontStyle.Regular, GraphicsUnit.Point, 0);
-            lSexoUser.ForeColor = SystemColors.ButtonHighlight;
-            lSexoUser.Location = new Point(79, 230);
-            lSexoUser.Name = "lSexoUser";
-            lSexoUser.Size = new Size(50, 21);
-            lSexoUser.TabIndex = 9;
-            lSexoUser.Text = "Sexo:";
-            // 
             // lUserRol
             // 
             lUserRol.AutoSize = true;
@@ -168,13 +158,13 @@ namespace Interfaz
             lUserRol.TabIndex = 10;
             lUserRol.Text = "Rol:";
             // 
-            // comboBox1
+            // cmbRoles
             // 
-            comboBox1.FormattingEnabled = true;
-            comboBox1.Location = new Point(556, 158);
-            comboBox1.Name = "comboBox1";
-            comboBox1.Size = new Size(121, 23);
-            comboBox1.TabIndex = 11;
+            cmbRoles.FormattingEnabled = true;
+            cmbRoles.Location = new Point(556, 158);
+            cmbRoles.Name = "cmbRoles";
+            cmbRoles.Size = new Size(121, 23);
+            cmbRoles.TabIndex = 11;
             // 
             // txtNombreUser
             // 
@@ -216,43 +206,24 @@ namespace Interfaz
             txtDniUser.TabIndex = 17;
             txtDniUser.KeyPress += txtDniUser_KeyPress;
             // 
-            // txtContraseñaUser
+            // txtPasswordUser
             // 
-            txtContraseñaUser.Location = new Point(556, 117);
-            txtContraseñaUser.Name = "txtContraseñaUser";
-            txtContraseñaUser.Size = new Size(206, 23);
-            txtContraseñaUser.TabIndex = 18;
+            txtPasswordUser.Location = new Point(556, 117);
+            txtPasswordUser.Name = "txtPasswordUser";
+            txtPasswordUser.Size = new Size(206, 23);
+            txtPasswordUser.TabIndex = 18;
             // 
-            // rBtnNujer
+            // dvgEmpleados
             // 
-            rBtnNujer.AutoSize = true;
-            rBtnNujer.Location = new Point(166, 233);
-            rBtnNujer.Name = "rBtnNujer";
-            rBtnNujer.Size = new Size(56, 19);
-            rBtnNujer.TabIndex = 19;
-            rBtnNujer.TabStop = true;
-            rBtnNujer.Text = "Mujer";
-            rBtnNujer.UseVisualStyleBackColor = true;
-            // 
-            // rBtnHombre
-            // 
-            rBtnHombre.AutoSize = true;
-            rBtnHombre.Location = new Point(278, 233);
-            rBtnHombre.Name = "rBtnHombre";
-            rBtnHombre.Size = new Size(69, 19);
-            rBtnHombre.TabIndex = 20;
-            rBtnHombre.TabStop = true;
-            rBtnHombre.Text = "Hombre";
-            rBtnHombre.UseVisualStyleBackColor = true;
-            // 
-            // dataGridView1
-            // 
-            dataGridView1.ColumnHeadersHeightSizeMode = DataGridViewColumnHeadersHeightSizeMode.AutoSize;
-            dataGridView1.Columns.AddRange(new DataGridViewColumn[] { Nombre, Apellido, Email, Telefono, DNI, Rol });
-            dataGridView1.Location = new Point(79, 323);
-            dataGridView1.Name = "dataGridView1";
-            dataGridView1.Size = new Size(643, 150);
-            dataGridView1.TabIndex = 21;
+            dvgEmpleados.AutoSizeColumnsMode = DataGridViewAutoSizeColumnsMode.Fill;
+            dvgEmpleados.AutoSizeRowsMode = DataGridViewAutoSizeRowsMode.DisplayedCells;
+            dvgEmpleados.ColumnHeadersHeightSizeMode = DataGridViewColumnHeadersHeightSizeMode.AutoSize;
+            dvgEmpleados.Columns.AddRange(new DataGridViewColumn[] { Nombre, Apellido, Email, Telefono, DNI, Rol, RolId, EmpleadoId });
+            dvgEmpleados.Location = new Point(79, 310);
+            dvgEmpleados.Name = "dvgEmpleados";
+            dvgEmpleados.Size = new Size(797, 227);
+            dvgEmpleados.TabIndex = 21;
+            dvgEmpleados.CellClick += dvgEmpleados_CellClick;
             // 
             // Nombre
             // 
@@ -284,56 +255,105 @@ namespace Interfaz
             Rol.HeaderText = "Rol";
             Rol.Name = "Rol";
             // 
+            // RolId
+            // 
+            RolId.HeaderText = "RolId";
+            RolId.Name = "RolId";
+            RolId.Visible = false;
+            // 
+            // EmpleadoId
+            // 
+            EmpleadoId.HeaderText = "EmpleadoId";
+            EmpleadoId.Name = "EmpleadoId";
+            EmpleadoId.Visible = false;
+            // 
             // lLista
             // 
             lLista.AutoSize = true;
             lLista.Font = new Font("Century Gothic", 12F, FontStyle.Regular, GraphicsUnit.Point, 0);
             lLista.ForeColor = SystemColors.ButtonHighlight;
-            lLista.Location = new Point(79, 279);
+            lLista.Location = new Point(79, 270);
             lLista.Name = "lLista";
             lLista.Size = new Size(143, 21);
             lLista.TabIndex = 22;
             lLista.Text = "Lista de Usuarios: ";
             // 
-            // btnGuardarUsuario
+            // btnCrear
             // 
-            btnGuardarUsuario.BackColor = Color.ForestGreen;
-            btnGuardarUsuario.FlatAppearance.BorderColor = Color.FromArgb(0, 80, 200);
-            btnGuardarUsuario.FlatAppearance.BorderSize = 0;
-            btnGuardarUsuario.FlatStyle = FlatStyle.Flat;
-            btnGuardarUsuario.Font = new Font("Century Gothic", 11.25F);
-            btnGuardarUsuario.Location = new Point(674, 220);
-            btnGuardarUsuario.Name = "btnGuardarUsuario";
-            btnGuardarUsuario.Size = new Size(88, 31);
-            btnGuardarUsuario.TabIndex = 25;
-            btnGuardarUsuario.Text = "Guardar";
-            btnGuardarUsuario.UseVisualStyleBackColor = false;
+            btnCrear.BackColor = Color.FromArgb(0, 80, 200);
+            btnCrear.Cursor = Cursors.Hand;
+            btnCrear.FlatAppearance.BorderSize = 0;
+            btnCrear.FlatStyle = FlatStyle.Flat;
+            btnCrear.ForeColor = SystemColors.Control;
+            btnCrear.Location = new Point(558, 213);
+            btnCrear.Name = "btnCrear";
+            btnCrear.Size = new Size(99, 23);
+            btnCrear.TabIndex = 23;
+            btnCrear.Text = "Crear";
+            btnCrear.UseVisualStyleBackColor = false;
+            btnCrear.Click += btnCrear_Click;
             // 
-            // btnEliminarUsuario
+            // btnConfirmar
             // 
-            btnEliminarUsuario.BackColor = Color.Red;
-            btnEliminarUsuario.FlatAppearance.BorderColor = Color.Red;
-            btnEliminarUsuario.FlatStyle = FlatStyle.Flat;
-            btnEliminarUsuario.Font = new Font("Century Gothic", 11.25F);
-            btnEliminarUsuario.Location = new Point(569, 220);
-            btnEliminarUsuario.Name = "btnEliminarUsuario";
-            btnEliminarUsuario.Size = new Size(88, 31);
-            btnEliminarUsuario.TabIndex = 24;
-            btnEliminarUsuario.Text = "Eliminar";
-            btnEliminarUsuario.UseVisualStyleBackColor = false;
+            btnConfirmar.BackColor = Color.FromArgb(0, 80, 200);
+            btnConfirmar.Cursor = Cursors.Hand;
+            btnConfirmar.FlatAppearance.BorderSize = 0;
+            btnConfirmar.FlatStyle = FlatStyle.Flat;
+            btnConfirmar.ForeColor = SystemColors.Control;
+            btnConfirmar.Location = new Point(558, 213);
+            btnConfirmar.Name = "btnConfirmar";
+            btnConfirmar.Size = new Size(99, 23);
+            btnConfirmar.TabIndex = 24;
+            btnConfirmar.Text = "Confirmar";
+            btnConfirmar.UseVisualStyleBackColor = false;
+            btnConfirmar.Visible = false;
+            btnConfirmar.Click += btnConfirmar_Click;
             // 
-            // btnEditarUsuario
+            // btnCancelar
             // 
-            btnEditarUsuario.BackColor = Color.FromArgb(0, 80, 200);
-            btnEditarUsuario.FlatAppearance.BorderColor = Color.FromArgb(0, 80, 200);
-            btnEditarUsuario.FlatStyle = FlatStyle.Flat;
-            btnEditarUsuario.Font = new Font("Century Gothic", 11.25F);
-            btnEditarUsuario.Location = new Point(462, 220);
-            btnEditarUsuario.Name = "btnEditarUsuario";
-            btnEditarUsuario.Size = new Size(88, 31);
-            btnEditarUsuario.TabIndex = 23;
-            btnEditarUsuario.Text = "Editar";
-            btnEditarUsuario.UseVisualStyleBackColor = false;
+            btnCancelar.BackColor = Color.Red;
+            btnCancelar.Cursor = Cursors.Hand;
+            btnCancelar.FlatAppearance.BorderSize = 0;
+            btnCancelar.FlatStyle = FlatStyle.Flat;
+            btnCancelar.ForeColor = SystemColors.Control;
+            btnCancelar.Location = new Point(663, 213);
+            btnCancelar.Name = "btnCancelar";
+            btnCancelar.Size = new Size(99, 23);
+            btnCancelar.TabIndex = 25;
+            btnCancelar.Text = "Cancelar";
+            btnCancelar.UseVisualStyleBackColor = false;
+            btnCancelar.Visible = false;
+            btnCancelar.Click += btnCancelar_Click;
+            // 
+            // btnEditar
+            // 
+            btnEditar.BackColor = Color.DarkOrange;
+            btnEditar.Cursor = Cursors.Hand;
+            btnEditar.FlatAppearance.BorderSize = 0;
+            btnEditar.FlatStyle = FlatStyle.Flat;
+            btnEditar.ForeColor = SystemColors.Control;
+            btnEditar.Location = new Point(663, 213);
+            btnEditar.Name = "btnEditar";
+            btnEditar.Size = new Size(99, 23);
+            btnEditar.TabIndex = 26;
+            btnEditar.Text = "Editar";
+            btnEditar.UseVisualStyleBackColor = false;
+            btnEditar.Click += btnEditar_Click;
+            // 
+            // btnEliminar
+            // 
+            btnEliminar.BackColor = Color.Red;
+            btnEliminar.Cursor = Cursors.Hand;
+            btnEliminar.FlatAppearance.BorderSize = 0;
+            btnEliminar.FlatStyle = FlatStyle.Flat;
+            btnEliminar.ForeColor = SystemColors.Control;
+            btnEliminar.Location = new Point(451, 213);
+            btnEliminar.Name = "btnEliminar";
+            btnEliminar.Size = new Size(99, 23);
+            btnEliminar.TabIndex = 27;
+            btnEliminar.Text = "Eliminar";
+            btnEliminar.UseVisualStyleBackColor = false;
+            btnEliminar.Click += btnEliminar_Click;
             // 
             // FormUsuarios
             // 
@@ -341,22 +361,21 @@ namespace Interfaz
             AutoScaleMode = AutoScaleMode.Font;
             BackColor = Color.FromArgb(49, 66, 82);
             ClientSize = new Size(1089, 576);
-            Controls.Add(btnGuardarUsuario);
-            Controls.Add(btnEliminarUsuario);
-            Controls.Add(btnEditarUsuario);
+            Controls.Add(btnEliminar);
+            Controls.Add(btnEditar);
+            Controls.Add(btnCancelar);
+            Controls.Add(btnConfirmar);
+            Controls.Add(btnCrear);
             Controls.Add(lLista);
-            Controls.Add(dataGridView1);
-            Controls.Add(rBtnHombre);
-            Controls.Add(rBtnNujer);
-            Controls.Add(txtContraseñaUser);
+            Controls.Add(dvgEmpleados);
+            Controls.Add(txtPasswordUser);
             Controls.Add(txtDniUser);
             Controls.Add(txtTelefonoUser);
             Controls.Add(txtEmailUser);
             Controls.Add(txtApellidoUser);
             Controls.Add(txtNombreUser);
-            Controls.Add(comboBox1);
+            Controls.Add(cmbRoles);
             Controls.Add(lUserRol);
-            Controls.Add(lSexoUser);
             Controls.Add(lTelefonoUser);
             Controls.Add(lDni);
             Controls.Add(lContraseñaUser);
@@ -369,7 +388,7 @@ namespace Interfaz
             Name = "FormUsuarios";
             Text = "FormUsuarios";
             Load += FormUsuarios_Load;
-            ((System.ComponentModel.ISupportInitialize)dataGridView1).EndInit();
+            ((System.ComponentModel.ISupportInitialize)dvgEmpleados).EndInit();
             ResumeLayout(false);
             PerformLayout();
         }
@@ -384,27 +403,28 @@ namespace Interfaz
         private Label lContraseñaUser;
         private Label lDni;
         private Label lTelefonoUser;
-        private Label lSexoUser;
         private Label lUserRol;
-        private ComboBox comboBox1;
+        private ComboBox cmbRoles;
         private TextBox txtNombreUser;
         private TextBox txtApellidoUser;
         private TextBox txtEmailUser;
         private TextBox txtTelefonoUser;
         private TextBox txtDniUser;
-        private TextBox txtContraseñaUser;
-        private RadioButton rBtnNujer;
-        private RadioButton rBtnHombre;
-        private DataGridView dataGridView1;
+        private TextBox txtPasswordUser;
+        private DataGridView dvgEmpleados;
         private DataGridViewTextBoxColumn Nombre;
         private DataGridViewTextBoxColumn Apellido;
         private DataGridViewTextBoxColumn Email;
         private DataGridViewTextBoxColumn Telefono;
         private DataGridViewTextBoxColumn DNI;
         private DataGridViewTextBoxColumn Rol;
+        private DataGridViewTextBoxColumn RolId;
+        private DataGridViewTextBoxColumn EmpleadoId;
         private Label lLista;
-        private Button btnGuardarUsuario;
-        private Button btnEliminarUsuario;
-        private Button btnEditarUsuario;
+        private Button btnCrear;
+        private Button btnConfirmar;
+        private Button btnCancelar;
+        private Button btnEditar;
+        private Button btnEliminar;
     }
 }
