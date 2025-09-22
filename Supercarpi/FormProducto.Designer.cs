@@ -142,6 +142,7 @@
             txtNombreProducto.Name = "txtNombreProducto";
             txtNombreProducto.Size = new Size(252, 23);
             txtNombreProducto.TabIndex = 8;
+            txtNombreProducto.KeyPress += txtNombreProducto_KeyPress;
             // 
             // txtDescripcionProducto
             // 
@@ -149,6 +150,7 @@
             txtDescripcionProducto.Name = "txtDescripcionProducto";
             txtDescripcionProducto.Size = new Size(252, 23);
             txtDescripcionProducto.TabIndex = 9;
+            txtDescripcionProducto.KeyPress += txtDescripcionProducto_KeyPress;
             // 
             // txtMarcaProducto
             // 
@@ -156,6 +158,7 @@
             txtMarcaProducto.Name = "txtMarcaProducto";
             txtMarcaProducto.Size = new Size(252, 23);
             txtMarcaProducto.TabIndex = 10;
+            txtMarcaProducto.KeyPress += txtMarcaProducto_KeyPress;
             // 
             // CBCategoria
             // 
@@ -171,6 +174,7 @@
             txtPrecioProducto.Name = "txtPrecioProducto";
             txtPrecioProducto.Size = new Size(252, 23);
             txtPrecioProducto.TabIndex = 13;
+            txtPrecioProducto.KeyPress += txtPrecioProducto_KeyPress;
             // 
             // txtStockProducto
             // 
@@ -178,6 +182,7 @@
             txtStockProducto.Name = "txtStockProducto";
             txtStockProducto.Size = new Size(252, 23);
             txtStockProducto.TabIndex = 14;
+            txtStockProducto.KeyPress += txtStockProducto_KeyPress;
             // 
             // btnEditarProducto
             // 

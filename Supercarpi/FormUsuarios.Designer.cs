@@ -182,6 +182,7 @@ namespace Interfaz
             txtNombreUser.Name = "txtNombreUser";
             txtNombreUser.Size = new Size(206, 23);
             txtNombreUser.TabIndex = 12;
+            txtNombreUser.KeyPress += txtNombreUser_KeyPress;
             // 
             // txtApellidoUser
             // 
@@ -189,6 +190,7 @@ namespace Interfaz
             txtApellidoUser.Name = "txtApellidoUser";
             txtApellidoUser.Size = new Size(206, 23);
             txtApellidoUser.TabIndex = 13;
+            txtApellidoUser.KeyPress += txtApellidoUser_KeyPress;
             // 
             // txtEmailUser
             // 
@@ -196,6 +198,7 @@ namespace Interfaz
             txtEmailUser.Name = "txtEmailUser";
             txtEmailUser.Size = new Size(206, 23);
             txtEmailUser.TabIndex = 14;
+            txtEmailUser.KeyPress += txtEmailUser_KeyPress;
             // 
             // txtTelefonoUser
             // 
@@ -203,6 +206,7 @@ namespace Interfaz
             txtTelefonoUser.Name = "txtTelefonoUser";
             txtTelefonoUser.Size = new Size(206, 23);
             txtTelefonoUser.TabIndex = 15;
+            txtTelefonoUser.KeyPress += txtTelefonoUser_KeyPress;
             // 
             // txtDniUser
             // 
@@ -210,6 +214,7 @@ namespace Interfaz
             txtDniUser.Name = "txtDniUser";
             txtDniUser.Size = new Size(206, 23);
             txtDniUser.TabIndex = 17;
+            txtDniUser.KeyPress += txtDniUser_KeyPress;
             // 
             // txtContraseñaUser
             // 

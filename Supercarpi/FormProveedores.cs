@@ -7,6 +7,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using System.Windows.Forms;
+using static System.Runtime.InteropServices.JavaScript.JSType;
 
 namespace Interfaz
 {
@@ -21,5 +22,20 @@ namespace Interfaz
         {
 
         }
+
+        ErrorProvider errorP1 = new ErrorProvider();
+        private void txtNombreProducto_KeyPress(object sender, KeyPressEventArgs e)
+        {
+            if (!char.IsControl(e.KeyChar) && !char.IsLetter(e.KeyChar) && e.KeyChar != ' ')
+            {
+                e.Handled = true; // Bloquea la tecla
+                errorP1.SetError(txtNombreProducto, "Solo se permiten letras");
+            }
+        }
+
+
+
+
+
     }
 }

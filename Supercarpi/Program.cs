@@ -32,12 +32,16 @@ namespace Supercarpi
             // Registrar DbContext
             services.AddDbContext<SupercarpiDbContext>(options =>
                 options.UseSqlServer(connectionString));
-
+             
             // Registrar formularios
             services.AddTransient<Login>();
             services.AddTransient<Inicio>();
             services.AddTransient<FormVenta>();
             services.AddTransient<FormUsuarios>();
+            services.AddTransient <FormProducto>();
+            services.AddTransient<FormProveedores>();
+            services.AddTransient<FormBackUp>();
+            services.AddTransient<FormReportes>();
 
 
             var serviceProvider = services.BuildServiceProvider();

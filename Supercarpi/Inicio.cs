@@ -16,16 +16,23 @@ namespace Interfaz
     {
         private readonly FormVenta _formVenta;
         private readonly FormUsuarios _formUsuarios;
+        private readonly FormProducto _formProducto;
+        private readonly FormProveedores _formProveedores;
+        private readonly FormReportes _formReportes;
+        private readonly FormBackUp _formBackUp;
 
         public Empleado empleado { get; set; }
 
-        public Inicio(FormVenta formVenta, FormUsuarios formUsuarios)
+        public Inicio(FormVenta formVenta, FormUsuarios formUsuarios, FormProducto formProducto, FormProveedores formProveedores, FormReportes formReportes, FormBackUp formBackUp)
         {
 
             InitializeComponent();
             _formVenta = formVenta;
             _formUsuarios = formUsuarios;
-
+            _formProducto = formProducto;
+            _formProveedores = formProveedores;
+            _formReportes = formReportes;
+            _formBackUp = formBackUp;
         }
 
         private void AbrirFormHija(Form formhija)
@@ -46,7 +53,7 @@ namespace Interfaz
 
         private void btnProductos_Click(object sender, EventArgs e)
         {
-            AbrirFormHija(new FormProducto());
+            AbrirFormHija(_formProducto);
         }
 
         private void btnVentas_Click(object sender, EventArgs e)
@@ -56,7 +63,17 @@ namespace Interfaz
 
         private void btnProveedores_Click(object sender, EventArgs e)
         {
-            AbrirFormHija(new FormProveedores());
+            AbrirFormHija(_formProveedores);
+        }
+
+        private void btnReportes_Click(object sender, EventArgs e)
+        {
+            AbrirFormHija(_formReportes);
+        }
+
+        private void btnBackUp_Click(object sender, EventArgs e)
+        {
+            AbrirFormHija(_formBackUp);
         }
 
         private void PBCerrar_Click(object sender, EventArgs e)
@@ -102,6 +119,6 @@ namespace Interfaz
             this.MaximizedBounds = Screen.FromHandle(this.Handle).WorkingArea;
         }
 
-        
+       
     }
 }

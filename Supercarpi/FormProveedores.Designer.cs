@@ -34,20 +34,20 @@
             CBCategoria = new ComboBox();
             LEmpleado = new Label();
             LFechaPedido = new Label();
-            comboBox1 = new ComboBox();
-            textBox1 = new TextBox();
+            CBEmpleado = new ComboBox();
+            txtImporteSub = new TextBox();
             dateTimePicker1 = new DateTimePicker();
             label2 = new Label();
             dataGridView1 = new DataGridView();
             LNombreProducto = new Label();
             label5 = new Label();
-            textBox2 = new TextBox();
-            numericUpDown1 = new NumericUpDown();
+            txtNombreProducto = new TextBox();
+            contador1 = new NumericUpDown();
             BtnBuscar = new Button();
             button1 = new Button();
             button2 = new Button();
             ((System.ComponentModel.ISupportInitialize)dataGridView1).BeginInit();
-            ((System.ComponentModel.ISupportInitialize)numericUpDown1).BeginInit();
+            ((System.ComponentModel.ISupportInitialize)contador1).BeginInit();
             SuspendLayout();
             // 
             // label1
@@ -111,27 +111,28 @@
             LFechaPedido.TabIndex = 15;
             LFechaPedido.Text = "Fecha del Pedido:";
             // 
-            // comboBox1
+            // CBEmpleado
             // 
-            comboBox1.FormattingEnabled = true;
-            comboBox1.Location = new Point(482, 118);
-            comboBox1.Name = "comboBox1";
-            comboBox1.Size = new Size(174, 27);
-            comboBox1.TabIndex = 16;
+            CBEmpleado.FormattingEnabled = true;
+            CBEmpleado.Location = new Point(482, 118);
+            CBEmpleado.Name = "CBEmpleado";
+            CBEmpleado.Size = new Size(174, 27);
+            CBEmpleado.TabIndex = 16;
             // 
-            // textBox1
+            // txtImporteSub
             // 
-            textBox1.Location = new Point(922, 333);
-            textBox1.Name = "textBox1";
-            textBox1.Size = new Size(113, 27);
-            textBox1.TabIndex = 17;
-            textBox1.TextChanged += textBox1_TextChanged;
+            txtImporteSub.Location = new Point(922, 333);
+            txtImporteSub.Name = "txtImporteSub";
+            txtImporteSub.Size = new Size(113, 27);
+            txtImporteSub.TabIndex = 17;
+            txtImporteSub.TextChanged += textBox1_TextChanged;
             // 
             // dateTimePicker1
             // 
+            dateTimePicker1.Format = DateTimePickerFormat.Short;
             dateTimePicker1.Location = new Point(849, 118);
             dateTimePicker1.Name = "dateTimePicker1";
-            dateTimePicker1.Size = new Size(194, 27);
+            dateTimePicker1.Size = new Size(113, 27);
             dateTimePicker1.TabIndex = 18;
             // 
             // label2
@@ -172,19 +173,20 @@
             label5.TabIndex = 22;
             label5.Text = "Cantidad:";
             // 
-            // textBox2
+            // txtNombreProducto
             // 
-            textBox2.Location = new Point(166, 334);
-            textBox2.Name = "textBox2";
-            textBox2.Size = new Size(174, 27);
-            textBox2.TabIndex = 24;
+            txtNombreProducto.Location = new Point(166, 334);
+            txtNombreProducto.Name = "txtNombreProducto";
+            txtNombreProducto.Size = new Size(174, 27);
+            txtNombreProducto.TabIndex = 24;
+            txtNombreProducto.KeyPress += txtNombreProducto_KeyPress;
             // 
-            // numericUpDown1
+            // contador1
             // 
-            numericUpDown1.Location = new Point(454, 334);
-            numericUpDown1.Name = "numericUpDown1";
-            numericUpDown1.Size = new Size(30, 27);
-            numericUpDown1.TabIndex = 25;
+            contador1.Location = new Point(454, 334);
+            contador1.Name = "contador1";
+            contador1.Size = new Size(30, 27);
+            contador1.TabIndex = 25;
             // 
             // BtnBuscar
             // 
@@ -237,15 +239,15 @@
             Controls.Add(button2);
             Controls.Add(button1);
             Controls.Add(BtnBuscar);
-            Controls.Add(numericUpDown1);
-            Controls.Add(textBox2);
+            Controls.Add(contador1);
+            Controls.Add(txtNombreProducto);
             Controls.Add(label5);
             Controls.Add(LNombreProducto);
             Controls.Add(dataGridView1);
             Controls.Add(label2);
             Controls.Add(dateTimePicker1);
-            Controls.Add(textBox1);
-            Controls.Add(comboBox1);
+            Controls.Add(txtImporteSub);
+            Controls.Add(CBEmpleado);
             Controls.Add(LFechaPedido);
             Controls.Add(LEmpleado);
             Controls.Add(CBCategoria);
@@ -259,7 +261,7 @@
             Name = "FormProveedores";
             Text = "Nuevo pedido a Proveedores";
             ((System.ComponentModel.ISupportInitialize)dataGridView1).EndInit();
-            ((System.ComponentModel.ISupportInitialize)numericUpDown1).EndInit();
+            ((System.ComponentModel.ISupportInitialize)contador1).EndInit();
             ResumeLayout(false);
             PerformLayout();
         }
@@ -272,15 +274,15 @@
         private ComboBox CBCategoria;
         private Label LEmpleado;
         private Label LFechaPedido;
-        private ComboBox comboBox1;
-        private TextBox textBox1;
+        private ComboBox CBEmpleado;
+        private TextBox txtImporteSub;
         private DateTimePicker dateTimePicker1;
         private Label label2;
         private DataGridView dataGridView1;
         private Label LNombreProducto;
         private Label label5;
-        private TextBox textBox2;
-        private NumericUpDown numericUpDown1;
+        private TextBox txtNombreProducto;
+        private NumericUpDown contador1;
         private Button BtnBuscar;
         private Button button1;
         private Button button2;
