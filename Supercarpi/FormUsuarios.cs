@@ -164,20 +164,22 @@ namespace Interfaz
             txtDniUser.Enabled = false;
         }
 
-        private void btnConfirmar_Click(object sender, EventArgs e)
+        private async void btnConfirmar_Click(object sender, EventArgs e)
         {
+            bool guardado = await GuardarCambios();
 
-            GuardarCambios();
+            if (guardado)
+            {
+                LimpiarCampos();
+                DeshabilitarCampos();
+                DesbloquearDataGridView();
 
-            LimpiarCampos();
-            DeshabilitarCampos();
-            DesbloquearDataGridView();
-
-            btnConfirmar.Visible = false;
-            btnCancelar.Visible = false;
-            btnCrear.Visible = true;
-            btnEditar.Visible = true;
-            btnEliminar.Visible = true;
+                btnConfirmar.Visible = false;
+                btnCancelar.Visible = false;
+                btnCrear.Visible = true;
+                btnEditar.Visible = true;
+                btnEliminar.Visible = true;
+            }
         }
 
         private void btnCancelar_Click(object sender, EventArgs e)
@@ -193,10 +195,42 @@ namespace Interfaz
             btnEliminar.Visible = true;
         }
 
-        private async void GuardarCambios()
+        private async Task<bool> GuardarCambios()
         {
             try
             {
+                // Validaciones
+                if (string.IsNullOrWhiteSpace(txtNombreUser.Text))
+                {
+                    MessageBox.Show("El Nombre no puede estar vacío");
+                    return false;
+                }
+
+                if (string.IsNullOrWhiteSpace(txtApellidoUser.Text))
+                {
+                    MessageBox.Show("El Apellido no puede estar vacío");
+                    return false;
+                }
+
+                if (string.IsNullOrWhiteSpace(txtDniUser.Text))
+                {
+                    MessageBox.Show("El DNI no puede estar vacío");
+                    return false;
+                }
+
+                if (string.IsNullOrWhiteSpace(txtEmailUser.Text))
+                {
+                    MessageBox.Show("El Email no puede estar vacío");
+                    return false;
+                }
+
+                if (cmbRoles.SelectedValue == null)
+                {
+                    MessageBox.Show("Debe seleccionar un rol");
+                    return false;
+                }
+
+
                 string dni = txtDniUser.Text;
 
                 // Buscar empleado por DNI
@@ -220,6 +254,7 @@ namespace Interfaz
                     await _empleadoService.Crear(empleado);
                     MessageBox.Show("Empleado creado correctamente");
                     CargarEmpleados();
+                    return true;
                 }
                 else
                 {
@@ -228,11 +263,13 @@ namespace Interfaz
                     await _empleadoService.Editar(empleado);
                     MessageBox.Show("Empleado editado correctamente");
                     CargarEmpleados();
+                    return true;
                 }
             }
             catch (Exception ex)
             {
                 MessageBox.Show("Error: " + ex.Message);
+                return false;
             }
         }
 
