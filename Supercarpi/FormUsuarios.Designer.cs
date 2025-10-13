@@ -201,6 +201,7 @@ namespace Interfaz
             // txtDniUser
             // 
             txtDniUser.Location = new Point(556, 72);
+            txtDniUser.MaxLength = 8;
             txtDniUser.Name = "txtDniUser";
             txtDniUser.Size = new Size(206, 23);
             txtDniUser.TabIndex = 17;

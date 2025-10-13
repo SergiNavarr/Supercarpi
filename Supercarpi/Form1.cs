@@ -32,8 +32,9 @@ namespace Supercarpi
 
                 if (empleado != null)
                 {
-                    this.Hide();
 
+                    this.Hide();
+                    //SesionActual.EmpleadoLogueado = empleado;
                     _formInicio.empleado = empleado;
                     _formInicio.Show();
                 }

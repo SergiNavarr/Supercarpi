@@ -117,8 +117,56 @@ namespace Interfaz
         private void Inicio_Load(object sender, EventArgs e)
         {
             this.MaximizedBounds = Screen.FromHandle(this.Handle).WorkingArea;
+            AplicarPermisosPorRol();
         }
 
-       
+        private void AplicarPermisosPorRol()
+        {
+            //var empleado = SesionActual.EmpleadoLogueado;
+
+            if (empleado == null)
+                return;
+
+            switch (empleado.RolId)
+            {
+                case 1: // Administrador
+                        // Ver todo
+                    btnUsuario.Visible = true;
+                    btnProductos.Visible = true;
+                    btnVentas.Visible = false;
+                    btnProveedores.Visible = true;
+                    btnReportes.Visible = true;
+                    btnBackUp.Visible = true;
+                    break;
+
+                case 2: // Repositor
+                    btnUsuario.Visible = false;
+                    btnProductos.Visible = true;
+                    btnVentas.Visible = false;
+                    btnProveedores.Visible = true;
+                    btnReportes.Visible = false;
+                    btnBackUp.Visible = false;
+                    break;
+
+                case 3: // Cajero
+                    btnUsuario.Visible = false;
+                    btnProductos.Visible = false;
+                    btnVentas.Visible = true;
+                    btnProveedores.Visible = false;
+                    btnReportes.Visible = false;
+                    btnBackUp.Visible = false;
+                    break;
+
+                default:
+                    // Rol desconocido → ocultar todo
+                    btnUsuario.Visible = false;
+                    btnProductos.Visible = false;
+                    btnVentas.Visible = false;
+                    btnProveedores.Visible = false;
+                    btnReportes.Visible = false;
+                    btnBackUp.Visible = false;
+                    break;
+            }
+        }
     }
 }
