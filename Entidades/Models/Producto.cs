@@ -19,6 +19,8 @@ public partial class Producto
 
     public int CategoriaId { get; set; }
 
+    public string? ImagenUrl {  get; set; }
+
     public virtual Categoria Categoria { get; set; } = null!;
 
     public virtual ICollection<DetallePedido> DetallePedidos { get; set; } = new List<DetallePedido>();

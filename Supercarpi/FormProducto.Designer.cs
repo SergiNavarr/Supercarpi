@@ -55,18 +55,20 @@
             LGestionProductos.AutoSize = true;
             LGestionProductos.Font = new Font("Century Gothic", 20.25F, FontStyle.Bold, GraphicsUnit.Point, 0);
             LGestionProductos.ForeColor = SystemColors.ButtonHighlight;
-            LGestionProductos.Location = new Point(32, 31);
+            LGestionProductos.Location = new Point(37, 41);
             LGestionProductos.Name = "LGestionProductos";
-            LGestionProductos.Size = new Size(336, 32);
+            LGestionProductos.Size = new Size(424, 40);
             LGestionProductos.TabIndex = 0;
             LGestionProductos.Text = "GESTION DE PRODUCTOS";
             // 
             // dataGridView1
             // 
             dataGridView1.ColumnHeadersHeightSizeMode = DataGridViewColumnHeadersHeightSizeMode.AutoSize;
-            dataGridView1.Location = new Point(74, 277);
+            dataGridView1.Location = new Point(85, 369);
+            dataGridView1.Margin = new Padding(3, 4, 3, 4);
             dataGridView1.Name = "dataGridView1";
-            dataGridView1.Size = new Size(805, 213);
+            dataGridView1.RowHeadersWidth = 51;
+            dataGridView1.Size = new Size(920, 284);
             dataGridView1.TabIndex = 1;
             // 
             // LNombreProducto
@@ -74,9 +76,9 @@
             LNombreProducto.AutoSize = true;
             LNombreProducto.Font = new Font("Century Gothic", 12F, FontStyle.Regular, GraphicsUnit.Point, 0);
             LNombreProducto.ForeColor = SystemColors.ButtonHighlight;
-            LNombreProducto.Location = new Point(74, 86);
+            LNombreProducto.Location = new Point(85, 115);
             LNombreProducto.Name = "LNombreProducto";
-            LNombreProducto.Size = new Size(77, 21);
+            LNombreProducto.Size = new Size(95, 23);
             LNombreProducto.TabIndex = 2;
             LNombreProducto.Text = "Nombre:";
             // 
@@ -85,9 +87,9 @@
             LProductoDescripcion.AutoSize = true;
             LProductoDescripcion.Font = new Font("Century Gothic", 12F, FontStyle.Regular, GraphicsUnit.Point, 0);
             LProductoDescripcion.ForeColor = SystemColors.ButtonHighlight;
-            LProductoDescripcion.Location = new Point(74, 117);
+            LProductoDescripcion.Location = new Point(85, 156);
             LProductoDescripcion.Name = "LProductoDescripcion";
-            LProductoDescripcion.Size = new Size(104, 21);
+            LProductoDescripcion.Size = new Size(128, 23);
             LProductoDescripcion.TabIndex = 3;
             LProductoDescripcion.Text = "Descripción:";
             // 
@@ -96,9 +98,9 @@
             label2.AutoSize = true;
             label2.Font = new Font("Century Gothic", 12F, FontStyle.Regular, GraphicsUnit.Point, 0);
             label2.ForeColor = SystemColors.ButtonHighlight;
-            label2.Location = new Point(492, 84);
+            label2.Location = new Point(562, 112);
             label2.Name = "label2";
-            label2.Size = new Size(125, 21);
+            label2.Size = new Size(152, 23);
             label2.TabIndex = 4;
             label2.Text = "Precio Unitario:";
             label2.Click += label2_Click;
@@ -108,9 +110,9 @@
             LProductoMarca.AutoSize = true;
             LProductoMarca.Font = new Font("Century Gothic", 12F);
             LProductoMarca.ForeColor = SystemColors.ButtonHighlight;
-            LProductoMarca.Location = new Point(74, 154);
+            LProductoMarca.Location = new Point(85, 205);
             LProductoMarca.Name = "LProductoMarca";
-            LProductoMarca.Size = new Size(66, 21);
+            LProductoMarca.Size = new Size(79, 23);
             LProductoMarca.TabIndex = 5;
             LProductoMarca.Text = "Marca:";
             // 
@@ -119,9 +121,9 @@
             LProductoCategoria.AutoSize = true;
             LProductoCategoria.Font = new Font("Century Gothic", 12F);
             LProductoCategoria.ForeColor = SystemColors.ButtonHighlight;
-            LProductoCategoria.Location = new Point(74, 191);
+            LProductoCategoria.Location = new Point(85, 255);
             LProductoCategoria.Name = "LProductoCategoria";
-            LProductoCategoria.Size = new Size(95, 21);
+            LProductoCategoria.Size = new Size(116, 23);
             LProductoCategoria.TabIndex = 6;
             LProductoCategoria.Text = "Categoría:";
             // 
@@ -130,57 +132,63 @@
             label1.AutoSize = true;
             label1.Font = new Font("Century Gothic", 12F);
             label1.ForeColor = SystemColors.ButtonHighlight;
-            label1.Location = new Point(492, 121);
+            label1.Location = new Point(562, 161);
             label1.Name = "label1";
-            label1.Size = new Size(115, 21);
+            label1.Size = new Size(140, 23);
             label1.TabIndex = 7;
             label1.Text = "Stock Actual:";
             // 
             // txtNombreProducto
             // 
-            txtNombreProducto.Location = new Point(192, 86);
+            txtNombreProducto.Location = new Point(219, 115);
+            txtNombreProducto.Margin = new Padding(3, 4, 3, 4);
             txtNombreProducto.Name = "txtNombreProducto";
-            txtNombreProducto.Size = new Size(252, 23);
+            txtNombreProducto.Size = new Size(287, 27);
             txtNombreProducto.TabIndex = 8;
             txtNombreProducto.KeyPress += txtNombreProducto_KeyPress;
             // 
             // txtDescripcionProducto
             // 
-            txtDescripcionProducto.Location = new Point(192, 119);
+            txtDescripcionProducto.Location = new Point(219, 159);
+            txtDescripcionProducto.Margin = new Padding(3, 4, 3, 4);
             txtDescripcionProducto.Name = "txtDescripcionProducto";
-            txtDescripcionProducto.Size = new Size(252, 23);
+            txtDescripcionProducto.Size = new Size(287, 27);
             txtDescripcionProducto.TabIndex = 9;
             txtDescripcionProducto.KeyPress += txtDescripcionProducto_KeyPress;
             // 
             // txtMarcaProducto
             // 
-            txtMarcaProducto.Location = new Point(192, 156);
+            txtMarcaProducto.Location = new Point(219, 208);
+            txtMarcaProducto.Margin = new Padding(3, 4, 3, 4);
             txtMarcaProducto.Name = "txtMarcaProducto";
-            txtMarcaProducto.Size = new Size(252, 23);
+            txtMarcaProducto.Size = new Size(287, 27);
             txtMarcaProducto.TabIndex = 10;
             txtMarcaProducto.KeyPress += txtMarcaProducto_KeyPress;
             // 
             // CBCategoria
             // 
             CBCategoria.FormattingEnabled = true;
-            CBCategoria.Location = new Point(192, 191);
+            CBCategoria.Location = new Point(219, 255);
+            CBCategoria.Margin = new Padding(3, 4, 3, 4);
             CBCategoria.Name = "CBCategoria";
-            CBCategoria.Size = new Size(252, 23);
+            CBCategoria.Size = new Size(287, 28);
             CBCategoria.TabIndex = 12;
             // 
             // txtPrecioProducto
             // 
-            txtPrecioProducto.Location = new Point(627, 84);
+            txtPrecioProducto.Location = new Point(717, 112);
+            txtPrecioProducto.Margin = new Padding(3, 4, 3, 4);
             txtPrecioProducto.Name = "txtPrecioProducto";
-            txtPrecioProducto.Size = new Size(252, 23);
+            txtPrecioProducto.Size = new Size(287, 27);
             txtPrecioProducto.TabIndex = 13;
             txtPrecioProducto.KeyPress += txtPrecioProducto_KeyPress;
             // 
             // txtStockProducto
             // 
-            txtStockProducto.Location = new Point(627, 119);
+            txtStockProducto.Location = new Point(717, 159);
+            txtStockProducto.Margin = new Padding(3, 4, 3, 4);
             txtStockProducto.Name = "txtStockProducto";
-            txtStockProducto.Size = new Size(252, 23);
+            txtStockProducto.Size = new Size(287, 27);
             txtStockProducto.TabIndex = 14;
             txtStockProducto.KeyPress += txtStockProducto_KeyPress;
             // 
@@ -190,9 +198,10 @@
             btnEditarProducto.FlatAppearance.BorderColor = Color.FromArgb(0, 80, 200);
             btnEditarProducto.FlatStyle = FlatStyle.Flat;
             btnEditarProducto.Font = new Font("Century Gothic", 11.25F);
-            btnEditarProducto.Location = new Point(648, 185);
+            btnEditarProducto.Location = new Point(741, 247);
+            btnEditarProducto.Margin = new Padding(3, 4, 3, 4);
             btnEditarProducto.Name = "btnEditarProducto";
-            btnEditarProducto.Size = new Size(88, 31);
+            btnEditarProducto.Size = new Size(101, 41);
             btnEditarProducto.TabIndex = 15;
             btnEditarProducto.Text = "Editar";
             btnEditarProducto.UseVisualStyleBackColor = false;
@@ -203,9 +212,10 @@
             btnEliminarProducto.FlatAppearance.BorderColor = Color.Red;
             btnEliminarProducto.FlatStyle = FlatStyle.Flat;
             btnEliminarProducto.Font = new Font("Century Gothic", 11.25F);
-            btnEliminarProducto.Location = new Point(492, 185);
+            btnEliminarProducto.Location = new Point(562, 247);
+            btnEliminarProducto.Margin = new Padding(3, 4, 3, 4);
             btnEliminarProducto.Name = "btnEliminarProducto";
-            btnEliminarProducto.Size = new Size(88, 31);
+            btnEliminarProducto.Size = new Size(101, 41);
             btnEliminarProducto.TabIndex = 16;
             btnEliminarProducto.Text = "Eliminar";
             btnEliminarProducto.UseVisualStyleBackColor = false;
@@ -217,9 +227,10 @@
             btnGuardarProducto.FlatAppearance.BorderSize = 0;
             btnGuardarProducto.FlatStyle = FlatStyle.Flat;
             btnGuardarProducto.Font = new Font("Century Gothic", 11.25F);
-            btnGuardarProducto.Location = new Point(791, 183);
+            btnGuardarProducto.Location = new Point(904, 244);
+            btnGuardarProducto.Margin = new Padding(3, 4, 3, 4);
             btnGuardarProducto.Name = "btnGuardarProducto";
-            btnGuardarProducto.Size = new Size(88, 31);
+            btnGuardarProducto.Size = new Size(101, 41);
             btnGuardarProducto.TabIndex = 17;
             btnGuardarProducto.Text = "Guardar";
             btnGuardarProducto.UseVisualStyleBackColor = false;
@@ -227,19 +238,20 @@
             // pictureBoxProducto
             // 
             pictureBoxProducto.Image = Properties.Resources.shopping;
-            pictureBoxProducto.Location = new Point(910, 72);
+            pictureBoxProducto.Location = new Point(1040, 96);
+            pictureBoxProducto.Margin = new Padding(3, 4, 3, 4);
             pictureBoxProducto.Name = "pictureBoxProducto";
-            pictureBoxProducto.Size = new Size(151, 142);
+            pictureBoxProducto.Size = new Size(173, 189);
             pictureBoxProducto.SizeMode = PictureBoxSizeMode.CenterImage;
             pictureBoxProducto.TabIndex = 18;
             pictureBoxProducto.TabStop = false;
             // 
             // FormProducto
             // 
-            AutoScaleDimensions = new SizeF(7F, 15F);
+            AutoScaleDimensions = new SizeF(8F, 20F);
             AutoScaleMode = AutoScaleMode.Font;
             BackColor = Color.FromArgb(49, 66, 82);
-            ClientSize = new Size(1073, 537);
+            ClientSize = new Size(1226, 716);
             Controls.Add(pictureBoxProducto);
             Controls.Add(btnGuardarProducto);
             Controls.Add(btnEliminarProducto);
@@ -259,6 +271,7 @@
             Controls.Add(dataGridView1);
             Controls.Add(LGestionProductos);
             FormBorderStyle = FormBorderStyle.None;
+            Margin = new Padding(3, 4, 3, 4);
             Name = "FormProducto";
             Text = "Productos";
             ((System.ComponentModel.ISupportInitialize)dataGridView1).EndInit();
