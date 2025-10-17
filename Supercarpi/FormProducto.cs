@@ -72,5 +72,10 @@ namespace Interfaz
                 errorP1.SetError(txtStockProducto, "Solo se permiten números");
             }
         }
+
+        private void btnGuardarProducto_Click(object sender, EventArgs e)
+        {
+
+        }
     }
 }

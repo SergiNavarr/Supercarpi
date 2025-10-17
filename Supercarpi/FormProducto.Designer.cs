@@ -46,6 +46,16 @@
             btnEliminarProducto = new Button();
             btnGuardarProducto = new Button();
             pictureBoxProducto = new PictureBox();
+            ProductoId = new DataGridViewTextBoxColumn();
+            Nombre = new DataGridViewTextBoxColumn();
+            Descripcion = new DataGridViewTextBoxColumn();
+            PrecioUnitario = new DataGridViewTextBoxColumn();
+            StockActual = new DataGridViewTextBoxColumn();
+            MarcaId = new DataGridViewTextBoxColumn();
+            Marca = new DataGridViewTextBoxColumn();
+            CategoriaId = new DataGridViewTextBoxColumn();
+            Categoria = new DataGridViewTextBoxColumn();
+            Column1 = new DataGridViewImageColumn();
             ((System.ComponentModel.ISupportInitialize)dataGridView1).BeginInit();
             ((System.ComponentModel.ISupportInitialize)pictureBoxProducto).BeginInit();
             SuspendLayout();
@@ -64,11 +74,12 @@
             // dataGridView1
             // 
             dataGridView1.ColumnHeadersHeightSizeMode = DataGridViewColumnHeadersHeightSizeMode.AutoSize;
+            dataGridView1.Columns.AddRange(new DataGridViewColumn[] { ProductoId, Nombre, Descripcion, PrecioUnitario, StockActual, MarcaId, Marca, CategoriaId, Categoria, Column1 });
             dataGridView1.Location = new Point(85, 369);
             dataGridView1.Margin = new Padding(3, 4, 3, 4);
             dataGridView1.Name = "dataGridView1";
             dataGridView1.RowHeadersWidth = 51;
-            dataGridView1.Size = new Size(920, 284);
+            dataGridView1.Size = new Size(1053, 284);
             dataGridView1.TabIndex = 1;
             // 
             // LNombreProducto
@@ -246,6 +257,78 @@
             pictureBoxProducto.TabIndex = 18;
             pictureBoxProducto.TabStop = false;
             // 
+            // ProductoId
+            // 
+            ProductoId.HeaderText = "Id";
+            ProductoId.MinimumWidth = 6;
+            ProductoId.Name = "ProductoId";
+            ProductoId.Width = 125;
+            // 
+            // Nombre
+            // 
+            Nombre.HeaderText = "Nombre";
+            Nombre.MinimumWidth = 6;
+            Nombre.Name = "Nombre";
+            Nombre.Width = 125;
+            // 
+            // Descripcion
+            // 
+            Descripcion.HeaderText = "Descripcion";
+            Descripcion.MinimumWidth = 6;
+            Descripcion.Name = "Descripcion";
+            Descripcion.Width = 125;
+            // 
+            // PrecioUnitario
+            // 
+            PrecioUnitario.HeaderText = "Precio Unitario";
+            PrecioUnitario.MinimumWidth = 6;
+            PrecioUnitario.Name = "PrecioUnitario";
+            PrecioUnitario.Width = 125;
+            // 
+            // StockActual
+            // 
+            StockActual.HeaderText = "Stock";
+            StockActual.MinimumWidth = 6;
+            StockActual.Name = "StockActual";
+            StockActual.Width = 125;
+            // 
+            // MarcaId
+            // 
+            MarcaId.HeaderText = "MarcaId";
+            MarcaId.MinimumWidth = 6;
+            MarcaId.Name = "MarcaId";
+            MarcaId.Visible = false;
+            MarcaId.Width = 125;
+            // 
+            // Marca
+            // 
+            Marca.HeaderText = "Marca";
+            Marca.MinimumWidth = 6;
+            Marca.Name = "Marca";
+            Marca.Width = 125;
+            // 
+            // CategoriaId
+            // 
+            CategoriaId.HeaderText = "CategoriaId";
+            CategoriaId.MinimumWidth = 6;
+            CategoriaId.Name = "CategoriaId";
+            CategoriaId.Visible = false;
+            CategoriaId.Width = 125;
+            // 
+            // Categoria
+            // 
+            Categoria.HeaderText = "Categoria";
+            Categoria.MinimumWidth = 6;
+            Categoria.Name = "Categoria";
+            Categoria.Width = 125;
+            // 
+            // Column1
+            // 
+            Column1.HeaderText = "Imagen";
+            Column1.MinimumWidth = 6;
+            Column1.Name = "Column1";
+            Column1.Width = 125;
+            // 
             // FormProducto
             // 
             AutoScaleDimensions = new SizeF(8F, 20F);
@@ -300,5 +383,15 @@
         private Button btnEliminarProducto;
         private Button btnGuardarProducto;
         private PictureBox pictureBoxProducto;
+        private DataGridViewTextBoxColumn ProductoId;
+        private DataGridViewTextBoxColumn Nombre;
+        private DataGridViewTextBoxColumn Descripcion;
+        private DataGridViewTextBoxColumn PrecioUnitario;
+        private DataGridViewTextBoxColumn StockActual;
+        private DataGridViewTextBoxColumn MarcaId;
+        private DataGridViewTextBoxColumn Marca;
+        private DataGridViewTextBoxColumn CategoriaId;
+        private DataGridViewTextBoxColumn Categoria;
+        private DataGridViewImageColumn Column1;
     }
 }
