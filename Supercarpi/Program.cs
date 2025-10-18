@@ -50,6 +50,8 @@ namespace Supercarpi
             services.AddTransient(typeof(IRepositorioGenerico<>), typeof(RepositorioGenerico<>));
             services.AddTransient<IEmpleadoService, EmpleadoService>();
             services.AddTransient<IUtilidadesService, UtilidadesService>();
+            services.AddTransient<ICategoriaService, CategoriaService>();
+            services.AddTransient<IProductoService, ProductoService>();
 
 
 

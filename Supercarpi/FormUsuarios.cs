@@ -23,7 +23,7 @@ namespace Interfaz
             _empleadoService = empleadoService;
         }
 
-        private void FormUsuarios_Load(object sender, EventArgs e)
+        private async void FormUsuarios_Load(object sender, EventArgs e)
         {
             // cargar roles en el comboBox de forma hardcodeada hasta implementar el servicio de roles
             var roles = new List<Rol>
@@ -38,7 +38,7 @@ namespace Interfaz
             cmbRoles.ValueMember = "RolId";
 
             DeshabilitarCampos();
-            CargarEmpleados();
+            await CargarEmpleados();
         }
         private async Task CargarEmpleados()
         {

@@ -25,7 +25,7 @@ namespace Negocio.Implementacion
         public async Task<List<Empleado>> Lista()
         {
             IQueryable<Empleado> queryEmpleado = await _repoEmpleado.Consultar();
-            return queryEmpleado.Include(r => r.Rol).ToList();
+            return await queryEmpleado.Include(r => r.Rol).ToListAsync();
         }
 
         public async Task<Empleado> Crear(Empleado entidad)

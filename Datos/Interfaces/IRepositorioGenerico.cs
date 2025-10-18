@@ -18,7 +18,5 @@ namespace Datos.Interfaces
         Task<bool> Editar(TEntity entidad);
         Task<bool> Eliminar(TEntity entidad);
         Task<IQueryable<TEntity>> Consultar(Expression<Func<TEntity, bool>>? filtro = null);
-        Task<List<TEntity>> ObtenerTodos();
-
     }
 }

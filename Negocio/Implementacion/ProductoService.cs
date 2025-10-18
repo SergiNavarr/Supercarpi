@@ -6,7 +6,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
 
-namespace Negocio.Servicios
+namespace Negocio.Implementacion
 {
     public class ProductoService : IProductoService
     {
@@ -34,15 +34,23 @@ namespace Negocio.Servicios
             return await _productoRepositorio.Eliminar(producto);
         }
 
-        public async Task<Producto> ObtenerPorId(int idProducto)
+        public async Task<Producto?> ObtenerPorId(int idProducto)
         {
-            return await _productoRepositorio.Obtener(p => p.ProductoId == idProducto);
+            var query = await _productoRepositorio.Consultar(p => p.ProductoId == idProducto);
+            return await query
+                .Include(p => p.Marca)
+                .Include(p => p.Categoria)
+                .FirstOrDefaultAsync();
         }
+
 
         public async Task<List<Producto>> ObtenerTodos()
         {
-            IQueryable<Producto> queryProducto = await _productoRepositorio.Consultar();
-            return [.. queryProducto];
+            var query = await _productoRepositorio.Consultar();
+            return await query
+                .Include(p => p.Marca)
+                .Include(p => p.Categoria)
+                .ToListAsync();
         }
 
         // --- Operaciones de negocio ---
@@ -76,19 +84,29 @@ namespace Negocio.Servicios
         public async Task<List<Producto>> BuscarPorNombre(string nombre)
         {
             var query = await _productoRepositorio.Consultar(p => p.Nombre.Contains(nombre));
-            return await query.ToListAsync();
+            return await query
+                .Include(p => p.Marca)
+                .Include(p => p.Categoria)
+                .ToListAsync();
         }
+
 
         public async Task<List<Producto>> BuscarPorCategoria(int idCategoria)
         {
             var query = await _productoRepositorio.Consultar(p => p.CategoriaId == idCategoria);
-            return await query.ToListAsync();
+            return await query
+                .Include(p => p.Marca)
+                .Include(p => p.Categoria)
+                .ToListAsync();
         }
 
         public async Task<List<Producto>> ObtenerProductosConBajoStock(int limite)
         {
             var query = await _productoRepositorio.Consultar(p => p.StockActual <= limite);
-            return await query.ToListAsync();
+            return await query
+                .Include(p => p.Marca)
+                .Include(p => p.Categoria)
+                .ToListAsync();
         }
 
         // --- Manejo de imágenes ---
