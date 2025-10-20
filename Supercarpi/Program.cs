@@ -1,14 +1,16 @@
+using Datos.DBContext;
+using Datos.Implementacion;
+using Datos.Interfaces;
+using Interfaz;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
-using System.IO;
-
-using Datos.DBContext;
-using Interfaz;
-using Negocio.Interfaces;
 using Negocio.Implementacion;
-using Datos.Interfaces;
-using Datos.Implementacion;
+using Negocio.Interfaces;
+using System.Configuration;
+using System.IO;
+using System;
+
 
 namespace Supercarpi
 {
@@ -51,6 +53,9 @@ namespace Supercarpi
             services.AddTransient<IEmpleadoService, EmpleadoService>();
             services.AddTransient<IUtilidadesService, UtilidadesService>();
 
+            //Registrar servicios de backup
+            services.AddTransient<IBackupRepository>(sp => new BackupRepository(connectionString));
+            services.AddTransient<IBackupService, BackupService>();
 
 
             var serviceProvider = services.BuildServiceProvider();

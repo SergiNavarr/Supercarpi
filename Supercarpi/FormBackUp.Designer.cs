@@ -31,9 +31,8 @@
             LGestionBackUp = new Label();
             LBD = new Label();
             CBCategoria = new ComboBox();
-            BtnConectar = new Button();
             label1 = new Label();
-            textBox1 = new TextBox();
+            txtRutaBackUp = new TextBox();
             btnGenerarBU = new Button();
             btnRuta = new Button();
             SuspendLayout();
@@ -54,52 +53,38 @@
             LBD.AutoSize = true;
             LBD.Font = new Font("Century Gothic", 12F, FontStyle.Regular, GraphicsUnit.Point, 0);
             LBD.ForeColor = SystemColors.ButtonHighlight;
-            LBD.Location = new Point(100, 118);
+            LBD.Location = new Point(83, 116);
             LBD.Name = "LBD";
-            LBD.Size = new Size(315, 21);
+            LBD.Size = new Size(232, 21);
             LBD.TabIndex = 1;
-            LBD.Text = "Seleccione la base de datos a guardar:";
+            LBD.Text = "Seleccione la base de datos:";
             // 
             // CBCategoria
             // 
             CBCategoria.FormattingEnabled = true;
-            CBCategoria.Location = new Point(430, 116);
+            CBCategoria.Location = new Point(322, 116);
             CBCategoria.Name = "CBCategoria";
-            CBCategoria.Size = new Size(202, 23);
+            CBCategoria.Size = new Size(257, 23);
             CBCategoria.TabIndex = 14;
-            // 
-            // BtnConectar
-            // 
-            BtnConectar.BackColor = Color.FromArgb(0, 80, 200);
-            BtnConectar.Cursor = Cursors.Hand;
-            BtnConectar.FlatAppearance.BorderSize = 0;
-            BtnConectar.FlatStyle = FlatStyle.Flat;
-            BtnConectar.Font = new Font("Century Gothic", 9.75F, FontStyle.Regular, GraphicsUnit.Point, 0);
-            BtnConectar.ForeColor = SystemColors.ButtonHighlight;
-            BtnConectar.Location = new Point(653, 116);
-            BtnConectar.Name = "BtnConectar";
-            BtnConectar.Size = new Size(99, 27);
-            BtnConectar.TabIndex = 27;
-            BtnConectar.Text = "Conectar";
-            BtnConectar.UseVisualStyleBackColor = false;
+            
             // 
             // label1
             // 
             label1.AutoSize = true;
             label1.Font = new Font("Century Gothic", 12F, FontStyle.Regular, GraphicsUnit.Point, 0);
             label1.ForeColor = SystemColors.ButtonHighlight;
-            label1.Location = new Point(100, 153);
+            label1.Location = new Point(83, 156);
             label1.Name = "label1";
-            label1.Size = new Size(52, 21);
+            label1.Size = new Size(233, 21);
             label1.TabIndex = 28;
-            label1.Text = "Ruta:";
+            label1.Text = "Ruta del destino del BackUp:";
             // 
-            // textBox1
+            // txtRutaBackUp
             // 
-            textBox1.Location = new Point(158, 155);
-            textBox1.Name = "textBox1";
-            textBox1.Size = new Size(257, 23);
-            textBox1.TabIndex = 29;
+            txtRutaBackUp.Location = new Point(322, 158);
+            txtRutaBackUp.Name = "txtRutaBackUp";
+            txtRutaBackUp.Size = new Size(257, 23);
+            txtRutaBackUp.TabIndex = 29;
             // 
             // btnGenerarBU
             // 
@@ -109,12 +94,13 @@
             btnGenerarBU.FlatStyle = FlatStyle.Flat;
             btnGenerarBU.Font = new Font("Century Gothic", 9.75F, FontStyle.Regular, GraphicsUnit.Point, 0);
             btnGenerarBU.ForeColor = SystemColors.ButtonHighlight;
-            btnGenerarBU.Location = new Point(653, 155);
+            btnGenerarBU.Location = new Point(383, 206);
             btnGenerarBU.Name = "btnGenerarBU";
             btnGenerarBU.Size = new Size(135, 27);
             btnGenerarBU.TabIndex = 30;
-            btnGenerarBU.Text = "Generar BackUp";
+            btnGenerarBU.Text = "Crear BackUp";
             btnGenerarBU.UseVisualStyleBackColor = false;
+            btnGenerarBU.Click += btnGenerarBU_Click;
             // 
             // btnRuta
             // 
@@ -124,12 +110,13 @@
             btnRuta.FlatStyle = FlatStyle.Flat;
             btnRuta.Font = new Font("Century Gothic", 9.75F, FontStyle.Regular, GraphicsUnit.Point, 0);
             btnRuta.ForeColor = SystemColors.ButtonHighlight;
-            btnRuta.Location = new Point(430, 153);
+            btnRuta.Location = new Point(594, 155);
             btnRuta.Name = "btnRuta";
-            btnRuta.Size = new Size(99, 27);
+            btnRuta.Size = new Size(158, 27);
             btnRuta.TabIndex = 31;
-            btnRuta.Text = "Ruta";
+            btnRuta.Text = "Seleccionar Carpeta";
             btnRuta.UseVisualStyleBackColor = false;
+            btnRuta.Click += btnRuta_Click;
             // 
             // FormBackUp
             // 
@@ -139,9 +126,8 @@
             ClientSize = new Size(1073, 537);
             Controls.Add(btnRuta);
             Controls.Add(btnGenerarBU);
-            Controls.Add(textBox1);
+            Controls.Add(txtRutaBackUp);
             Controls.Add(label1);
-            Controls.Add(BtnConectar);
             Controls.Add(CBCategoria);
             Controls.Add(LBD);
             Controls.Add(LGestionBackUp);
@@ -157,9 +143,8 @@
         private Label LGestionBackUp;
         private Label LBD;
         private ComboBox CBCategoria;
-        private Button BtnConectar;
         private Label label1;
-        private TextBox textBox1;
+        private TextBox txtRutaBackUp;
         private Button btnGenerarBU;
         private Button btnRuta;
     }
