@@ -14,6 +14,6 @@ namespace Negocio.Interfaces
         Task<Categoria> Crear(Categoria entidad);
         Task<Categoria> Editar(Categoria empleado);
         Task<bool> Eliminar(int id);
-        Task<Empleado> ObtenerPorId(int id);
+        Task<Categoria?> ObtenerPorId(int id);
     }
 }

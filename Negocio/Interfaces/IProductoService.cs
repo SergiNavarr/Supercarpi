@@ -9,7 +9,7 @@ namespace Negocio.Interfaces
         // CRUD básico (todas acceden a BD)
         Task<Producto> CrearProducto(Producto producto);
         Task<Producto> ActualizarProducto(Producto producto);
-        Task<bool> EliminarProducto(Producto producto);
+        Task<bool> EliminarProducto(int idProducto);
         Task<Producto> ObtenerPorId(int idProducto);
         Task<List<Producto>> ObtenerTodos();
 

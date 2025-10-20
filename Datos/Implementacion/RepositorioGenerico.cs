@@ -83,17 +83,5 @@ namespace Datos.Implementacion
 
             return queryEntidad;
         }
-
-        public async Task<List<TEntity>> ObtenerTodos()
-        {
-            try
-            {
-                return await _dbContext.Set<TEntity>().ToListAsync();
-            }
-            catch
-            {
-                throw;
-            }
-        }
     }
 }

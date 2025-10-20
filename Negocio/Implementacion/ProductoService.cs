@@ -6,7 +6,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
 
-namespace Negocio.Servicios
+namespace Negocio.Implementacion
 {
     public class ProductoService : IProductoService
     {
@@ -20,29 +20,58 @@ namespace Negocio.Servicios
         // --- CRUD básico ---
         public async Task<Producto> CrearProducto(Producto producto)
         {
+            producto.ProductoId = 0;
             return await _productoRepositorio.Crear(producto);
         }
 
+
         public async Task<Producto> ActualizarProducto(Producto producto)
         {
-            await _productoRepositorio.Editar(producto);
-            return producto;
+            var productoDb = await _productoRepositorio.Obtener(p => p.ProductoId == producto.ProductoId);
+            if (productoDb == null)
+                throw new InvalidOperationException("Producto no encontrado.");
+
+            productoDb.Nombre = producto.Nombre;
+            productoDb.Descripcion = producto.Descripcion;
+            productoDb.PrecioUnitario = producto.PrecioUnitario;
+            productoDb.StockActual = producto.StockActual;
+            productoDb.MarcaId = producto.MarcaId;
+            productoDb.CategoriaId = producto.CategoriaId;
+            productoDb.ImagenUrl = producto.ImagenUrl;
+
+            await _productoRepositorio.Editar(productoDb);
+            return productoDb;
         }
 
-        public async Task<bool> EliminarProducto(Producto producto)
+
+        public async Task<bool> EliminarProducto(int idProducto)
         {
+            var producto = await ObtenerPorId(idProducto);
+            if (producto == null)
+                return false;
+
             return await _productoRepositorio.Eliminar(producto);
         }
 
-        public async Task<Producto> ObtenerPorId(int idProducto)
+
+        public async Task<Producto?> ObtenerPorId(int idProducto)
         {
-            return await _productoRepositorio.Obtener(p => p.ProductoId == idProducto);
+            var query = await _productoRepositorio.Consultar(p => p.ProductoId == idProducto);
+            return await query
+                .Include(p => p.Marca)
+                .Include(p => p.Categoria)
+                .FirstOrDefaultAsync();
         }
+
 
         public async Task<List<Producto>> ObtenerTodos()
         {
-            IQueryable<Producto> queryProducto = await _productoRepositorio.Consultar();
-            return [.. queryProducto];
+            var query = await _productoRepositorio.Consultar();
+            return await query
+                .AsNoTracking()
+                .Include(p => p.Marca)
+                .Include(p => p.Categoria)
+                .ToListAsync();
         }
 
         // --- Operaciones de negocio ---
@@ -76,19 +105,32 @@ namespace Negocio.Servicios
         public async Task<List<Producto>> BuscarPorNombre(string nombre)
         {
             var query = await _productoRepositorio.Consultar(p => p.Nombre.Contains(nombre));
-            return await query.ToListAsync();
+            return await query
+                .AsNoTracking()
+                .Include(p => p.Marca)
+                .Include(p => p.Categoria)
+                .ToListAsync();
         }
+
 
         public async Task<List<Producto>> BuscarPorCategoria(int idCategoria)
         {
             var query = await _productoRepositorio.Consultar(p => p.CategoriaId == idCategoria);
-            return await query.ToListAsync();
+            return await query
+                .AsNoTracking()
+                .Include(p => p.Marca)
+                .Include(p => p.Categoria)
+                .ToListAsync();
         }
 
         public async Task<List<Producto>> ObtenerProductosConBajoStock(int limite)
         {
             var query = await _productoRepositorio.Consultar(p => p.StockActual <= limite);
-            return await query.ToListAsync();
+            return await query
+                .AsNoTracking()
+                .Include(p => p.Marca)
+                .Include(p => p.Categoria)
+                .ToListAsync();
         }
 
         // --- Manejo de imágenes ---
