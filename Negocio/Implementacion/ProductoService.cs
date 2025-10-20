@@ -20,19 +20,39 @@ namespace Negocio.Implementacion
         // --- CRUD básico ---
         public async Task<Producto> CrearProducto(Producto producto)
         {
+            producto.ProductoId = 0;
             return await _productoRepositorio.Crear(producto);
         }
 
+
         public async Task<Producto> ActualizarProducto(Producto producto)
         {
-            await _productoRepositorio.Editar(producto);
-            return producto;
+            var productoDb = await _productoRepositorio.Obtener(p => p.ProductoId == producto.ProductoId);
+            if (productoDb == null)
+                throw new InvalidOperationException("Producto no encontrado.");
+
+            productoDb.Nombre = producto.Nombre;
+            productoDb.Descripcion = producto.Descripcion;
+            productoDb.PrecioUnitario = producto.PrecioUnitario;
+            productoDb.StockActual = producto.StockActual;
+            productoDb.MarcaId = producto.MarcaId;
+            productoDb.CategoriaId = producto.CategoriaId;
+            productoDb.ImagenUrl = producto.ImagenUrl;
+
+            await _productoRepositorio.Editar(productoDb);
+            return productoDb;
         }
 
-        public async Task<bool> EliminarProducto(Producto producto)
+
+        public async Task<bool> EliminarProducto(int idProducto)
         {
+            var producto = await ObtenerPorId(idProducto);
+            if (producto == null)
+                return false;
+
             return await _productoRepositorio.Eliminar(producto);
         }
+
 
         public async Task<Producto?> ObtenerPorId(int idProducto)
         {
@@ -48,6 +68,7 @@ namespace Negocio.Implementacion
         {
             var query = await _productoRepositorio.Consultar();
             return await query
+                .AsNoTracking()
                 .Include(p => p.Marca)
                 .Include(p => p.Categoria)
                 .ToListAsync();
@@ -85,6 +106,7 @@ namespace Negocio.Implementacion
         {
             var query = await _productoRepositorio.Consultar(p => p.Nombre.Contains(nombre));
             return await query
+                .AsNoTracking()
                 .Include(p => p.Marca)
                 .Include(p => p.Categoria)
                 .ToListAsync();
@@ -95,6 +117,7 @@ namespace Negocio.Implementacion
         {
             var query = await _productoRepositorio.Consultar(p => p.CategoriaId == idCategoria);
             return await query
+                .AsNoTracking()
                 .Include(p => p.Marca)
                 .Include(p => p.Categoria)
                 .ToListAsync();
@@ -104,6 +127,7 @@ namespace Negocio.Implementacion
         {
             var query = await _productoRepositorio.Consultar(p => p.StockActual <= limite);
             return await query
+                .AsNoTracking()
                 .Include(p => p.Marca)
                 .Include(p => p.Categoria)
                 .ToListAsync();

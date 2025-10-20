@@ -30,6 +30,16 @@
         {
             LGestionProductos = new Label();
             dvgProductos = new DataGridView();
+            ProductoId = new DataGridViewTextBoxColumn();
+            Nombre = new DataGridViewTextBoxColumn();
+            Descripcion = new DataGridViewTextBoxColumn();
+            PrecioUnitario = new DataGridViewTextBoxColumn();
+            Stock = new DataGridViewTextBoxColumn();
+            MarcaId = new DataGridViewTextBoxColumn();
+            Marca = new DataGridViewTextBoxColumn();
+            CategoriaId = new DataGridViewTextBoxColumn();
+            Categoria = new DataGridViewTextBoxColumn();
+            ImagenUrl = new DataGridViewTextBoxColumn();
             LNombreProducto = new Label();
             LProductoDescripcion = new Label();
             LPrecio = new Label();
@@ -38,26 +48,18 @@
             LStock = new Label();
             txtNombreProducto = new TextBox();
             txtDescripcionProducto = new TextBox();
-            txtMarcaProducto = new TextBox();
             CBCategoria = new ComboBox();
             txtPrecioProducto = new TextBox();
             txtStockProducto = new TextBox();
-            btnEditarProducto = new Button();
-            btnEliminarProducto = new Button();
-            btnGuardarProducto = new Button();
             pbProducto = new PictureBox();
             btnImagen = new Button();
-            txtUrlImagen = new TextBox();
-            ProductoId = new DataGridViewTextBoxColumn();
-            Nombre = new DataGridViewTextBoxColumn();
-            Descripcion = new DataGridViewTextBoxColumn();
-            PrecioUnitario = new DataGridViewTextBoxColumn();
-            StockActual = new DataGridViewTextBoxColumn();
-            MarcaId = new DataGridViewTextBoxColumn();
-            Marca = new DataGridViewTextBoxColumn();
-            CategoriaId = new DataGridViewTextBoxColumn();
-            Categoria = new DataGridViewTextBoxColumn();
-            ImagenUrl = new DataGridViewTextBoxColumn();
+            txtImagenUrl = new TextBox();
+            btnEliminar = new Button();
+            btnEditar = new Button();
+            btnCancelar = new Button();
+            btnConfirmar = new Button();
+            btnCrear = new Button();
+            CBMarca = new ComboBox();
             ((System.ComponentModel.ISupportInitialize)dvgProductos).BeginInit();
             ((System.ComponentModel.ISupportInitialize)pbProducto).BeginInit();
             SuspendLayout();
@@ -77,12 +79,74 @@
             // 
             dvgProductos.AutoSizeColumnsMode = DataGridViewAutoSizeColumnsMode.Fill;
             dvgProductos.ColumnHeadersHeightSizeMode = DataGridViewColumnHeadersHeightSizeMode.AutoSize;
-            dvgProductos.Columns.AddRange(new DataGridViewColumn[] { ProductoId, Nombre, Descripcion, PrecioUnitario, StockActual, MarcaId, Marca, CategoriaId, Categoria, ImagenUrl });
+            dvgProductos.Columns.AddRange(new DataGridViewColumn[] { ProductoId, Nombre, Descripcion, PrecioUnitario, Stock, MarcaId, Marca, CategoriaId, Categoria, ImagenUrl });
             dvgProductos.Location = new Point(74, 277);
             dvgProductos.Name = "dvgProductos";
             dvgProductos.RowHeadersWidth = 51;
             dvgProductos.Size = new Size(949, 213);
             dvgProductos.TabIndex = 1;
+            dvgProductos.CellClick += dvgProductos_CellClick;
+            // 
+            // ProductoId
+            // 
+            ProductoId.HeaderText = "Id";
+            ProductoId.MinimumWidth = 6;
+            ProductoId.Name = "ProductoId";
+            // 
+            // Nombre
+            // 
+            Nombre.HeaderText = "Nombre";
+            Nombre.MinimumWidth = 6;
+            Nombre.Name = "Nombre";
+            // 
+            // Descripcion
+            // 
+            Descripcion.HeaderText = "Descripcion";
+            Descripcion.MinimumWidth = 6;
+            Descripcion.Name = "Descripcion";
+            // 
+            // PrecioUnitario
+            // 
+            PrecioUnitario.HeaderText = "Precio Unitario";
+            PrecioUnitario.MinimumWidth = 6;
+            PrecioUnitario.Name = "PrecioUnitario";
+            // 
+            // Stock
+            // 
+            Stock.HeaderText = "Stock";
+            Stock.MinimumWidth = 6;
+            Stock.Name = "Stock";
+            // 
+            // MarcaId
+            // 
+            MarcaId.HeaderText = "MarcaId";
+            MarcaId.MinimumWidth = 6;
+            MarcaId.Name = "MarcaId";
+            MarcaId.Visible = false;
+            // 
+            // Marca
+            // 
+            Marca.HeaderText = "Marca";
+            Marca.MinimumWidth = 6;
+            Marca.Name = "Marca";
+            // 
+            // CategoriaId
+            // 
+            CategoriaId.HeaderText = "CategoriaId";
+            CategoriaId.MinimumWidth = 6;
+            CategoriaId.Name = "CategoriaId";
+            CategoriaId.Visible = false;
+            // 
+            // Categoria
+            // 
+            Categoria.HeaderText = "Categoria";
+            Categoria.MinimumWidth = 6;
+            Categoria.Name = "Categoria";
+            // 
+            // ImagenUrl
+            // 
+            ImagenUrl.HeaderText = "ImagenUrl";
+            ImagenUrl.Name = "ImagenUrl";
             // 
             // LNombreProducto
             // 
@@ -166,14 +230,6 @@
             txtDescripcionProducto.TabIndex = 9;
             txtDescripcionProducto.KeyPress += txtDescripcionProducto_KeyPress;
             // 
-            // txtMarcaProducto
-            // 
-            txtMarcaProducto.Location = new Point(192, 156);
-            txtMarcaProducto.Name = "txtMarcaProducto";
-            txtMarcaProducto.Size = new Size(252, 23);
-            txtMarcaProducto.TabIndex = 10;
-            txtMarcaProducto.KeyPress += txtMarcaProducto_KeyPress;
-            // 
             // CBCategoria
             // 
             CBCategoria.FormattingEnabled = true;
@@ -198,56 +254,13 @@
             txtStockProducto.TabIndex = 14;
             txtStockProducto.KeyPress += txtStockProducto_KeyPress;
             // 
-            // btnEditarProducto
-            // 
-            btnEditarProducto.BackColor = Color.FromArgb(0, 80, 200);
-            btnEditarProducto.FlatAppearance.BorderColor = Color.FromArgb(0, 80, 200);
-            btnEditarProducto.FlatStyle = FlatStyle.Flat;
-            btnEditarProducto.Font = new Font("Century Gothic", 11.25F);
-            btnEditarProducto.ForeColor = SystemColors.Control;
-            btnEditarProducto.Location = new Point(646, 202);
-            btnEditarProducto.Name = "btnEditarProducto";
-            btnEditarProducto.Size = new Size(88, 31);
-            btnEditarProducto.TabIndex = 15;
-            btnEditarProducto.Text = "Editar";
-            btnEditarProducto.UseVisualStyleBackColor = false;
-            // 
-            // btnEliminarProducto
-            // 
-            btnEliminarProducto.BackColor = Color.Red;
-            btnEliminarProducto.FlatAppearance.BorderColor = Color.Red;
-            btnEliminarProducto.FlatStyle = FlatStyle.Flat;
-            btnEliminarProducto.Font = new Font("Century Gothic", 11.25F);
-            btnEliminarProducto.ForeColor = SystemColors.Control;
-            btnEliminarProducto.Location = new Point(492, 202);
-            btnEliminarProducto.Name = "btnEliminarProducto";
-            btnEliminarProducto.Size = new Size(88, 31);
-            btnEliminarProducto.TabIndex = 16;
-            btnEliminarProducto.Text = "Eliminar";
-            btnEliminarProducto.UseVisualStyleBackColor = false;
-            // 
-            // btnGuardarProducto
-            // 
-            btnGuardarProducto.BackColor = Color.ForestGreen;
-            btnGuardarProducto.FlatAppearance.BorderColor = Color.FromArgb(0, 80, 200);
-            btnGuardarProducto.FlatAppearance.BorderSize = 0;
-            btnGuardarProducto.FlatStyle = FlatStyle.Flat;
-            btnGuardarProducto.Font = new Font("Century Gothic", 11.25F);
-            btnGuardarProducto.ForeColor = SystemColors.Control;
-            btnGuardarProducto.Location = new Point(791, 202);
-            btnGuardarProducto.Name = "btnGuardarProducto";
-            btnGuardarProducto.Size = new Size(88, 31);
-            btnGuardarProducto.TabIndex = 17;
-            btnGuardarProducto.Text = "Guardar";
-            btnGuardarProducto.UseVisualStyleBackColor = false;
-            // 
             // pbProducto
             // 
             pbProducto.Image = Properties.Resources.shopping;
-            pbProducto.Location = new Point(910, 72);
+            pbProducto.Location = new Point(885, 31);
             pbProducto.Name = "pbProducto";
-            pbProducto.Size = new Size(151, 142);
-            pbProducto.SizeMode = PictureBoxSizeMode.CenterImage;
+            pbProducto.Size = new Size(176, 206);
+            pbProducto.SizeMode = PictureBoxSizeMode.Zoom;
             pbProducto.TabIndex = 18;
             pbProducto.TabStop = false;
             // 
@@ -261,73 +274,98 @@
             btnImagen.UseVisualStyleBackColor = true;
             btnImagen.Click += btnImagen_Click;
             // 
-            // txtUrlImagen
+            // txtImagenUrl
             // 
-            txtUrlImagen.Location = new Point(627, 156);
-            txtUrlImagen.Name = "txtUrlImagen";
-            txtUrlImagen.Size = new Size(252, 23);
-            txtUrlImagen.TabIndex = 20;
+            txtImagenUrl.Enabled = false;
+            txtImagenUrl.Location = new Point(627, 156);
+            txtImagenUrl.Name = "txtImagenUrl";
+            txtImagenUrl.Size = new Size(252, 23);
+            txtImagenUrl.TabIndex = 20;
             // 
-            // ProductoId
+            // btnEliminar
             // 
-            ProductoId.HeaderText = "Id";
-            ProductoId.MinimumWidth = 6;
-            ProductoId.Name = "ProductoId";
+            btnEliminar.BackColor = Color.Red;
+            btnEliminar.Cursor = Cursors.Hand;
+            btnEliminar.FlatAppearance.BorderSize = 0;
+            btnEliminar.FlatStyle = FlatStyle.Flat;
+            btnEliminar.ForeColor = SystemColors.Control;
+            btnEliminar.Location = new Point(568, 192);
+            btnEliminar.Name = "btnEliminar";
+            btnEliminar.Size = new Size(99, 23);
+            btnEliminar.TabIndex = 32;
+            btnEliminar.Text = "Eliminar";
+            btnEliminar.UseVisualStyleBackColor = false;
+            btnEliminar.Click += btnEliminar_Click;
             // 
-            // Nombre
+            // btnEditar
             // 
-            Nombre.HeaderText = "Nombre";
-            Nombre.MinimumWidth = 6;
-            Nombre.Name = "Nombre";
+            btnEditar.BackColor = Color.DarkOrange;
+            btnEditar.Cursor = Cursors.Hand;
+            btnEditar.FlatAppearance.BorderSize = 0;
+            btnEditar.FlatStyle = FlatStyle.Flat;
+            btnEditar.ForeColor = SystemColors.Control;
+            btnEditar.Location = new Point(780, 192);
+            btnEditar.Name = "btnEditar";
+            btnEditar.Size = new Size(99, 23);
+            btnEditar.TabIndex = 31;
+            btnEditar.Text = "Editar";
+            btnEditar.UseVisualStyleBackColor = false;
+            btnEditar.Click += btnEditar_Click;
             // 
-            // Descripcion
+            // btnCancelar
             // 
-            Descripcion.HeaderText = "Descripcion";
-            Descripcion.MinimumWidth = 6;
-            Descripcion.Name = "Descripcion";
+            btnCancelar.BackColor = Color.Red;
+            btnCancelar.Cursor = Cursors.Hand;
+            btnCancelar.FlatAppearance.BorderSize = 0;
+            btnCancelar.FlatStyle = FlatStyle.Flat;
+            btnCancelar.ForeColor = SystemColors.Control;
+            btnCancelar.Location = new Point(780, 192);
+            btnCancelar.Name = "btnCancelar";
+            btnCancelar.Size = new Size(99, 23);
+            btnCancelar.TabIndex = 30;
+            btnCancelar.Text = "Cancelar";
+            btnCancelar.UseVisualStyleBackColor = false;
+            btnCancelar.Visible = false;
+            btnCancelar.Click += btnCancelar_Click;
             // 
-            // PrecioUnitario
+            // btnConfirmar
             // 
-            PrecioUnitario.HeaderText = "Precio Unitario";
-            PrecioUnitario.MinimumWidth = 6;
-            PrecioUnitario.Name = "PrecioUnitario";
+            btnConfirmar.BackColor = Color.FromArgb(0, 80, 200);
+            btnConfirmar.Cursor = Cursors.Hand;
+            btnConfirmar.FlatAppearance.BorderSize = 0;
+            btnConfirmar.FlatStyle = FlatStyle.Flat;
+            btnConfirmar.ForeColor = SystemColors.Control;
+            btnConfirmar.Location = new Point(675, 192);
+            btnConfirmar.Name = "btnConfirmar";
+            btnConfirmar.Size = new Size(99, 23);
+            btnConfirmar.TabIndex = 29;
+            btnConfirmar.Text = "Confirmar";
+            btnConfirmar.UseVisualStyleBackColor = false;
+            btnConfirmar.Visible = false;
+            btnConfirmar.Click += btnConfirmar_Click;
             // 
-            // StockActual
+            // btnCrear
             // 
-            StockActual.HeaderText = "Stock";
-            StockActual.MinimumWidth = 6;
-            StockActual.Name = "StockActual";
+            btnCrear.BackColor = Color.FromArgb(0, 80, 200);
+            btnCrear.Cursor = Cursors.Hand;
+            btnCrear.FlatAppearance.BorderSize = 0;
+            btnCrear.FlatStyle = FlatStyle.Flat;
+            btnCrear.ForeColor = SystemColors.Control;
+            btnCrear.Location = new Point(675, 192);
+            btnCrear.Name = "btnCrear";
+            btnCrear.Size = new Size(99, 23);
+            btnCrear.TabIndex = 28;
+            btnCrear.Text = "Crear";
+            btnCrear.UseVisualStyleBackColor = false;
+            btnCrear.Click += btnCrear_Click;
             // 
-            // MarcaId
+            // CBMarca
             // 
-            MarcaId.HeaderText = "MarcaId";
-            MarcaId.MinimumWidth = 6;
-            MarcaId.Name = "MarcaId";
-            MarcaId.Visible = false;
-            // 
-            // Marca
-            // 
-            Marca.HeaderText = "Marca";
-            Marca.MinimumWidth = 6;
-            Marca.Name = "Marca";
-            // 
-            // CategoriaId
-            // 
-            CategoriaId.HeaderText = "CategoriaId";
-            CategoriaId.MinimumWidth = 6;
-            CategoriaId.Name = "CategoriaId";
-            CategoriaId.Visible = false;
-            // 
-            // Categoria
-            // 
-            Categoria.HeaderText = "Categoria";
-            Categoria.MinimumWidth = 6;
-            Categoria.Name = "Categoria";
-            // 
-            // ImagenUrl
-            // 
-            ImagenUrl.HeaderText = "ImagenUrl";
-            ImagenUrl.Name = "ImagenUrl";
+            CBMarca.FormattingEnabled = true;
+            CBMarca.Location = new Point(192, 157);
+            CBMarca.Name = "CBMarca";
+            CBMarca.Size = new Size(252, 23);
+            CBMarca.TabIndex = 33;
             // 
             // FormProducto
             // 
@@ -335,16 +373,18 @@
             AutoScaleMode = AutoScaleMode.Font;
             BackColor = Color.FromArgb(49, 66, 82);
             ClientSize = new Size(1073, 537);
-            Controls.Add(txtUrlImagen);
+            Controls.Add(CBMarca);
+            Controls.Add(btnEliminar);
+            Controls.Add(btnEditar);
+            Controls.Add(btnCancelar);
+            Controls.Add(btnConfirmar);
+            Controls.Add(btnCrear);
+            Controls.Add(txtImagenUrl);
             Controls.Add(btnImagen);
             Controls.Add(pbProducto);
-            Controls.Add(btnGuardarProducto);
-            Controls.Add(btnEliminarProducto);
-            Controls.Add(btnEditarProducto);
             Controls.Add(txtStockProducto);
             Controls.Add(txtPrecioProducto);
             Controls.Add(CBCategoria);
-            Controls.Add(txtMarcaProducto);
             Controls.Add(txtDescripcionProducto);
             Controls.Add(txtNombreProducto);
             Controls.Add(LStock);
@@ -377,25 +417,27 @@
         private Label LStock;
         private TextBox txtNombreProducto;
         private TextBox txtDescripcionProducto;
-        private TextBox txtMarcaProducto;
         private ComboBox CBCategoria;
         private TextBox txtPrecioProducto;
         private TextBox txtStockProducto;
-        private Button btnEditarProducto;
-        private Button btnEliminarProducto;
-        private Button btnGuardarProducto;
         private PictureBox pbProducto;
         private Button btnImagen;
-        private TextBox txtUrlImagen;
+        private TextBox txtImagenUrl;
         private DataGridViewTextBoxColumn ProductoId;
         private DataGridViewTextBoxColumn Nombre;
         private DataGridViewTextBoxColumn Descripcion;
         private DataGridViewTextBoxColumn PrecioUnitario;
-        private DataGridViewTextBoxColumn StockActual;
+        private DataGridViewTextBoxColumn Stock;
         private DataGridViewTextBoxColumn MarcaId;
         private DataGridViewTextBoxColumn Marca;
         private DataGridViewTextBoxColumn CategoriaId;
         private DataGridViewTextBoxColumn Categoria;
         private DataGridViewTextBoxColumn ImagenUrl;
+        private Button btnEliminar;
+        private Button btnEditar;
+        private Button btnCancelar;
+        private Button btnConfirmar;
+        private Button btnCrear;
+        private ComboBox CBMarca;
     }
 }

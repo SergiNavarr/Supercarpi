@@ -52,6 +52,7 @@ namespace Supercarpi
             services.AddTransient<IUtilidadesService, UtilidadesService>();
             services.AddTransient<ICategoriaService, CategoriaService>();
             services.AddTransient<IProductoService, ProductoService>();
+            services.AddTransient<IMarcaService, MarcaService>();
 
 
 
