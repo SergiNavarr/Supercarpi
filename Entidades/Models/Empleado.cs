@@ -21,6 +21,8 @@ public partial class Empleado
 
     public string PasswordHash { get; set; } = null!;
 
+    public bool EsActivo { get; set; } = true;
+
     public virtual ICollection<Pedido> Pedidos { get; set; } = new List<Pedido>();
 
     public virtual Rol Rol { get; set; } = null!;

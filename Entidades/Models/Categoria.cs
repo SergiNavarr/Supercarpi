@@ -11,6 +11,7 @@ public partial class Categoria
 
     public int ProveedorId { get; set; }
 
+    public bool EsActivo { get; set; } = true;
     public virtual ICollection<Producto> Productos { get; set; } = new List<Producto>();
 
     public virtual Proveedor Proveedor { get; set; } = null!;

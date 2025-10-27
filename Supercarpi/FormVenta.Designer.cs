@@ -28,12 +28,12 @@
         /// </summary>
         private void InitializeComponent()
         {
-            dataGridView1 = new DataGridView();
+            dgvVenta = new DataGridView();
             LNombre = new Label();
             TBNombre = new TextBox();
             LTitulo = new Label();
             LCodigo = new Label();
-            textBox1 = new TextBox();
+            TBCodigo = new TextBox();
             BtnBuscar = new Button();
             BtnGenerarVenta = new Button();
             BtnLimpiar = new Button();
@@ -42,17 +42,28 @@
             CBMetodoPago = new ComboBox();
             LMetodoPago = new Label();
             BtnAgregar = new Button();
-            ((System.ComponentModel.ISupportInitialize)dataGridView1).BeginInit();
+            BtnAbrirCaja = new Button();
+            BtnCerrarCaja = new Button();
+            ProductoId = new DataGridViewTextBoxColumn();
+            Nombre = new DataGridViewTextBoxColumn();
+            PrecioUnitario = new DataGridViewTextBoxColumn();
+            Cantidad = new DataGridViewTextBoxColumn();
+            Subtotal = new DataGridViewTextBoxColumn();
+            ((System.ComponentModel.ISupportInitialize)dgvVenta).BeginInit();
             SuspendLayout();
             // 
-            // dataGridView1
+            // dgvVenta
             // 
-            dataGridView1.ColumnHeadersHeightSizeMode = DataGridViewColumnHeadersHeightSizeMode.AutoSize;
-            dataGridView1.Location = new Point(12, 44);
-            dataGridView1.Name = "dataGridView1";
-            dataGridView1.RowHeadersWidth = 51;
-            dataGridView1.Size = new Size(1025, 365);
-            dataGridView1.TabIndex = 0;
+            dgvVenta.AutoSizeColumnsMode = DataGridViewAutoSizeColumnsMode.Fill;
+            dgvVenta.ColumnHeadersHeightSizeMode = DataGridViewColumnHeadersHeightSizeMode.AutoSize;
+            dgvVenta.Columns.AddRange(new DataGridViewColumn[] { ProductoId, Nombre, PrecioUnitario, Cantidad, Subtotal });
+            dgvVenta.Enabled = false;
+            dgvVenta.Location = new Point(12, 44);
+            dgvVenta.Name = "dgvVenta";
+            dgvVenta.RowHeadersWidth = 51;
+            dgvVenta.Size = new Size(1025, 365);
+            dgvVenta.TabIndex = 0;
+            dgvVenta.ForeColor = Color.Black;
             // 
             // LNombre
             // 
@@ -66,6 +77,7 @@
             // 
             // TBNombre
             // 
+            TBNombre.Enabled = false;
             TBNombre.Location = new Point(74, 444);
             TBNombre.Name = "TBNombre";
             TBNombre.Size = new Size(201, 23);
@@ -90,19 +102,20 @@
             LCodigo.Size = new Size(55, 16);
             LCodigo.TabIndex = 4;
             LCodigo.Text = "Codigo";
-            LCodigo.Click += LCodigo_Click;
             // 
-            // textBox1
+            // TBCodigo
             // 
-            textBox1.Location = new Point(74, 487);
-            textBox1.Name = "textBox1";
-            textBox1.Size = new Size(201, 23);
-            textBox1.TabIndex = 5;
+            TBCodigo.Enabled = false;
+            TBCodigo.Location = new Point(74, 487);
+            TBCodigo.Name = "TBCodigo";
+            TBCodigo.Size = new Size(201, 23);
+            TBCodigo.TabIndex = 5;
             // 
             // BtnBuscar
             // 
             BtnBuscar.BackColor = Color.FromArgb(0, 80, 200);
             BtnBuscar.Cursor = Cursors.Hand;
+            BtnBuscar.Enabled = false;
             BtnBuscar.FlatAppearance.BorderSize = 0;
             BtnBuscar.FlatStyle = FlatStyle.Flat;
             BtnBuscar.Font = new Font("Century Gothic", 9.75F, FontStyle.Regular, GraphicsUnit.Point, 0);
@@ -117,6 +130,7 @@
             // 
             BtnGenerarVenta.BackColor = Color.FromArgb(0, 80, 200);
             BtnGenerarVenta.Cursor = Cursors.Hand;
+            BtnGenerarVenta.Enabled = false;
             BtnGenerarVenta.FlatAppearance.BorderSize = 0;
             BtnGenerarVenta.FlatStyle = FlatStyle.Flat;
             BtnGenerarVenta.Font = new Font("Century Gothic", 15.75F, FontStyle.Bold, GraphicsUnit.Point, 0);
@@ -132,6 +146,7 @@
             // 
             BtnLimpiar.BackColor = Color.Red;
             BtnLimpiar.Cursor = Cursors.Hand;
+            BtnLimpiar.Enabled = false;
             BtnLimpiar.FlatAppearance.BorderSize = 0;
             BtnLimpiar.FlatStyle = FlatStyle.Flat;
             BtnLimpiar.Font = new Font("Century Gothic", 15.75F, FontStyle.Bold, GraphicsUnit.Point, 0);
@@ -165,6 +180,7 @@
             // 
             // CBMetodoPago
             // 
+            CBMetodoPago.Enabled = false;
             CBMetodoPago.FormattingEnabled = true;
             CBMetodoPago.Location = new Point(423, 452);
             CBMetodoPago.Name = "CBMetodoPago";
@@ -185,6 +201,7 @@
             // 
             BtnAgregar.BackColor = Color.FromArgb(0, 80, 200);
             BtnAgregar.Cursor = Cursors.Hand;
+            BtnAgregar.Enabled = false;
             BtnAgregar.FlatAppearance.BorderSize = 0;
             BtnAgregar.FlatStyle = FlatStyle.Flat;
             BtnAgregar.Font = new Font("Century Gothic", 9F, FontStyle.Regular, GraphicsUnit.Point, 0);
@@ -194,6 +211,65 @@
             BtnAgregar.TabIndex = 13;
             BtnAgregar.Text = "Agregar";
             BtnAgregar.UseVisualStyleBackColor = false;
+            BtnAgregar.Click += BtnAgregar_Click;
+            // 
+            // BtnAbrirCaja
+            // 
+            BtnAbrirCaja.BackColor = Color.FromArgb(0, 80, 200);
+            BtnAbrirCaja.Cursor = Cursors.Hand;
+            BtnAbrirCaja.FlatAppearance.BorderSize = 0;
+            BtnAbrirCaja.FlatStyle = FlatStyle.Flat;
+            BtnAbrirCaja.Font = new Font("Century Gothic", 14.25F, FontStyle.Bold, GraphicsUnit.Point, 0);
+            BtnAbrirCaja.Location = new Point(12, 523);
+            BtnAbrirCaja.Name = "BtnAbrirCaja";
+            BtnAbrirCaja.Size = new Size(202, 43);
+            BtnAbrirCaja.TabIndex = 14;
+            BtnAbrirCaja.Text = "Abrir Caja";
+            BtnAbrirCaja.UseVisualStyleBackColor = false;
+            BtnAbrirCaja.Click += BtnAbrirCaja_Click;
+            // 
+            // BtnCerrarCaja
+            // 
+            BtnCerrarCaja.BackColor = Color.Red;
+            BtnCerrarCaja.Cursor = Cursors.Hand;
+            BtnCerrarCaja.FlatAppearance.BorderSize = 0;
+            BtnCerrarCaja.FlatStyle = FlatStyle.Flat;
+            BtnCerrarCaja.Font = new Font("Century Gothic", 14.25F, FontStyle.Bold, GraphicsUnit.Point, 0);
+            BtnCerrarCaja.Location = new Point(12, 523);
+            BtnCerrarCaja.Name = "BtnCerrarCaja";
+            BtnCerrarCaja.Size = new Size(202, 43);
+            BtnCerrarCaja.TabIndex = 15;
+            BtnCerrarCaja.Text = "Cerrar caja";
+            BtnCerrarCaja.UseVisualStyleBackColor = false;
+            BtnCerrarCaja.Visible = false;
+            // 
+            // ProductoId
+            // 
+            ProductoId.DataPropertyName = "ProductoId";
+            ProductoId.HeaderText = "Codigo";
+            ProductoId.Name = "ProductoId";
+            ProductoId.Resizable = DataGridViewTriState.True;
+            // 
+            // Nombre
+            // 
+            Nombre.DataPropertyName = "Producto.Nombre";
+            Nombre.HeaderText = "Producto";
+            Nombre.Name = "Nombre";
+            // 
+            // PrecioUnitario
+            // 
+            PrecioUnitario.HeaderText = "Precio Unitario";
+            PrecioUnitario.Name = "PrecioUnitario";
+            // 
+            // Cantidad
+            // 
+            Cantidad.HeaderText = "Cantidad";
+            Cantidad.Name = "Cantidad";
+            // 
+            // Subtotal
+            // 
+            Subtotal.HeaderText = "Subtotal";
+            Subtotal.Name = "Subtotal";
             // 
             // FormVenta
             // 
@@ -201,6 +277,8 @@
             AutoScaleMode = AutoScaleMode.Font;
             BackColor = Color.FromArgb(49, 66, 82);
             ClientSize = new Size(1089, 576);
+            Controls.Add(BtnCerrarCaja);
+            Controls.Add(BtnAbrirCaja);
             Controls.Add(BtnAgregar);
             Controls.Add(LMetodoPago);
             Controls.Add(CBMetodoPago);
@@ -209,29 +287,29 @@
             Controls.Add(BtnLimpiar);
             Controls.Add(BtnGenerarVenta);
             Controls.Add(BtnBuscar);
-            Controls.Add(textBox1);
+            Controls.Add(TBCodigo);
             Controls.Add(LCodigo);
             Controls.Add(LTitulo);
             Controls.Add(TBNombre);
             Controls.Add(LNombre);
-            Controls.Add(dataGridView1);
+            Controls.Add(dgvVenta);
             ForeColor = Color.White;
             FormBorderStyle = FormBorderStyle.None;
             Name = "FormVenta";
             Text = "Form2";
-            ((System.ComponentModel.ISupportInitialize)dataGridView1).EndInit();
+            ((System.ComponentModel.ISupportInitialize)dgvVenta).EndInit();
             ResumeLayout(false);
             PerformLayout();
         }
 
         #endregion
 
-        private DataGridView dataGridView1;
+        private DataGridView dgvVenta;
         private Label LNombre;
         private TextBox TBNombre;
         private Label LTitulo;
         private Label LCodigo;
-        private TextBox textBox1;
+        private TextBox TBCodigo;
         private Button BtnBuscar;
         private Button BtnGenerarVenta;
         private Button BtnLimpiar;
@@ -240,5 +318,12 @@
         private ComboBox CBMetodoPago;
         private Label LMetodoPago;
         private Button BtnAgregar;
+        private Button BtnAbrirCaja;
+        private Button BtnCerrarCaja;
+        private DataGridViewTextBoxColumn ProductoId;
+        private DataGridViewTextBoxColumn Nombre;
+        private DataGridViewTextBoxColumn PrecioUnitario;
+        private DataGridViewTextBoxColumn Cantidad;
+        private DataGridViewTextBoxColumn Subtotal;
     }
 }

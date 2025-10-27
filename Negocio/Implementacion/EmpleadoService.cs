@@ -24,7 +24,7 @@ namespace Negocio.Implementacion
 
         public async Task<List<Empleado>> Lista()
         {
-            IQueryable<Empleado> queryEmpleado = await _repoEmpleado.Consultar();
+            IQueryable<Empleado> queryEmpleado = await _repoEmpleado.Consultar(e => e.EsActivo);
             return await queryEmpleado.Include(r => r.Rol).ToListAsync();
         }
 
@@ -95,32 +95,34 @@ namespace Negocio.Implementacion
         {
             try
             {
-                //Buscar el empleado por ID
                 Empleado empleadoEncontrado = await _repoEmpleado.Obtener(e => e.EmpleadoId == id);
-                //Si no existe, lanzar excepcion
                 if (empleadoEncontrado == null)
                     throw new Exception("El empleado no existe");
 
-                //eliminar el empleado
-                bool respuesta = await _repoEmpleado.Eliminar(empleadoEncontrado);
+                // Eliminación lógica
+                empleadoEncontrado.EsActivo = false;
+                bool respuesta = await _repoEmpleado.Editar(empleadoEncontrado);
                 return respuesta;
             }
             catch (Exception ex)
             {
                 throw new Exception("No se pudo eliminar el empleado", ex);
             }
-
         }
+
 
         public async Task<Empleado> ObtenerPorCredenciales(string dni, string password)
         {
             string clave_encriptada = _utilidadesService.ConvertirSHA256(password);
 
-            Empleado usuario_encontrado = await _repoEmpleado.Obtener(u => u.Dni.Equals(dni) && u.PasswordHash.Equals(clave_encriptada));
+            Empleado usuario_encontrado = await _repoEmpleado.Obtener(
+                u => u.Dni.Equals(dni)
+                  && u.PasswordHash.Equals(clave_encriptada)
+                  && u.EsActivo
+            );
 
             return usuario_encontrado;
         }
-
         public async Task<Empleado> ObtenerPorDni(string dni)
         {
             IQueryable<Empleado> query = await _repoEmpleado.Consultar(u => u.Dni.Equals(dni));

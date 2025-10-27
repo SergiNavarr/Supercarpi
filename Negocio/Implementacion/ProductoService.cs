@@ -54,6 +54,7 @@ namespace Negocio.Implementacion
         }
 
 
+
         public async Task<Producto?> ObtenerPorId(int idProducto)
         {
             var query = await _productoRepositorio.Consultar(p => p.ProductoId == idProducto);
@@ -66,13 +67,14 @@ namespace Negocio.Implementacion
 
         public async Task<List<Producto>> ObtenerTodos()
         {
-            var query = await _productoRepositorio.Consultar();
+            var query = await _productoRepositorio.Consultar(p => p.EsActivo);
             return await query
                 .AsNoTracking()
                 .Include(p => p.Marca)
                 .Include(p => p.Categoria)
                 .ToListAsync();
         }
+
 
         // --- Operaciones de negocio ---
         public async Task DescontarStock(int idProducto, int cantidad)

@@ -11,7 +11,7 @@ public partial class Producto
 
     public string? Descripcion { get; set; }
 
-    public decimal? PrecioUnitario { get; set; }
+    public decimal PrecioUnitario { get; set; }
 
     public int? StockActual { get; set; }
 
@@ -20,6 +20,8 @@ public partial class Producto
     public int CategoriaId { get; set; }
 
     public string? ImagenUrl {  get; set; }
+
+    public bool EsActivo { get; set; } = true;
 
     public virtual Categoria Categoria { get; set; } = null!;
 

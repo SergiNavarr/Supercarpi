@@ -131,30 +131,30 @@ namespace Interfaz
             {
                 case 1: // Administrador
                         // Ver todo
-                    btnUsuario.Enabled = true;
-                    btnProductos.Enabled = true;
-                    btnVentas.Enabled = false;
-                    btnProveedores.Enabled = true;
-                    btnReportes.Enabled = true;
-                    btnBackUp.Enabled = true;
+                    btnUsuario.Visible = true;
+                    btnProductos.Visible = true;
+                    btnVentas.Visible = false;
+                    btnProveedores.Visible = true;
+                    btnReportes.Visible = true;
+                    btnBackUp.Visible = true;
                     break;
 
-                case 2: // Repositor
-                    btnUsuario.Enabled = false;
-                    btnProductos.Enabled = true;
-                    btnVentas.Enabled = false;
-                    btnProveedores.Enabled = true;
-                    btnReportes.Enabled = false;
-                    btnBackUp.Enabled = false;
+                case 3: // Repositor
+                    btnUsuario.Visible = false;
+                    btnProductos.Visible = true;
+                    btnVentas.Visible = false;
+                    btnProveedores.Visible = true;
+                    btnReportes.Visible = false;
+                    btnBackUp.Visible = false;
                     break;
 
-                case 3: // Cajero
-                    btnUsuario.Enabled = false;
-                    btnProductos.Enabled = false;
-                    btnVentas.Enabled = true;
-                    btnProveedores.Enabled = false;
-                    btnReportes.Enabled = false;
-                    btnBackUp.Enabled = false;
+                case 2: // Cajero
+                    btnUsuario.Visible = false;
+                    btnProductos.Visible = false;
+                    btnVentas.Visible = true;
+                    btnProveedores.Visible = false;
+                    btnReportes.Visible = false;
+                    btnBackUp.Visible = false;
                     break;
 
                 default:

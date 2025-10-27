@@ -17,5 +17,7 @@ public partial class Proveedor
 
     public string? Email { get; set; }
 
+    public bool EsActivo { get; set; } = true;
+
     public virtual ICollection<Categoria> Categoria { get; set; } = new List<Categoria>();
 }

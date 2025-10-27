@@ -7,8 +7,11 @@ using System.Threading.Tasks;
 
 namespace Negocio.Interfaces
 {
-    internal interface IVentaService
+    public interface IVentaService
     {
-        Task<int> GenerarVentaAsync(Venta venta, List<DetalleVenta> detalles);
+        Task<bool> RegistrarVenta(Venta venta, List<DetalleVenta> detalles, Pago pago, PagoTarjeta pagoTarjeta = null);
+        Task<List<Venta>> ObtenerVentas();
+        Task<Venta> ObtenerVentaPorId(int id);
+        Task<bool> EliminarVenta(int id);
     }
 }
