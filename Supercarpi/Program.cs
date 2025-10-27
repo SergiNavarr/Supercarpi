@@ -55,6 +55,9 @@ namespace Supercarpi
             services.AddTransient<ICategoriaService, CategoriaService>();
             services.AddTransient<IProductoService, ProductoService>();
             services.AddTransient<IMarcaService, MarcaService>();
+            services.AddTransient<IVentaService, VentaService>();
+            services.AddTransient<IPagoService, PagoService>();
+
 
             //Registrar servicios de backup
             services.AddTransient<IBackupRepository>(sp => new BackupRepository(connectionString));

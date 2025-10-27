@@ -139,7 +139,7 @@ namespace Interfaz
                     btnBackUp.Visible = true;
                     break;
 
-                case 2: // Repositor
+                case 3: // Repositor
                     btnUsuario.Visible = false;
                     btnProductos.Visible = true;
                     btnVentas.Visible = false;
@@ -148,7 +148,7 @@ namespace Interfaz
                     btnBackUp.Visible = false;
                     break;
 
-                case 3: // Cajero
+                case 2: // Cajero
                     btnUsuario.Visible = false;
                     btnProductos.Visible = false;
                     btnVentas.Visible = true;

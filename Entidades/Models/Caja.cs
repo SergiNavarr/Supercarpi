@@ -11,5 +11,7 @@ public partial class Caja
 
     public bool Abierto { get; set; }
 
+    public bool EsActivo { get; set; } = true;
+
     public virtual ICollection<Venta> Venta { get; set; } = new List<Venta>();
 }
