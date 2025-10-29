@@ -33,8 +33,6 @@ namespace Interfaz
             _formProveedores = formProveedores;
             _formReportes = formReportes;
             _formBackUp = formBackUp;
-
-            _formVenta.empleado = empleado;
         }
 
         private void AbrirFormHija(Form formhija)
@@ -60,6 +58,7 @@ namespace Interfaz
 
         private void btnVentas_Click(object sender, EventArgs e)
         {
+            _formVenta.empleado = empleado;
             AbrirFormHija(_formVenta);
         }
 

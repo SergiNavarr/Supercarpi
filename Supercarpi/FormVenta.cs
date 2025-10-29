@@ -96,14 +96,7 @@ namespace Interfaz
         {
             BtnAbrirCaja.Visible = false;
             BtnCerrarCaja.Visible = true;
-            BtnGenerarVenta.Enabled = true;
-            BtnAgregar.Enabled = true;
-            BtnBuscar.Enabled = true;
-            BtnLimpiar.Enabled = true;
-            TBNombre.Enabled = true;
-            TBCodigo.Enabled = true;
-            CBMetodoPago.Enabled = true;
-            dgvVenta.Enabled = true;
+            HabilitarCampos();
         }
 
         private void HabilitarCampos()
@@ -151,60 +144,14 @@ namespace Interfaz
                 return;
             }
 
-            Producto producto = await _productoService.ObtenerPorId(id);
+            var producto = await _productoService.ObtenerPorId(id);
 
             if (producto != null)
-            {
-                // Buscar si ya existe el detalle
-                var detalleExistente = DetallesVenta.FirstOrDefault(d => d.ProductoId == producto.ProductoId);
-
-                if (detalleExistente != null)
-                {
-                    detalleExistente.Cantidad++;
-                    detalleExistente.Subtotal = detalleExistente.Cantidad * detalleExistente.PrecioUnitario;
-                }
-                else
-                {
-                    DetallesVenta.Add(new DetalleVenta
-                    {
-                        ProductoId = producto.ProductoId,
-                        Producto = producto,
-                        Cantidad = 1,
-                        PrecioUnitario = producto.PrecioUnitario,
-                        Subtotal = producto.PrecioUnitario
-                    });
-                }
-
-                Total = DetallesVenta.Sum(d => d.Subtotal);
-                LTotal.Text = $"Total: {Total:C2}";
-                LItems.Text = $"Items: {DetallesVenta.Sum(d => d.Cantidad)}";
-
-                // Refrescar grilla
-                CargarDetalles();
-            }
+                AgregarProductoAVenta(producto);
             else
-            {
                 MessageBox.Show("Producto no encontrado.");
-            }
         }
 
-        private void CargarDetalles()
-        {
-            dgvVenta.Rows.Clear();
-
-            foreach (var dv in DetallesVenta)
-            {
-
-                dgvVenta.Rows.Add(
-                    dv.ProductoId,
-                    dv.Producto.Nombre,
-                    dv.PrecioUnitario.ToString("C2"),
-                    dv.Cantidad,
-                    dv.Subtotal.ToString("C2")
-                );
-
-            }
-        }
 
         private void BtnLimpiar_Click(object sender, EventArgs e)
         {
@@ -232,6 +179,58 @@ namespace Interfaz
         {
             await CargarMetodosPago();
             dgvVenta.ForeColor = Color.Black;
+        }
+
+        private void BtnBuscar_Click(object sender, EventArgs e)
+        {
+            using (var formBusqueda = new FormVentaBusqueda(_productoService))
+            {
+                if (formBusqueda.ShowDialog() == DialogResult.OK)
+                {
+                    var producto = formBusqueda.ProductoSeleccionado;
+                    if (producto != null)
+                    {
+                        AgregarProductoAVenta(producto);
+                    }
+                }
+            }
+        }
+
+        private void AgregarProductoAVenta(Producto producto)
+        {
+            // Si ya existe en la lista, aumentar cantidad
+            var existente = DetallesVenta.FirstOrDefault(d => d.ProductoId == producto.ProductoId);
+            if (existente != null)
+            {
+                existente.Cantidad++;
+                existente.Subtotal = existente.Cantidad * existente.PrecioUnitario;
+                // refrescar dgvVenta
+                foreach (DataGridViewRow row in dgvVenta.Rows)
+                {
+                    if ((int)row.Cells["ProductoId"].Value == producto.ProductoId)
+                    {
+                        row.Cells["Cantidad"].Value = existente.Cantidad;
+                        row.Cells["Subtotal"].Value = existente.Subtotal;
+                        break;
+                    }
+                }
+            }
+            else
+            {
+                var detalle = new DetalleVenta
+                {
+                    ProductoId = producto.ProductoId,
+                    Cantidad = 1,
+                    PrecioUnitario = producto.PrecioUnitario,
+                    Subtotal = producto.PrecioUnitario
+                };
+                DetallesVenta.Add(detalle);
+                dgvVenta.Rows.Add(producto.ProductoId, producto.Nombre, detalle.PrecioUnitario, detalle.Cantidad, detalle.Subtotal);
+            }
+
+            Total = DetallesVenta.Sum(d => d.Subtotal);
+            LTotal.Text = $"TOTAL: ${Total}";
+            LItems.Text = $"ITEMS: {DetallesVenta.Count}";
         }
 
 
