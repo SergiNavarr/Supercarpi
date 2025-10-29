@@ -1,5 +1,6 @@
 ﻿using Datos.Interfaces;
 using Entidades.Models;
+using Microsoft.EntityFrameworkCore;
 using Negocio.Interfaces;
 using System;
 using System.Collections.Generic;
@@ -13,12 +14,15 @@ namespace Negocio.Implementacion
     {
         private readonly IRepositorioGenerico<Pago> _pagoRepo;
         private readonly IRepositorioGenerico<PagoTarjeta> _pagoTarjetaRepo;
+        private readonly IRepositorioGenerico<MetodoPago> _metodoPagoRepo;
 
         public PagoService(IRepositorioGenerico<Pago> pagoRepo,
-                           IRepositorioGenerico<PagoTarjeta> pagoTarjetaRepo)
+                           IRepositorioGenerico<PagoTarjeta> pagoTarjetaRepo,
+                           IRepositorioGenerico<MetodoPago> metodoPagoRepo)
         {
             _pagoRepo = pagoRepo;
             _pagoTarjetaRepo = pagoTarjetaRepo;
+            _metodoPagoRepo = metodoPagoRepo;
         }
 
       
@@ -46,6 +50,12 @@ namespace Negocio.Implementacion
         public async Task<Pago> ObtenerPagoPorId(int pagoId)
         {
             return await _pagoRepo.Obtener(p => p.PagoId == pagoId);
+        }
+
+        public async Task<List<MetodoPago>> ObtenerMetodosPago()
+        {
+            IQueryable<MetodoPago> query = await _metodoPagoRepo.Consultar();
+            return await query.ToListAsync();
         }
     }
 }

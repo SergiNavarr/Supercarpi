@@ -29,6 +29,11 @@
         private void InitializeComponent()
         {
             dgvVenta = new DataGridView();
+            ProductoId = new DataGridViewTextBoxColumn();
+            Nombre = new DataGridViewTextBoxColumn();
+            PrecioUnitario = new DataGridViewTextBoxColumn();
+            Cantidad = new DataGridViewTextBoxColumn();
+            Subtotal = new DataGridViewTextBoxColumn();
             LNombre = new Label();
             TBNombre = new TextBox();
             LTitulo = new Label();
@@ -44,11 +49,6 @@
             BtnAgregar = new Button();
             BtnAbrirCaja = new Button();
             BtnCerrarCaja = new Button();
-            ProductoId = new DataGridViewTextBoxColumn();
-            Nombre = new DataGridViewTextBoxColumn();
-            PrecioUnitario = new DataGridViewTextBoxColumn();
-            Cantidad = new DataGridViewTextBoxColumn();
-            Subtotal = new DataGridViewTextBoxColumn();
             ((System.ComponentModel.ISupportInitialize)dgvVenta).BeginInit();
             SuspendLayout();
             // 
@@ -58,38 +58,72 @@
             dgvVenta.ColumnHeadersHeightSizeMode = DataGridViewColumnHeadersHeightSizeMode.AutoSize;
             dgvVenta.Columns.AddRange(new DataGridViewColumn[] { ProductoId, Nombre, PrecioUnitario, Cantidad, Subtotal });
             dgvVenta.Enabled = false;
-            dgvVenta.Location = new Point(12, 44);
+            dgvVenta.Location = new Point(14, 59);
+            dgvVenta.Margin = new Padding(3, 4, 3, 4);
             dgvVenta.Name = "dgvVenta";
             dgvVenta.RowHeadersWidth = 51;
-            dgvVenta.Size = new Size(1025, 365);
+            dgvVenta.Size = new Size(1171, 487);
             dgvVenta.TabIndex = 0;
-            dgvVenta.ForeColor = Color.Black;
+            // 
+            // ProductoId
+            // 
+            ProductoId.DataPropertyName = "ProductoId";
+            ProductoId.HeaderText = "Codigo";
+            ProductoId.MinimumWidth = 6;
+            ProductoId.Name = "ProductoId";
+            ProductoId.Resizable = DataGridViewTriState.True;
+            // 
+            // Nombre
+            // 
+            Nombre.DataPropertyName = "Producto.Nombre";
+            Nombre.HeaderText = "Producto";
+            Nombre.MinimumWidth = 6;
+            Nombre.Name = "Nombre";
+            // 
+            // PrecioUnitario
+            // 
+            PrecioUnitario.HeaderText = "Precio Unitario";
+            PrecioUnitario.MinimumWidth = 6;
+            PrecioUnitario.Name = "PrecioUnitario";
+            // 
+            // Cantidad
+            // 
+            Cantidad.HeaderText = "Cantidad";
+            Cantidad.MinimumWidth = 6;
+            Cantidad.Name = "Cantidad";
+            // 
+            // Subtotal
+            // 
+            Subtotal.HeaderText = "Subtotal";
+            Subtotal.MinimumWidth = 6;
+            Subtotal.Name = "Subtotal";
             // 
             // LNombre
             // 
             LNombre.AutoSize = true;
             LNombre.Font = new Font("Century Gothic", 9.75F, FontStyle.Bold, GraphicsUnit.Point, 0);
-            LNombre.Location = new Point(12, 450);
+            LNombre.Location = new Point(14, 600);
             LNombre.Name = "LNombre";
-            LNombre.Size = new Size(59, 16);
+            LNombre.Size = new Size(76, 19);
             LNombre.TabIndex = 1;
             LNombre.Text = "Nombre";
             // 
             // TBNombre
             // 
             TBNombre.Enabled = false;
-            TBNombre.Location = new Point(74, 444);
+            TBNombre.Location = new Point(85, 592);
+            TBNombre.Margin = new Padding(3, 4, 3, 4);
             TBNombre.Name = "TBNombre";
-            TBNombre.Size = new Size(201, 23);
+            TBNombre.Size = new Size(229, 27);
             TBNombre.TabIndex = 2;
             // 
             // LTitulo
             // 
             LTitulo.AutoSize = true;
             LTitulo.Font = new Font("Century Gothic", 20.25F, FontStyle.Bold, GraphicsUnit.Point, 0);
-            LTitulo.Location = new Point(460, 9);
+            LTitulo.Location = new Point(526, 12);
             LTitulo.Name = "LTitulo";
-            LTitulo.Size = new Size(223, 32);
+            LTitulo.Size = new Size(280, 40);
             LTitulo.TabIndex = 3;
             LTitulo.Text = "Panel de ventas";
             // 
@@ -97,18 +131,19 @@
             // 
             LCodigo.AutoSize = true;
             LCodigo.Font = new Font("Century Gothic", 9.75F, FontStyle.Bold, GraphicsUnit.Point, 0);
-            LCodigo.Location = new Point(12, 489);
+            LCodigo.Location = new Point(14, 652);
             LCodigo.Name = "LCodigo";
-            LCodigo.Size = new Size(55, 16);
+            LCodigo.Size = new Size(70, 19);
             LCodigo.TabIndex = 4;
             LCodigo.Text = "Codigo";
             // 
             // TBCodigo
             // 
             TBCodigo.Enabled = false;
-            TBCodigo.Location = new Point(74, 487);
+            TBCodigo.Location = new Point(85, 649);
+            TBCodigo.Margin = new Padding(3, 4, 3, 4);
             TBCodigo.Name = "TBCodigo";
-            TBCodigo.Size = new Size(201, 23);
+            TBCodigo.Size = new Size(229, 27);
             TBCodigo.TabIndex = 5;
             // 
             // BtnBuscar
@@ -119,9 +154,10 @@
             BtnBuscar.FlatAppearance.BorderSize = 0;
             BtnBuscar.FlatStyle = FlatStyle.Flat;
             BtnBuscar.Font = new Font("Century Gothic", 9.75F, FontStyle.Regular, GraphicsUnit.Point, 0);
-            BtnBuscar.Location = new Point(302, 443);
+            BtnBuscar.Location = new Point(345, 591);
+            BtnBuscar.Margin = new Padding(3, 4, 3, 4);
             BtnBuscar.Name = "BtnBuscar";
-            BtnBuscar.Size = new Size(99, 23);
+            BtnBuscar.Size = new Size(113, 31);
             BtnBuscar.TabIndex = 6;
             BtnBuscar.Text = "Buscar";
             BtnBuscar.UseVisualStyleBackColor = false;
@@ -134,9 +170,10 @@
             BtnGenerarVenta.FlatAppearance.BorderSize = 0;
             BtnGenerarVenta.FlatStyle = FlatStyle.Flat;
             BtnGenerarVenta.Font = new Font("Century Gothic", 15.75F, FontStyle.Bold, GraphicsUnit.Point, 0);
-            BtnGenerarVenta.Location = new Point(824, 425);
+            BtnGenerarVenta.Location = new Point(942, 567);
+            BtnGenerarVenta.Margin = new Padding(3, 4, 3, 4);
             BtnGenerarVenta.Name = "BtnGenerarVenta";
-            BtnGenerarVenta.Size = new Size(213, 79);
+            BtnGenerarVenta.Size = new Size(243, 105);
             BtnGenerarVenta.TabIndex = 7;
             BtnGenerarVenta.Text = "Generar Venta";
             BtnGenerarVenta.UseVisualStyleBackColor = false;
@@ -151,20 +188,22 @@
             BtnLimpiar.FlatStyle = FlatStyle.Flat;
             BtnLimpiar.Font = new Font("Century Gothic", 15.75F, FontStyle.Bold, GraphicsUnit.Point, 0);
             BtnLimpiar.ForeColor = Color.White;
-            BtnLimpiar.Location = new Point(606, 424);
+            BtnLimpiar.Location = new Point(693, 565);
+            BtnLimpiar.Margin = new Padding(3, 4, 3, 4);
             BtnLimpiar.Name = "BtnLimpiar";
-            BtnLimpiar.Size = new Size(212, 79);
+            BtnLimpiar.Size = new Size(242, 105);
             BtnLimpiar.TabIndex = 8;
             BtnLimpiar.Text = "Limpiar";
             BtnLimpiar.UseVisualStyleBackColor = false;
+            BtnLimpiar.Click += BtnLimpiar_Click;
             // 
             // LTotal
             // 
             LTotal.AutoSize = true;
             LTotal.Font = new Font("Segoe UI", 18F, FontStyle.Regular, GraphicsUnit.Point, 0);
-            LTotal.Location = new Point(888, 523);
+            LTotal.Location = new Point(1015, 697);
             LTotal.Name = "LTotal";
-            LTotal.Size = new Size(149, 32);
+            LTotal.Size = new Size(188, 41);
             LTotal.TabIndex = 9;
             LTotal.Text = "TOTAL: $0.00";
             // 
@@ -172,9 +211,9 @@
             // 
             LItems.AutoSize = true;
             LItems.Font = new Font("Segoe UI", 18F, FontStyle.Regular, GraphicsUnit.Point, 0);
-            LItems.Location = new Point(757, 523);
+            LItems.Location = new Point(865, 697);
             LItems.Name = "LItems";
-            LItems.Size = new Size(105, 32);
+            LItems.Size = new Size(131, 41);
             LItems.TabIndex = 10;
             LItems.Text = "ITEMS: 0";
             // 
@@ -182,18 +221,19 @@
             // 
             CBMetodoPago.Enabled = false;
             CBMetodoPago.FormattingEnabled = true;
-            CBMetodoPago.Location = new Point(423, 452);
+            CBMetodoPago.Location = new Point(483, 603);
+            CBMetodoPago.Margin = new Padding(3, 4, 3, 4);
             CBMetodoPago.Name = "CBMetodoPago";
-            CBMetodoPago.Size = new Size(163, 23);
+            CBMetodoPago.Size = new Size(186, 28);
             CBMetodoPago.TabIndex = 11;
             // 
             // LMetodoPago
             // 
             LMetodoPago.AutoSize = true;
             LMetodoPago.Font = new Font("Century Gothic", 11.25F, FontStyle.Regular, GraphicsUnit.Point, 0);
-            LMetodoPago.Location = new Point(437, 429);
+            LMetodoPago.Location = new Point(499, 572);
             LMetodoPago.Name = "LMetodoPago";
-            LMetodoPago.Size = new Size(136, 20);
+            LMetodoPago.Size = new Size(167, 22);
             LMetodoPago.TabIndex = 12;
             LMetodoPago.Text = "Metodo de Pago";
             // 
@@ -205,9 +245,10 @@
             BtnAgregar.FlatAppearance.BorderSize = 0;
             BtnAgregar.FlatStyle = FlatStyle.Flat;
             BtnAgregar.Font = new Font("Century Gothic", 9F, FontStyle.Regular, GraphicsUnit.Point, 0);
-            BtnAgregar.Location = new Point(302, 486);
+            BtnAgregar.Location = new Point(345, 648);
+            BtnAgregar.Margin = new Padding(3, 4, 3, 4);
             BtnAgregar.Name = "BtnAgregar";
-            BtnAgregar.Size = new Size(99, 23);
+            BtnAgregar.Size = new Size(113, 31);
             BtnAgregar.TabIndex = 13;
             BtnAgregar.Text = "Agregar";
             BtnAgregar.UseVisualStyleBackColor = false;
@@ -220,9 +261,10 @@
             BtnAbrirCaja.FlatAppearance.BorderSize = 0;
             BtnAbrirCaja.FlatStyle = FlatStyle.Flat;
             BtnAbrirCaja.Font = new Font("Century Gothic", 14.25F, FontStyle.Bold, GraphicsUnit.Point, 0);
-            BtnAbrirCaja.Location = new Point(12, 523);
+            BtnAbrirCaja.Location = new Point(26, 698);
+            BtnAbrirCaja.Margin = new Padding(3, 4, 3, 4);
             BtnAbrirCaja.Name = "BtnAbrirCaja";
-            BtnAbrirCaja.Size = new Size(202, 43);
+            BtnAbrirCaja.Size = new Size(231, 57);
             BtnAbrirCaja.TabIndex = 14;
             BtnAbrirCaja.Text = "Abrir Caja";
             BtnAbrirCaja.UseVisualStyleBackColor = false;
@@ -235,48 +277,21 @@
             BtnCerrarCaja.FlatAppearance.BorderSize = 0;
             BtnCerrarCaja.FlatStyle = FlatStyle.Flat;
             BtnCerrarCaja.Font = new Font("Century Gothic", 14.25F, FontStyle.Bold, GraphicsUnit.Point, 0);
-            BtnCerrarCaja.Location = new Point(12, 523);
+            BtnCerrarCaja.Location = new Point(26, 698);
+            BtnCerrarCaja.Margin = new Padding(3, 4, 3, 4);
             BtnCerrarCaja.Name = "BtnCerrarCaja";
-            BtnCerrarCaja.Size = new Size(202, 43);
+            BtnCerrarCaja.Size = new Size(231, 57);
             BtnCerrarCaja.TabIndex = 15;
             BtnCerrarCaja.Text = "Cerrar caja";
             BtnCerrarCaja.UseVisualStyleBackColor = false;
             BtnCerrarCaja.Visible = false;
             // 
-            // ProductoId
-            // 
-            ProductoId.DataPropertyName = "ProductoId";
-            ProductoId.HeaderText = "Codigo";
-            ProductoId.Name = "ProductoId";
-            ProductoId.Resizable = DataGridViewTriState.True;
-            // 
-            // Nombre
-            // 
-            Nombre.DataPropertyName = "Producto.Nombre";
-            Nombre.HeaderText = "Producto";
-            Nombre.Name = "Nombre";
-            // 
-            // PrecioUnitario
-            // 
-            PrecioUnitario.HeaderText = "Precio Unitario";
-            PrecioUnitario.Name = "PrecioUnitario";
-            // 
-            // Cantidad
-            // 
-            Cantidad.HeaderText = "Cantidad";
-            Cantidad.Name = "Cantidad";
-            // 
-            // Subtotal
-            // 
-            Subtotal.HeaderText = "Subtotal";
-            Subtotal.Name = "Subtotal";
-            // 
             // FormVenta
             // 
-            AutoScaleDimensions = new SizeF(7F, 15F);
+            AutoScaleDimensions = new SizeF(8F, 20F);
             AutoScaleMode = AutoScaleMode.Font;
             BackColor = Color.FromArgb(49, 66, 82);
-            ClientSize = new Size(1089, 576);
+            ClientSize = new Size(1245, 768);
             Controls.Add(BtnCerrarCaja);
             Controls.Add(BtnAbrirCaja);
             Controls.Add(BtnAgregar);
@@ -295,8 +310,10 @@
             Controls.Add(dgvVenta);
             ForeColor = Color.White;
             FormBorderStyle = FormBorderStyle.None;
+            Margin = new Padding(3, 4, 3, 4);
             Name = "FormVenta";
             Text = "Form2";
+            Load += FormVenta_Load;
             ((System.ComponentModel.ISupportInitialize)dgvVenta).EndInit();
             ResumeLayout(false);
             PerformLayout();
