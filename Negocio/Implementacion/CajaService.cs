@@ -7,8 +7,8 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace Negocio.Implementacion
-{
+
+
     namespace Negocio.Implementacion
     {
         public class CajaService : ICajaService
@@ -56,6 +56,13 @@ namespace Negocio.Implementacion
                 var consulta = await _cajaRepo.Consultar(c => c.EsActivo);
                 return consulta.ToList();
             }
+
+            public async Task<List<Caja>> ObtenerCajasCerradas()
+            {
+                var consulta = await _cajaRepo.Consultar(c => !c.Abierto && c.EsActivo);
+                return consulta.ToList();
+            }
+
         }
     }
-}
+

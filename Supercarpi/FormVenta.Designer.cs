@@ -34,8 +34,6 @@
             PrecioUnitario = new DataGridViewTextBoxColumn();
             Cantidad = new DataGridViewTextBoxColumn();
             Subtotal = new DataGridViewTextBoxColumn();
-            LNombre = new Label();
-            TBNombre = new TextBox();
             LTitulo = new Label();
             LCodigo = new Label();
             TBCodigo = new TextBox();
@@ -97,24 +95,6 @@
             Subtotal.MinimumWidth = 6;
             Subtotal.Name = "Subtotal";
             // 
-            // LNombre
-            // 
-            LNombre.AutoSize = true;
-            LNombre.Font = new Font("Century Gothic", 9.75F, FontStyle.Bold, GraphicsUnit.Point, 0);
-            LNombre.Location = new Point(12, 450);
-            LNombre.Name = "LNombre";
-            LNombre.Size = new Size(59, 16);
-            LNombre.TabIndex = 1;
-            LNombre.Text = "Nombre";
-            // 
-            // TBNombre
-            // 
-            TBNombre.Enabled = false;
-            TBNombre.Location = new Point(74, 444);
-            TBNombre.Name = "TBNombre";
-            TBNombre.Size = new Size(201, 23);
-            TBNombre.TabIndex = 2;
-            // 
             // LTitulo
             // 
             LTitulo.AutoSize = true;
@@ -129,7 +109,7 @@
             // 
             LCodigo.AutoSize = true;
             LCodigo.Font = new Font("Century Gothic", 9.75F, FontStyle.Bold, GraphicsUnit.Point, 0);
-            LCodigo.Location = new Point(12, 489);
+            LCodigo.Location = new Point(15, 454);
             LCodigo.Name = "LCodigo";
             LCodigo.Size = new Size(55, 16);
             LCodigo.TabIndex = 4;
@@ -138,7 +118,7 @@
             // TBCodigo
             // 
             TBCodigo.Enabled = false;
-            TBCodigo.Location = new Point(74, 487);
+            TBCodigo.Location = new Point(77, 452);
             TBCodigo.Name = "TBCodigo";
             TBCodigo.Size = new Size(201, 23);
             TBCodigo.TabIndex = 5;
@@ -151,11 +131,11 @@
             BtnBuscar.FlatAppearance.BorderSize = 0;
             BtnBuscar.FlatStyle = FlatStyle.Flat;
             BtnBuscar.Font = new Font("Century Gothic", 9.75F, FontStyle.Regular, GraphicsUnit.Point, 0);
-            BtnBuscar.Location = new Point(302, 443);
+            BtnBuscar.Location = new Point(348, 536);
             BtnBuscar.Name = "BtnBuscar";
-            BtnBuscar.Size = new Size(99, 23);
+            BtnBuscar.Size = new Size(143, 31);
             BtnBuscar.TabIndex = 6;
-            BtnBuscar.Text = "Buscar";
+            BtnBuscar.Text = "Buscar Producto";
             BtnBuscar.UseVisualStyleBackColor = false;
             BtnBuscar.Click += BtnBuscar_Click;
             // 
@@ -239,7 +219,7 @@
             BtnAgregar.FlatAppearance.BorderSize = 0;
             BtnAgregar.FlatStyle = FlatStyle.Flat;
             BtnAgregar.Font = new Font("Century Gothic", 9F, FontStyle.Regular, GraphicsUnit.Point, 0);
-            BtnAgregar.Location = new Point(302, 486);
+            BtnAgregar.Location = new Point(305, 451);
             BtnAgregar.Name = "BtnAgregar";
             BtnAgregar.Size = new Size(99, 23);
             BtnAgregar.TabIndex = 13;
@@ -276,6 +256,7 @@
             BtnCerrarCaja.Text = "Cerrar caja";
             BtnCerrarCaja.UseVisualStyleBackColor = false;
             BtnCerrarCaja.Visible = false;
+            BtnCerrarCaja.Click += BtnCerrarCaja_Click;
             // 
             // FormVenta
             // 
@@ -296,13 +277,12 @@
             Controls.Add(TBCodigo);
             Controls.Add(LCodigo);
             Controls.Add(LTitulo);
-            Controls.Add(TBNombre);
-            Controls.Add(LNombre);
             Controls.Add(dgvVenta);
             ForeColor = Color.White;
             FormBorderStyle = FormBorderStyle.None;
             Name = "FormVenta";
             Text = "Form2";
+            FormClosing += FormVenta_FormClosing;
             Load += FormVenta_Load;
             ((System.ComponentModel.ISupportInitialize)dgvVenta).EndInit();
             ResumeLayout(false);
@@ -312,8 +292,6 @@
         #endregion
 
         private DataGridView dgvVenta;
-        private Label LNombre;
-        private TextBox TBNombre;
         private Label LTitulo;
         private Label LCodigo;
         private TextBox TBCodigo;

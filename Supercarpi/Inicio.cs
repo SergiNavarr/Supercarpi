@@ -132,40 +132,40 @@ namespace Interfaz
             {
                 case 1: // Administrador
                         // Ver todo
-                    btnUsuario.Visible = true;
-                    btnProductos.Visible = true;
-                    btnVentas.Visible = false;
-                    btnProveedores.Visible = true;
-                    btnReportes.Visible = true;
-                    btnBackUp.Visible = true;
+                    btnUsuario.Enabled = true;
+                    btnProductos.Enabled = true;
+                    btnVentas.Enabled = false;
+                    btnProveedores.Enabled = true;
+                    btnReportes.Enabled = true;
+                    btnBackUp.Enabled = true;
                     break;
 
                 case 3: // Repositor
-                    btnUsuario.Visible = false;
-                    btnProductos.Visible = true;
-                    btnVentas.Visible = false;
-                    btnProveedores.Visible = true;
-                    btnReportes.Visible = false;
-                    btnBackUp.Visible = false;
+                    btnUsuario.Enabled = false;
+                    btnProductos.Enabled = true;
+                    btnVentas.Enabled = false;
+                    btnProveedores.Enabled = true;
+                    btnReportes.Enabled = false;
+                    btnBackUp.Enabled = false;
                     break;
 
                 case 2: // Cajero
-                    btnUsuario.Visible = false;
-                    btnProductos.Visible = false;
-                    btnVentas.Visible = true;
-                    btnProveedores.Visible = false;
-                    btnReportes.Visible = false;
-                    btnBackUp.Visible = false;
+                    btnUsuario.Enabled = false;
+                    btnProductos.Enabled = false;
+                    btnVentas.Enabled = true;
+                    btnProveedores.Enabled = false;
+                    btnReportes.Enabled = false;
+                    btnBackUp.Enabled = false;
                     break;
 
                 default:
                     // Rol desconocido → ocultar todo
-                    btnUsuario.Visible = false;
-                    btnProductos.Visible = false;
-                    btnVentas.Visible = false;
-                    btnProveedores.Visible = false;
-                    btnReportes.Visible = false;
-                    btnBackUp.Visible = false;
+                    btnUsuario.Enabled = false;
+                    btnProductos.Enabled = false;
+                    btnVentas.Enabled = false;
+                    btnProveedores.Enabled = false;
+                    btnReportes.Enabled = false;
+                    btnBackUp.Enabled = false;
                     break;
             }
         }

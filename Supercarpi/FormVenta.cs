@@ -18,21 +18,24 @@ namespace Interfaz
         private readonly IPagoService _pagoService;
         private readonly IVentaService _ventaService;
         private readonly IProductoService _productoService;
+        private readonly ICajaService _cajaService;
 
         private decimal Total { get; set; }
         private List<DetalleVenta> DetallesVenta { get; set; } = new List<DetalleVenta>();
 
-        public int CajaActual { get; set; } = 1;
+        public int CajaActual { get; set; }
         public Empleado empleado { get; set; }
 
         public FormVenta(IPagoService pagoService,
                          IVentaService ventaService,
-                         IProductoService productoService)
+                         IProductoService productoService,
+                         ICajaService cajaService)
         {
             _pagoService = pagoService;
             _ventaService = ventaService;
             InitializeComponent();
             _productoService = productoService;
+            _cajaService = cajaService;
         }
 
         private async void BtnGenerarVenta_Click(object sender, EventArgs e)
@@ -65,13 +68,19 @@ namespace Interfaz
             };
 
             PagoTarjeta pagoTarjeta = null;
-            if (pago.MetodoPagoId == 2 || pago.MetodoPagoId == 3)
+            using (var formTarjeta = new FormPagoTarjeta())
             {
-                pagoTarjeta = new PagoTarjeta
+                var resultado = formTarjeta.ShowDialog();
+
+                if (resultado == DialogResult.OK)
                 {
-                    NumeroTarjeta = "****1234", // ejemplo
-                    Titular = "Cliente"
-                };
+                    pagoTarjeta = formTarjeta.PagoTarjeta;
+                }
+                else
+                {
+                    MessageBox.Show("Operación cancelada. Venta no registrada.");
+                    return;
+                }
             }
 
             bool exito = await _ventaService.RegistrarVenta(venta, DetallesVenta, pago, pagoTarjeta);
@@ -94,9 +103,18 @@ namespace Interfaz
 
         private void BtnAbrirCaja_Click(object sender, EventArgs e)
         {
-            BtnAbrirCaja.Visible = false;
-            BtnCerrarCaja.Visible = true;
-            HabilitarCampos();
+            using (var form = new FormSeleccionCaja(_cajaService))
+            {
+                if (form.ShowDialog() == DialogResult.OK)
+                {
+                    CajaActual = form.CajaSeleccionada.CajaId;
+                    MessageBox.Show($"Caja {form.CajaSeleccionada.Numero} abierta correctamente.");
+
+                    BtnAbrirCaja.Visible = false;
+                    BtnCerrarCaja.Visible = true;
+                    HabilitarCampos();
+                }
+            }
         }
 
         private void HabilitarCampos()
@@ -105,7 +123,6 @@ namespace Interfaz
             BtnAgregar.Enabled = true;
             BtnBuscar.Enabled = true;
             BtnLimpiar.Enabled = true;
-            TBNombre.Enabled = true;
             TBCodigo.Enabled = true;
             CBMetodoPago.Enabled = true;
             dgvVenta.Enabled = true;
@@ -117,7 +134,6 @@ namespace Interfaz
             BtnAgregar.Enabled = false;
             BtnBuscar.Enabled = false;
             BtnLimpiar.Enabled = false;
-            TBNombre.Enabled = false;
             TBCodigo.Enabled = false;
             CBMetodoPago.Enabled = false;
             dgvVenta.Enabled = false;
@@ -130,7 +146,6 @@ namespace Interfaz
             DetallesVenta = new List<DetalleVenta>();
             dgvVenta.Rows.Clear();
             TBCodigo.Clear();
-            TBNombre.Clear();
             CBMetodoPago.SelectedIndex = -1;
             LTotal.Text = "TOTAL: $0.00";
             LItems.Text = "ITEMS: 0";
@@ -232,7 +247,62 @@ namespace Interfaz
             LTotal.Text = $"TOTAL: ${Total}";
             LItems.Text = $"ITEMS: {DetallesVenta.Count}";
         }
+        private async void BtnCerrarCaja_Click(object sender, EventArgs e)
+        {
+            if (CajaActual == 0)
+            {
+                MessageBox.Show("No hay una caja activa para cerrar.", "Advertencia", MessageBoxButtons.OK, MessageBoxIcon.Warning);
+                return;
+            }
 
+            var confirmar = MessageBox.Show(
+                "¿Seguro que desea cerrar la caja actual?",
+                "Confirmar cierre de caja",
+                MessageBoxButtons.YesNo,
+                MessageBoxIcon.Question
+            );
+
+            if (confirmar == DialogResult.Yes)
+            {
+                try
+                {
+                    bool exito = await _cajaService.CerrarCaja(CajaActual);
+
+                    if (exito)
+                    {
+                        MessageBox.Show("Caja cerrada correctamente.", "Éxito", MessageBoxButtons.OK, MessageBoxIcon.Information);
+
+                        // Resetear valores
+                        CajaActual = 0;
+                        DetallesVenta.Clear();
+                        dgvVenta.Rows.Clear();
+                        Total = 0;
+                        LTotal.Text = "TOTAL: $0.00";
+                        LItems.Text = "ITEMS: 0";
+
+                        DeshabilitarCampos();
+                        Limpiarcampos();
+
+                        BtnAbrirCaja.Visible = true;
+                        BtnCerrarCaja.Visible = false;
+                    }
+                    else
+                    {
+                        MessageBox.Show("No se pudo cerrar la caja. Intente nuevamente.", "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                    }
+                }
+                catch (Exception ex)
+                {
+                    MessageBox.Show($"Error al cerrar la caja: {ex.Message}", "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                }
+            }
+        }
+
+        private async void FormVenta_FormClosing(object sender, FormClosingEventArgs e)
+        {
+            if(CajaActual != 0) 
+            await _cajaService.CerrarCaja(CajaActual);
+        }
 
     }
 }
