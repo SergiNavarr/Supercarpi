@@ -31,14 +31,20 @@
             label1 = new Label();
             LSeleccion = new Label();
             panelFechas = new Panel();
-            LDesde = new Label();
+            cbTipoGrafico = new ComboBox();
             label3 = new Label();
+            label2 = new Label();
+            btnGenerar = new Button();
+            dtpHasta = new DateTimePicker();
+            dtpDesde = new DateTimePicker();
             LHasta = new Label();
-            dateTimePicker1 = new DateTimePicker();
-            dateTimePicker2 = new DateTimePicker();
-            btnRuta = new Button();
-            button1 = new Button();
-            button2 = new Button();
+            LDesde = new Label();
+            txtEmpleadoId = new TextBox();
+            lblTotalVentas = new Label();
+            lblRecaudacion = new Label();
+            lblProducto = new Label();
+            lblMetodoPago = new Label();
+            panelGrafico = new Panel();
             panelFechas.SuspendLayout();
             SuspendLayout();
             // 
@@ -67,109 +73,159 @@
             // panelFechas
             // 
             panelFechas.BackColor = Color.Teal;
-            panelFechas.Controls.Add(dateTimePicker2);
-            panelFechas.Controls.Add(dateTimePicker1);
+            panelFechas.Controls.Add(cbTipoGrafico);
+            panelFechas.Controls.Add(label3);
+            panelFechas.Controls.Add(label2);
+            panelFechas.Controls.Add(btnGenerar);
+            panelFechas.Controls.Add(dtpHasta);
+            panelFechas.Controls.Add(dtpDesde);
             panelFechas.Controls.Add(LHasta);
             panelFechas.Controls.Add(LDesde);
             panelFechas.Controls.Add(LSeleccion);
-            panelFechas.Location = new Point(73, 99);
+            panelFechas.Location = new Point(43, 73);
             panelFechas.Name = "panelFechas";
-            panelFechas.Size = new Size(528, 100);
+            panelFechas.Size = new Size(528, 127);
             panelFechas.TabIndex = 2;
             // 
-            // LDesde
+            // cbTipoGrafico
             // 
-            LDesde.AutoSize = true;
-            LDesde.Font = new Font("Century Gothic", 12F, FontStyle.Regular, GraphicsUnit.Point, 0);
-            LDesde.ForeColor = SystemColors.ButtonHighlight;
-            LDesde.Location = new Point(88, 56);
-            LDesde.Name = "LDesde";
-            LDesde.Size = new Size(63, 21);
-            LDesde.TabIndex = 2;
-            LDesde.Text = "Desde:";
+            cbTipoGrafico.FormattingEnabled = true;
+            cbTipoGrafico.Location = new Point(166, 94);
+            cbTipoGrafico.Name = "cbTipoGrafico";
+            cbTipoGrafico.Size = new Size(121, 23);
+            cbTipoGrafico.TabIndex = 9;
             // 
             // label3
             // 
             label3.AutoSize = true;
-            label3.Font = new Font("Century Gothic", 12F, FontStyle.Regular, GraphicsUnit.Point, 0);
+            label3.Font = new Font("Century Gothic", 12F);
             label3.ForeColor = SystemColors.ButtonHighlight;
-            label3.Location = new Point(89, 224);
+            label3.Location = new Point(28, 94);
             label3.Name = "label3";
-            label3.Size = new Size(176, 21);
-            label3.TabIndex = 3;
-            label3.Text = "Generar Reporte por:";
+            label3.Size = new Size(142, 21);
+            label3.TabIndex = 8;
+            label3.Text = "Tipo de Reporte: ";
+            // 
+            // label2
+            // 
+            label2.AutoSize = true;
+            label2.Font = new Font("Century Gothic", 12F, FontStyle.Regular, GraphicsUnit.Point, 0);
+            label2.ForeColor = SystemColors.ButtonHighlight;
+            label2.Location = new Point(233, 53);
+            label2.Name = "label2";
+            label2.Size = new Size(63, 21);
+            label2.TabIndex = 7;
+            label2.Text = "Desde:";
+            // 
+            // btnGenerar
+            // 
+            btnGenerar.BackColor = Color.FromArgb(0, 80, 200);
+            btnGenerar.FlatAppearance.BorderSize = 0;
+            btnGenerar.FlatStyle = FlatStyle.Flat;
+            btnGenerar.Font = new Font("Century Gothic", 9.75F);
+            btnGenerar.ForeColor = SystemColors.ButtonHighlight;
+            btnGenerar.Location = new Point(300, 93);
+            btnGenerar.Name = "btnGenerar";
+            btnGenerar.Size = new Size(75, 23);
+            btnGenerar.TabIndex = 6;
+            btnGenerar.Text = "Generar";
+            btnGenerar.UseVisualStyleBackColor = false;
+            // 
+            // dtpHasta
+            // 
+            dtpHasta.Format = DateTimePickerFormat.Short;
+            dtpHasta.Location = new Point(293, 54);
+            dtpHasta.Name = "dtpHasta";
+            dtpHasta.Size = new Size(82, 23);
+            dtpHasta.TabIndex = 5;
+            // 
+            // dtpDesde
+            // 
+            dtpDesde.Format = DateTimePickerFormat.Short;
+            dtpDesde.Location = new Point(97, 54);
+            dtpDesde.Name = "dtpDesde";
+            dtpDesde.Size = new Size(84, 23);
+            dtpDesde.TabIndex = 4;
             // 
             // LHasta
             // 
             LHasta.AutoSize = true;
             LHasta.Font = new Font("Century Gothic", 12F, FontStyle.Regular, GraphicsUnit.Point, 0);
             LHasta.ForeColor = SystemColors.ButtonHighlight;
-            LHasta.Location = new Point(323, 55);
+            LHasta.Location = new Point(227, 54);
             LHasta.Name = "LHasta";
             LHasta.Size = new Size(60, 21);
             LHasta.TabIndex = 3;
             LHasta.Text = "Hasta:";
             // 
-            // dateTimePicker1
+            // LDesde
             // 
-            dateTimePicker1.Format = DateTimePickerFormat.Short;
-            dateTimePicker1.Location = new Point(157, 56);
-            dateTimePicker1.Name = "dateTimePicker1";
-            dateTimePicker1.Size = new Size(84, 23);
-            dateTimePicker1.TabIndex = 4;
+            LDesde.AutoSize = true;
+            LDesde.Font = new Font("Century Gothic", 12F, FontStyle.Regular, GraphicsUnit.Point, 0);
+            LDesde.ForeColor = SystemColors.ButtonHighlight;
+            LDesde.Location = new Point(28, 55);
+            LDesde.Name = "LDesde";
+            LDesde.Size = new Size(63, 21);
+            LDesde.TabIndex = 2;
+            LDesde.Text = "Desde:";
             // 
-            // dateTimePicker2
+            // txtEmpleadoId
             // 
-            dateTimePicker2.Format = DateTimePickerFormat.Short;
-            dateTimePicker2.Location = new Point(389, 55);
-            dateTimePicker2.Name = "dateTimePicker2";
-            dateTimePicker2.Size = new Size(82, 23);
-            dateTimePicker2.TabIndex = 5;
+            txtEmpleadoId.Location = new Point(603, 73);
+            txtEmpleadoId.Name = "txtEmpleadoId";
+            txtEmpleadoId.Size = new Size(100, 23);
+            txtEmpleadoId.TabIndex = 35;
             // 
-            // btnRuta
+            // lblTotalVentas
             // 
-            btnRuta.BackColor = Color.FromArgb(0, 80, 200);
-            btnRuta.Cursor = Cursors.Hand;
-            btnRuta.FlatAppearance.BorderSize = 0;
-            btnRuta.FlatStyle = FlatStyle.Flat;
-            btnRuta.Font = new Font("Century Gothic", 9.75F, FontStyle.Regular, GraphicsUnit.Point, 0);
-            btnRuta.ForeColor = SystemColors.ButtonHighlight;
-            btnRuta.Location = new Point(502, 283);
-            btnRuta.Name = "btnRuta";
-            btnRuta.Size = new Size(168, 27);
-            btnRuta.TabIndex = 32;
-            btnRuta.Text = "Recaudacion por Caja";
-            btnRuta.UseVisualStyleBackColor = false;
+            lblTotalVentas.AutoSize = true;
+            lblTotalVentas.Font = new Font("Century Gothic", 9.75F);
+            lblTotalVentas.ForeColor = SystemColors.ButtonHighlight;
+            lblTotalVentas.Location = new Point(43, 245);
+            lblTotalVentas.Name = "lblTotalVentas";
+            lblTotalVentas.Size = new Size(95, 17);
+            lblTotalVentas.TabIndex = 36;
+            lblTotalVentas.Text = "Total Ventas: ";
             // 
-            // button1
+            // lblRecaudacion
             // 
-            button1.BackColor = Color.FromArgb(0, 80, 200);
-            button1.Cursor = Cursors.Hand;
-            button1.FlatAppearance.BorderSize = 0;
-            button1.FlatStyle = FlatStyle.Flat;
-            button1.Font = new Font("Century Gothic", 9.75F, FontStyle.Regular, GraphicsUnit.Point, 0);
-            button1.ForeColor = SystemColors.ButtonHighlight;
-            button1.Location = new Point(274, 283);
-            button1.Name = "button1";
-            button1.Size = new Size(182, 27);
-            button1.TabIndex = 33;
-            button1.Text = "Productos más vendidos";
-            button1.UseVisualStyleBackColor = false;
+            lblRecaudacion.AutoSize = true;
+            lblRecaudacion.Font = new Font("Century Gothic", 9.75F);
+            lblRecaudacion.ForeColor = SystemColors.ButtonHighlight;
+            lblRecaudacion.Location = new Point(43, 277);
+            lblRecaudacion.Name = "lblRecaudacion";
+            lblRecaudacion.Size = new Size(138, 17);
+            lblRecaudacion.TabIndex = 37;
+            lblRecaudacion.Text = "Total Recaudacion: ";
             // 
-            // button2
+            // lblProducto
             // 
-            button2.BackColor = Color.FromArgb(0, 80, 200);
-            button2.Cursor = Cursors.Hand;
-            button2.FlatAppearance.BorderSize = 0;
-            button2.FlatStyle = FlatStyle.Flat;
-            button2.Font = new Font("Century Gothic", 9.75F, FontStyle.Regular, GraphicsUnit.Point, 0);
-            button2.ForeColor = SystemColors.ButtonHighlight;
-            button2.Location = new Point(89, 283);
-            button2.Name = "button2";
-            button2.Size = new Size(135, 27);
-            button2.TabIndex = 34;
-            button2.Text = "Total de Ventas";
-            button2.UseVisualStyleBackColor = false;
+            lblProducto.AutoSize = true;
+            lblProducto.Font = new Font("Century Gothic", 9.75F);
+            lblProducto.ForeColor = SystemColors.ButtonHighlight;
+            lblProducto.Location = new Point(43, 347);
+            lblProducto.Name = "lblProducto";
+            lblProducto.Size = new Size(165, 17);
+            lblProducto.TabIndex = 38;
+            lblProducto.Text = "Producto mas vendido: ";
+            // 
+            // lblMetodoPago
+            // 
+            lblMetodoPago.AutoSize = true;
+            lblMetodoPago.Font = new Font("Century Gothic", 9.75F);
+            lblMetodoPago.ForeColor = SystemColors.ButtonHighlight;
+            lblMetodoPago.Location = new Point(43, 309);
+            lblMetodoPago.Name = "lblMetodoPago";
+            lblMetodoPago.Size = new Size(217, 17);
+            lblMetodoPago.TabIndex = 39;
+            lblMetodoPago.Text = "Metodo de Pago mas utilizado: ";
+            // 
+            // panelGrafico
+            // 
+            panelGrafico.Location = new Point(424, 218);
+            panelGrafico.Name = "panelGrafico";
+            panelGrafico.Size = new Size(279, 195);
+            panelGrafico.TabIndex = 40;
             // 
             // FormReportes
             // 
@@ -177,10 +233,12 @@
             AutoScaleMode = AutoScaleMode.Font;
             BackColor = Color.FromArgb(49, 66, 82);
             ClientSize = new Size(800, 450);
-            Controls.Add(button2);
-            Controls.Add(button1);
-            Controls.Add(btnRuta);
-            Controls.Add(label3);
+            Controls.Add(panelGrafico);
+            Controls.Add(lblMetodoPago);
+            Controls.Add(lblProducto);
+            Controls.Add(lblRecaudacion);
+            Controls.Add(lblTotalVentas);
+            Controls.Add(txtEmpleadoId);
             Controls.Add(label1);
             Controls.Add(panelFechas);
             FormBorderStyle = FormBorderStyle.None;
@@ -198,11 +256,17 @@
         private Panel panelFechas;
         private Label LHasta;
         private Label LDesde;
+        private DateTimePicker dtpHasta;
+        private DateTimePicker dtpDesde;
+        private Button btnGenerar;
+        private TextBox txtEmpleadoId;
+        private Label label2;
+        private Label lblTotalVentas;
+        private Label lblRecaudacion;
+        private Label lblProducto;
+        private Label lblMetodoPago;
+        private ComboBox cbTipoGrafico;
         private Label label3;
-        private DateTimePicker dateTimePicker2;
-        private DateTimePicker dateTimePicker1;
-        private Button btnRuta;
-        private Button button1;
-        private Button button2;
+        private Panel panelGrafico;
     }
 }

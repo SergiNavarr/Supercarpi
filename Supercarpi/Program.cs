@@ -64,6 +64,11 @@ namespace Supercarpi
             services.AddTransient<IBackupRepository>(sp => new BackupRepository(connectionString));
             services.AddTransient<IBackupService, BackupService>();
 
+            //Registrar servicios de reportes   
+            services.AddTransient<IReporteRepository, ReporteRepository>();
+            services.AddTransient<IReporteService, ReporteService>();
+
+
 
             var serviceProvider = services.BuildServiceProvider();
 
