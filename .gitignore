@@ -363,3 +363,4 @@ MigrationBackup/
 FodyWeavers.xsd
 Supercarpi/appsettings.json
 Supercarpi/appsettings.json
+*.json
