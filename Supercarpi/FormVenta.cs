@@ -70,18 +70,20 @@ namespace Interfaz
             };
 
             PagoTarjeta pagoTarjeta = null;
-            using (var formTarjeta = new FormPagoTarjeta())
-            {
-                var resultado = formTarjeta.ShowDialog();
+            if(pago.MetodoPagoId == 2 || pago.MetodoPagoId == 3) {
+                using (var formTarjeta = new FormPagoTarjeta())
+                {
+                    var resultado = formTarjeta.ShowDialog();
 
-                if (resultado == DialogResult.OK)
-                {
-                    pagoTarjeta = formTarjeta.PagoTarjeta;
-                }
-                else
-                {
-                    MessageBox.Show("Operación cancelada. Venta no registrada.");
-                    return;
+                    if (resultado == DialogResult.OK)
+                    {
+                        pagoTarjeta = formTarjeta.PagoTarjeta;
+                    }
+                    else
+                    {
+                        MessageBox.Show("Operación cancelada. Venta no registrada.");
+                        return;
+                    }
                 }
             }
 
