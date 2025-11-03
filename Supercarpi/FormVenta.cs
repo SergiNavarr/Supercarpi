@@ -1,4 +1,6 @@
 ﻿using Entidades.Models;
+using iTextSharp.text;
+using iTextSharp.text.pdf;
 using Negocio.Implementacion;
 using Negocio.Interfaces;
 using System;
@@ -87,6 +89,7 @@ namespace Interfaz
 
             if (exito)
             {
+                GenerarFacturaPDF(venta, DetallesVenta, empleado);
                 MessageBox.Show("Venta registrada correctamente.");
                 dgvVenta.Rows.Clear();
                 DetallesVenta.Clear();
@@ -302,6 +305,50 @@ namespace Interfaz
         {
             if(CajaActual != 0) 
             await _cajaService.CerrarCaja(CajaActual);
+        }
+
+        private void GenerarFacturaPDF(Venta venta, List<DetalleVenta> detalles, Empleado empleado)
+        {
+            string folderPath = @"C:\Supercarpi\Facturas";
+            Directory.CreateDirectory(folderPath);
+
+            string fileName = $"{folderPath}\\Factura_{venta.VentaId}.pdf";
+
+            Document doc = new Document(PageSize.A4);
+            PdfWriter.GetInstance(doc, new FileStream(fileName, FileMode.Create));
+            doc.Open();
+
+            // Encabezado
+            doc.Add(new Paragraph("SUPERCARPI - Ticket de Venta"));
+            doc.Add(new Paragraph($"Fecha: {venta.Fecha}"));
+            doc.Add(new Paragraph($"Cajero: {empleado.Nombre} {empleado.Apellido}"));
+            doc.Add(new Paragraph($"Caja: {venta.CajaId}"));
+            doc.Add(new Paragraph("--------------------------------------------------"));
+
+            // Tabla productos
+            PdfPTable table = new PdfPTable(4);
+            table.AddCell("Producto");
+            table.AddCell("Precio");
+            table.AddCell("Cantidad");
+            table.AddCell("Subtotal");
+
+            foreach (var d in detalles)
+            {
+                table.AddCell(d.Producto.Nombre);
+                table.AddCell(d.PrecioUnitario.ToString("C2"));
+                table.AddCell(d.Cantidad.ToString());
+                table.AddCell(d.Subtotal.ToString("C2"));
+            }
+
+            doc.Add(table);
+
+            doc.Add(new Paragraph("--------------------------------------------------"));
+            doc.Add(new Paragraph($"TOTAL: {venta.Total.ToString("C2")}"));
+            doc.Add(new Paragraph("Gracias por su compra!"));
+
+            doc.Close();
+
+            MessageBox.Show($"Factura generada en: {fileName}");
         }
 
     }
