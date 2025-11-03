@@ -25,7 +25,7 @@ namespace Datos.Implementacion
             return await _context.Venta
                 .Include(v => v.DetalleVenta)
                     .ThenInclude(dv => dv.Producto)
-                //.Include(v => v.MetodoPago)
+                .Include(v => v.MetodoPago)
                 .Include(v => v.Empleado)
                 .Where(v => v.Fecha >= desde && v.Fecha <= hasta)
                 .ToListAsync();
