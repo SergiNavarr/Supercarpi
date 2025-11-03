@@ -12,5 +12,6 @@ namespace Negocio.Interfaces
         Task<bool> RegistrarPago(Pago pago, PagoTarjeta pagoTarjeta = null);
         Task<List<Pago>> ObtenerPagosPorVenta(int ventaId);
         Task<Pago> ObtenerPagoPorId(int pagoId);
+        Task<List<MetodoPago>> ObtenerMetodosPago();
     }
 }

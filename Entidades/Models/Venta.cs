@@ -7,11 +7,11 @@ public partial class Venta
 {
     public int VentaId { get; set; }
 
-    public DateOnly Fecha { get; set; }
+    public DateTime Fecha { get; set; }
 
     public int EmpleadoId { get; set; }
 
-    public decimal? Total { get; set; }
+    public decimal Total { get; set; }
 
     public int CajaId { get; set; }
 

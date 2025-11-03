@@ -1,4 +1,6 @@
 ﻿using Entidades.Models;
+using iTextSharp.text;
+using iTextSharp.text.pdf;
 using Negocio.Implementacion;
 using Negocio.Interfaces;
 using System;
@@ -18,36 +20,138 @@ namespace Interfaz
         private readonly IPagoService _pagoService;
         private readonly IVentaService _ventaService;
         private readonly IProductoService _productoService;
+        private readonly ICajaService _cajaService;
 
         private decimal Total { get; set; }
         private List<DetalleVenta> DetallesVenta { get; set; } = new List<DetalleVenta>();
 
+        public int CajaActual { get; set; }
+        public Empleado empleado { get; set; }
+
         public FormVenta(IPagoService pagoService,
                          IVentaService ventaService,
-                         IProductoService productoService)
+                         IProductoService productoService,
+                         ICajaService cajaService)
         {
             _pagoService = pagoService;
             _ventaService = ventaService;
             InitializeComponent();
             _productoService = productoService;
+            _cajaService = cajaService;
         }
 
-        private void BtnGenerarVenta_Click(object sender, EventArgs e)
+        private async void BtnGenerarVenta_Click(object sender, EventArgs e)
         {
+            if (DetallesVenta.Count == 0)
+            {
+                MessageBox.Show("No hay productos en la venta.");
+                return;
+            }
+
+            if (CBMetodoPago.SelectedItem == null)
+            {
+                MessageBox.Show("Seleccione un método de pago.");
+                return;
+            }
+
+            var venta = new Venta
+            {
+                EmpleadoId = empleado.EmpleadoId,
+                CajaId = CajaActual,
+                Fecha = DateTime.Now,
+                Total = DetallesVenta.Sum(d => d.Subtotal)
+            };
+
+            var pago = new Pago
+            {
+                VentaId = venta.VentaId, // se setea al guardar
+                MetodoPagoId = (int)CBMetodoPago.SelectedValue,
+                Monto = venta.Total
+            };
+
+            PagoTarjeta pagoTarjeta = null;
+            using (var formTarjeta = new FormPagoTarjeta())
+            {
+                var resultado = formTarjeta.ShowDialog();
+
+                if (resultado == DialogResult.OK)
+                {
+                    pagoTarjeta = formTarjeta.PagoTarjeta;
+                }
+                else
+                {
+                    MessageBox.Show("Operación cancelada. Venta no registrada.");
+                    return;
+                }
+            }
+
+            bool exito = await _ventaService.RegistrarVenta(venta, DetallesVenta, pago, pagoTarjeta);
+
+            if (exito)
+            {
+                GenerarFacturaPDF(venta, DetallesVenta, empleado);
+                MessageBox.Show("Venta registrada correctamente.");
+                dgvVenta.Rows.Clear();
+                DetallesVenta.Clear();
+                Total = 0;
+                LTotal.Text = "TOTAL: $0.00";
+                LItems.Text = "ITEMS: 0";
+            }
+            else
+            {
+                MessageBox.Show("Error al registrar la venta.");
+            }
         }
+
 
         private void BtnAbrirCaja_Click(object sender, EventArgs e)
         {
-            BtnAbrirCaja.Visible = false;
-            BtnCerrarCaja.Visible = true;
+            using (var form = new FormSeleccionCaja(_cajaService))
+            {
+                if (form.ShowDialog() == DialogResult.OK)
+                {
+                    CajaActual = form.CajaSeleccionada.CajaId;
+                    MessageBox.Show($"Caja {form.CajaSeleccionada.Numero} abierta correctamente.");
+
+                    BtnAbrirCaja.Visible = false;
+                    BtnCerrarCaja.Visible = true;
+                    HabilitarCampos();
+                }
+            }
+        }
+
+        private void HabilitarCampos()
+        {
             BtnGenerarVenta.Enabled = true;
             BtnAgregar.Enabled = true;
             BtnBuscar.Enabled = true;
             BtnLimpiar.Enabled = true;
-            TBNombre.Enabled = true;
             TBCodigo.Enabled = true;
             CBMetodoPago.Enabled = true;
             dgvVenta.Enabled = true;
+        }
+
+        private void DeshabilitarCampos()
+        {
+            BtnGenerarVenta.Enabled = false;
+            BtnAgregar.Enabled = false;
+            BtnBuscar.Enabled = false;
+            BtnLimpiar.Enabled = false;
+            TBCodigo.Enabled = false;
+            CBMetodoPago.Enabled = false;
+            dgvVenta.Enabled = false;
+        }
+
+
+
+        private void Limpiarcampos()
+        {
+            DetallesVenta = new List<DetalleVenta>();
+            dgvVenta.Rows.Clear();
+            TBCodigo.Clear();
+            CBMetodoPago.SelectedIndex = -1;
+            LTotal.Text = "TOTAL: $0.00";
+            LItems.Text = "ITEMS: 0";
         }
 
         private async void BtnAgregar_Click(object sender, EventArgs e)
@@ -58,58 +162,193 @@ namespace Interfaz
                 return;
             }
 
-            Producto producto = await _productoService.ObtenerPorId(id);
+            var producto = await _productoService.ObtenerPorId(id);
 
             if (producto != null)
-            {
-                // Buscar si ya existe el detalle
-                var detalleExistente = DetallesVenta.FirstOrDefault(d => d.ProductoId == producto.ProductoId);
-
-                if (detalleExistente != null)
-                {
-                    detalleExistente.Cantidad++;
-                    detalleExistente.Subtotal = detalleExistente.Cantidad * detalleExistente.PrecioUnitario;
-                }
-                else
-                {
-                    DetallesVenta.Add(new DetalleVenta
-                    {
-                        ProductoId = producto.ProductoId,
-                        Cantidad = 1,
-                        PrecioUnitario = producto.PrecioUnitario,
-                        Subtotal = producto.PrecioUnitario
-                    });
-                }
-
-                Total = DetallesVenta.Sum(d => d.Subtotal);
-                LTotal.Text = $"Total: {Total:C2}";
-                LItems.Text = $"Items: {DetallesVenta.Sum(d => d.Cantidad)}";
-
-                // Refrescar grilla
-                CargarDetalles();
-            }
+                AgregarProductoAVenta(producto);
             else
-            {
                 MessageBox.Show("Producto no encontrado.");
+        }
+
+
+        private void BtnLimpiar_Click(object sender, EventArgs e)
+        {
+            Limpiarcampos();
+        }
+
+        private async Task CargarMetodosPago()
+        {
+            try
+            {
+                var metodos = await _pagoService.ObtenerMetodosPago();
+
+                CBMetodoPago.DataSource = metodos;
+                CBMetodoPago.DisplayMember = "Nombre";
+                CBMetodoPago.ValueMember = "MetodoPagoId";
+                CBMetodoPago.SelectedIndex = -1;
+            }
+            catch (Exception ex)
+            {
+                MessageBox.Show("Error al cargar los Metodos de pago: " + ex.Message);
             }
         }
 
-        private void CargarDetalles()
+        private async void FormVenta_Load(object sender, EventArgs e)
         {
-            dgvVenta.Rows.Clear();
+            await CargarMetodosPago();
+            dgvVenta.ForeColor = Color.Black;
+        }
 
-            foreach (var dv in DetallesVenta)
+        private void BtnBuscar_Click(object sender, EventArgs e)
+        {
+            using (var formBusqueda = new FormVentaBusqueda(_productoService))
             {
-
-                dgvVenta.Rows.Add(
-                    dv.ProductoId,
-                    null,
-                    dv.Cantidad,
-                    dv.PrecioUnitario.ToString("C2"),
-                    dv.Subtotal.ToString("C2")
-                );
-
+                if (formBusqueda.ShowDialog() == DialogResult.OK)
+                {
+                    var producto = formBusqueda.ProductoSeleccionado;
+                    if (producto != null)
+                    {
+                        AgregarProductoAVenta(producto);
+                    }
+                }
             }
+        }
+
+        private void AgregarProductoAVenta(Producto producto)
+        {
+            // Si ya existe en la lista, aumentar cantidad
+            var existente = DetallesVenta.FirstOrDefault(d => d.ProductoId == producto.ProductoId);
+            if (existente != null)
+            {
+                existente.Cantidad++;
+                existente.Subtotal = existente.Cantidad * existente.PrecioUnitario;
+                // refrescar dgvVenta
+                foreach (DataGridViewRow row in dgvVenta.Rows)
+                {
+                    if ((int)row.Cells["ProductoId"].Value == producto.ProductoId)
+                    {
+                        row.Cells["Cantidad"].Value = existente.Cantidad;
+                        row.Cells["Subtotal"].Value = existente.Subtotal;
+                        break;
+                    }
+                }
+            }
+            else
+            {
+                var detalle = new DetalleVenta
+                {
+                    ProductoId = producto.ProductoId,
+                    Cantidad = 1,
+                    PrecioUnitario = producto.PrecioUnitario,
+                    Subtotal = producto.PrecioUnitario
+                };
+                DetallesVenta.Add(detalle);
+                dgvVenta.Rows.Add(producto.ProductoId, producto.Nombre, detalle.PrecioUnitario, detalle.Cantidad, detalle.Subtotal);
+            }
+
+            Total = DetallesVenta.Sum(d => d.Subtotal);
+            LTotal.Text = $"TOTAL: ${Total}";
+            LItems.Text = $"ITEMS: {DetallesVenta.Count}";
+        }
+        private async void BtnCerrarCaja_Click(object sender, EventArgs e)
+        {
+            if (CajaActual == 0)
+            {
+                MessageBox.Show("No hay una caja activa para cerrar.", "Advertencia", MessageBoxButtons.OK, MessageBoxIcon.Warning);
+                return;
+            }
+
+            var confirmar = MessageBox.Show(
+                "¿Seguro que desea cerrar la caja actual?",
+                "Confirmar cierre de caja",
+                MessageBoxButtons.YesNo,
+                MessageBoxIcon.Question
+            );
+
+            if (confirmar == DialogResult.Yes)
+            {
+                try
+                {
+                    bool exito = await _cajaService.CerrarCaja(CajaActual);
+
+                    if (exito)
+                    {
+                        MessageBox.Show("Caja cerrada correctamente.", "Éxito", MessageBoxButtons.OK, MessageBoxIcon.Information);
+
+                        // Resetear valores
+                        CajaActual = 0;
+                        DetallesVenta.Clear();
+                        dgvVenta.Rows.Clear();
+                        Total = 0;
+                        LTotal.Text = "TOTAL: $0.00";
+                        LItems.Text = "ITEMS: 0";
+
+                        DeshabilitarCampos();
+                        Limpiarcampos();
+
+                        BtnAbrirCaja.Visible = true;
+                        BtnCerrarCaja.Visible = false;
+                    }
+                    else
+                    {
+                        MessageBox.Show("No se pudo cerrar la caja. Intente nuevamente.", "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                    }
+                }
+                catch (Exception ex)
+                {
+                    MessageBox.Show($"Error al cerrar la caja: {ex.Message}", "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                }
+            }
+        }
+
+        private async void FormVenta_FormClosing(object sender, FormClosingEventArgs e)
+        {
+            if(CajaActual != 0) 
+            await _cajaService.CerrarCaja(CajaActual);
+        }
+
+        private void GenerarFacturaPDF(Venta venta, List<DetalleVenta> detalles, Empleado empleado)
+        {
+            string folderPath = @"C:\Supercarpi\Facturas";
+            Directory.CreateDirectory(folderPath);
+
+            string fileName = $"{folderPath}\\Factura_{venta.VentaId}.pdf";
+
+            Document doc = new Document(PageSize.A4);
+            PdfWriter.GetInstance(doc, new FileStream(fileName, FileMode.Create));
+            doc.Open();
+
+            // Encabezado
+            doc.Add(new Paragraph("SUPERCARPI - Ticket de Venta"));
+            doc.Add(new Paragraph($"Fecha: {venta.Fecha}"));
+            doc.Add(new Paragraph($"Cajero: {empleado.Nombre} {empleado.Apellido}"));
+            doc.Add(new Paragraph($"Caja: {venta.CajaId}"));
+            doc.Add(new Paragraph("--------------------------------------------------"));
+
+            // Tabla productos
+            PdfPTable table = new PdfPTable(4);
+            table.AddCell("Producto");
+            table.AddCell("Precio");
+            table.AddCell("Cantidad");
+            table.AddCell("Subtotal");
+
+            foreach (var d in detalles)
+            {
+                table.AddCell(d.Producto.Nombre);
+                table.AddCell(d.PrecioUnitario.ToString("C2"));
+                table.AddCell(d.Cantidad.ToString());
+                table.AddCell(d.Subtotal.ToString("C2"));
+            }
+
+            doc.Add(table);
+
+            doc.Add(new Paragraph("--------------------------------------------------"));
+            doc.Add(new Paragraph($"TOTAL: {venta.Total.ToString("C2")}"));
+            doc.Add(new Paragraph("Gracias por su compra!"));
+
+            doc.Close();
+
+            MessageBox.Show($"Factura generada en: {fileName}");
         }
 
     }

@@ -13,5 +13,6 @@ namespace Negocio.Interfaces
         Task<bool> CerrarCaja(int numero);
         Task<Caja> ObtenerCajaAbierta(int numero);
         Task<List<Caja>> ObtenerCajas();
+        Task<List<Caja>> ObtenerCajasCerradas();
     }
 }
