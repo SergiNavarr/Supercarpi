@@ -53,9 +53,9 @@
             label1.AutoSize = true;
             label1.Font = new Font("Century Gothic", 21F, FontStyle.Bold, GraphicsUnit.Point, 0);
             label1.ForeColor = SystemColors.ButtonHighlight;
-            label1.Location = new Point(43, 33);
+            label1.Location = new Point(49, 44);
             label1.Name = "label1";
-            label1.Size = new Size(296, 34);
+            label1.Size = new Size(365, 41);
             label1.TabIndex = 0;
             label1.Text = "Gestión de Reportes ";
             // 
@@ -64,9 +64,9 @@
             LSeleccion.AutoSize = true;
             LSeleccion.Font = new Font("Century Gothic", 12F, FontStyle.Regular, GraphicsUnit.Point, 0);
             LSeleccion.ForeColor = SystemColors.ButtonHighlight;
-            LSeleccion.Location = new Point(16, 13);
+            LSeleccion.Location = new Point(18, 17);
             LSeleccion.Name = "LSeleccion";
-            LSeleccion.Size = new Size(166, 21);
+            LSeleccion.Size = new Size(212, 23);
             LSeleccion.TabIndex = 1;
             LSeleccion.Text = "Seleccione la fecha:";
             // 
@@ -82,17 +82,19 @@
             panelFechas.Controls.Add(LHasta);
             panelFechas.Controls.Add(LDesde);
             panelFechas.Controls.Add(LSeleccion);
-            panelFechas.Location = new Point(43, 73);
+            panelFechas.Location = new Point(49, 97);
+            panelFechas.Margin = new Padding(3, 4, 3, 4);
             panelFechas.Name = "panelFechas";
-            panelFechas.Size = new Size(528, 127);
+            panelFechas.Size = new Size(603, 169);
             panelFechas.TabIndex = 2;
             // 
             // cbTipoGrafico
             // 
             cbTipoGrafico.FormattingEnabled = true;
-            cbTipoGrafico.Location = new Point(166, 94);
+            cbTipoGrafico.Location = new Point(190, 125);
+            cbTipoGrafico.Margin = new Padding(3, 4, 3, 4);
             cbTipoGrafico.Name = "cbTipoGrafico";
-            cbTipoGrafico.Size = new Size(121, 23);
+            cbTipoGrafico.Size = new Size(138, 28);
             cbTipoGrafico.TabIndex = 9;
             // 
             // label3
@@ -100,9 +102,9 @@
             label3.AutoSize = true;
             label3.Font = new Font("Century Gothic", 12F);
             label3.ForeColor = SystemColors.ButtonHighlight;
-            label3.Location = new Point(28, 94);
+            label3.Location = new Point(32, 125);
             label3.Name = "label3";
-            label3.Size = new Size(142, 21);
+            label3.Size = new Size(176, 23);
             label3.TabIndex = 8;
             label3.Text = "Tipo de Reporte: ";
             // 
@@ -111,9 +113,9 @@
             label2.AutoSize = true;
             label2.Font = new Font("Century Gothic", 12F, FontStyle.Regular, GraphicsUnit.Point, 0);
             label2.ForeColor = SystemColors.ButtonHighlight;
-            label2.Location = new Point(233, 53);
+            label2.Location = new Point(266, 71);
             label2.Name = "label2";
-            label2.Size = new Size(63, 21);
+            label2.Size = new Size(78, 23);
             label2.TabIndex = 7;
             label2.Text = "Desde:";
             // 
@@ -124,27 +126,31 @@
             btnGenerar.FlatStyle = FlatStyle.Flat;
             btnGenerar.Font = new Font("Century Gothic", 9.75F);
             btnGenerar.ForeColor = SystemColors.ButtonHighlight;
-            btnGenerar.Location = new Point(300, 93);
+            btnGenerar.Location = new Point(343, 124);
+            btnGenerar.Margin = new Padding(3, 4, 3, 4);
             btnGenerar.Name = "btnGenerar";
-            btnGenerar.Size = new Size(75, 23);
+            btnGenerar.Size = new Size(86, 31);
             btnGenerar.TabIndex = 6;
             btnGenerar.Text = "Generar";
             btnGenerar.UseVisualStyleBackColor = false;
+            btnGenerar.Click += btnGenerar_Click;
             // 
             // dtpHasta
             // 
             dtpHasta.Format = DateTimePickerFormat.Short;
-            dtpHasta.Location = new Point(293, 54);
+            dtpHasta.Location = new Point(335, 72);
+            dtpHasta.Margin = new Padding(3, 4, 3, 4);
             dtpHasta.Name = "dtpHasta";
-            dtpHasta.Size = new Size(82, 23);
+            dtpHasta.Size = new Size(93, 27);
             dtpHasta.TabIndex = 5;
             // 
             // dtpDesde
             // 
             dtpDesde.Format = DateTimePickerFormat.Short;
-            dtpDesde.Location = new Point(97, 54);
+            dtpDesde.Location = new Point(111, 72);
+            dtpDesde.Margin = new Padding(3, 4, 3, 4);
             dtpDesde.Name = "dtpDesde";
-            dtpDesde.Size = new Size(84, 23);
+            dtpDesde.Size = new Size(95, 27);
             dtpDesde.TabIndex = 4;
             // 
             // LHasta
@@ -152,9 +158,9 @@
             LHasta.AutoSize = true;
             LHasta.Font = new Font("Century Gothic", 12F, FontStyle.Regular, GraphicsUnit.Point, 0);
             LHasta.ForeColor = SystemColors.ButtonHighlight;
-            LHasta.Location = new Point(227, 54);
+            LHasta.Location = new Point(259, 72);
             LHasta.Name = "LHasta";
-            LHasta.Size = new Size(60, 21);
+            LHasta.Size = new Size(72, 23);
             LHasta.TabIndex = 3;
             LHasta.Text = "Hasta:";
             // 
@@ -163,17 +169,18 @@
             LDesde.AutoSize = true;
             LDesde.Font = new Font("Century Gothic", 12F, FontStyle.Regular, GraphicsUnit.Point, 0);
             LDesde.ForeColor = SystemColors.ButtonHighlight;
-            LDesde.Location = new Point(28, 55);
+            LDesde.Location = new Point(32, 73);
             LDesde.Name = "LDesde";
-            LDesde.Size = new Size(63, 21);
+            LDesde.Size = new Size(78, 23);
             LDesde.TabIndex = 2;
             LDesde.Text = "Desde:";
             // 
             // txtEmpleadoId
             // 
-            txtEmpleadoId.Location = new Point(603, 73);
+            txtEmpleadoId.Location = new Point(689, 97);
+            txtEmpleadoId.Margin = new Padding(3, 4, 3, 4);
             txtEmpleadoId.Name = "txtEmpleadoId";
-            txtEmpleadoId.Size = new Size(100, 23);
+            txtEmpleadoId.Size = new Size(114, 27);
             txtEmpleadoId.TabIndex = 35;
             // 
             // lblTotalVentas
@@ -181,9 +188,9 @@
             lblTotalVentas.AutoSize = true;
             lblTotalVentas.Font = new Font("Century Gothic", 9.75F);
             lblTotalVentas.ForeColor = SystemColors.ButtonHighlight;
-            lblTotalVentas.Location = new Point(43, 245);
+            lblTotalVentas.Location = new Point(49, 327);
             lblTotalVentas.Name = "lblTotalVentas";
-            lblTotalVentas.Size = new Size(95, 17);
+            lblTotalVentas.Size = new Size(126, 21);
             lblTotalVentas.TabIndex = 36;
             lblTotalVentas.Text = "Total Ventas: ";
             // 
@@ -192,9 +199,9 @@
             lblRecaudacion.AutoSize = true;
             lblRecaudacion.Font = new Font("Century Gothic", 9.75F);
             lblRecaudacion.ForeColor = SystemColors.ButtonHighlight;
-            lblRecaudacion.Location = new Point(43, 277);
+            lblRecaudacion.Location = new Point(49, 369);
             lblRecaudacion.Name = "lblRecaudacion";
-            lblRecaudacion.Size = new Size(138, 17);
+            lblRecaudacion.Size = new Size(179, 21);
             lblRecaudacion.TabIndex = 37;
             lblRecaudacion.Text = "Total Recaudacion: ";
             // 
@@ -203,9 +210,9 @@
             lblProducto.AutoSize = true;
             lblProducto.Font = new Font("Century Gothic", 9.75F);
             lblProducto.ForeColor = SystemColors.ButtonHighlight;
-            lblProducto.Location = new Point(43, 347);
+            lblProducto.Location = new Point(49, 463);
             lblProducto.Name = "lblProducto";
-            lblProducto.Size = new Size(165, 17);
+            lblProducto.Size = new Size(211, 21);
             lblProducto.TabIndex = 38;
             lblProducto.Text = "Producto mas vendido: ";
             // 
@@ -214,25 +221,26 @@
             lblMetodoPago.AutoSize = true;
             lblMetodoPago.Font = new Font("Century Gothic", 9.75F);
             lblMetodoPago.ForeColor = SystemColors.ButtonHighlight;
-            lblMetodoPago.Location = new Point(43, 309);
+            lblMetodoPago.Location = new Point(49, 412);
             lblMetodoPago.Name = "lblMetodoPago";
-            lblMetodoPago.Size = new Size(217, 17);
+            lblMetodoPago.Size = new Size(278, 21);
             lblMetodoPago.TabIndex = 39;
             lblMetodoPago.Text = "Metodo de Pago mas utilizado: ";
             // 
             // panelGrafico
             // 
-            panelGrafico.Location = new Point(424, 218);
+            panelGrafico.Location = new Point(485, 291);
+            panelGrafico.Margin = new Padding(3, 4, 3, 4);
             panelGrafico.Name = "panelGrafico";
-            panelGrafico.Size = new Size(279, 195);
+            panelGrafico.Size = new Size(319, 260);
             panelGrafico.TabIndex = 40;
             // 
             // FormReportes
             // 
-            AutoScaleDimensions = new SizeF(7F, 15F);
+            AutoScaleDimensions = new SizeF(8F, 20F);
             AutoScaleMode = AutoScaleMode.Font;
             BackColor = Color.FromArgb(49, 66, 82);
-            ClientSize = new Size(800, 450);
+            ClientSize = new Size(914, 600);
             Controls.Add(panelGrafico);
             Controls.Add(lblMetodoPago);
             Controls.Add(lblProducto);
@@ -242,7 +250,9 @@
             Controls.Add(label1);
             Controls.Add(panelFechas);
             FormBorderStyle = FormBorderStyle.None;
+            Margin = new Padding(3, 4, 3, 4);
             Name = "FormReportes";
+            Load += FormReportes_Load;
             panelFechas.ResumeLayout(false);
             panelFechas.PerformLayout();
             ResumeLayout(false);

@@ -1,5 +1,8 @@
 ﻿using Entidades.DTOs;
 using Negocio.Interfaces;
+using ScottPlot;
+using ScottPlot.WinForms;
+using ScottPlot.TickGenerators;
 using System;
 using System.Collections.Generic;
 using System.ComponentModel;
@@ -9,7 +12,6 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using System.Windows.Forms;
-using ScottPlot;
 
 
 namespace Interfaz
@@ -68,40 +70,59 @@ namespace Interfaz
         private void MostrarGrafico(ReporteResumenDTO reporte)
         {
             panelGrafico.Controls.Clear();
-            var plt = new ScottPlot.WinForms.FormsPlot();
-            plt.Dock = DockStyle.Fill;
 
-            if (cbTipoGrafico.SelectedItem.ToString() == "Ventas por producto" &&
-                reporte.VentasPorProducto != null && reporte.VentasPorProducto.Any())
+            var formsPlot = new FormsPlot { Dock = DockStyle.Fill };
+            var plt = formsPlot.Plot;
+
+            if (cbTipoGrafico.SelectedItem?.ToString() == "Ventas por producto" &&
+                reporte.VentasPorProducto?.Any() == true)
             {
                 var etiquetas = reporte.VentasPorProducto.Keys.ToArray();
                 var valores = reporte.VentasPorProducto.Values.Select(v => (double)v).ToArray();
 
-                plt.Plot.AddBar(valores);
-                plt.Plot.XTicks(etiquetas);
-                plt.Plot.Title("Ventas por producto");
-                plt.Plot.YLabel("Cantidad vendida");
+                var barPlot = plt.Add.Bars(valores);
+
+                // color uniforme (loop sobre cada barra)
+                foreach (var b in barPlot.Bars)
+                    b.FillColor = Colors.SteelBlue;
+
+                // etiquetas del eje X
+                plt.Axes.Bottom.TickGenerator = new NumericManual(
+                Enumerable.Range(0, etiquetas.Length).Select(i => (double)i).ToArray(),
+                    etiquetas
+                );
+
+                plt.Title("Ventas por producto");
+                plt.YLabel("Cantidad vendida");
+                plt.Axes.SetLimits(0, double.NaN, 0, double.NaN);
+
             }
-            else if (cbTipoGrafico.SelectedItem.ToString() == "Ventas por método de pago" &&
-                     reporte.VentasPorMetodoPago != null && reporte.VentasPorMetodoPago.Any())
+            else if (cbTipoGrafico.SelectedItem?.ToString() == "Ventas por método de pago" &&
+                     reporte.VentasPorMetodoPago?.Any() == true)
             {
                 var etiquetas = reporte.VentasPorMetodoPago.Keys.ToArray();
                 var valores = reporte.VentasPorMetodoPago.Values.Select(v => (double)v).ToArray();
 
-                plt.Plot.AddBar(valores);
-                plt.Plot.XTicks(etiquetas);
-                plt.Plot.Title("Ventas por método de pago");
-                plt.Plot.YLabel("Cantidad de ventas");
+                var barPlot = plt.Add.Bars(valores);
+                foreach (var b in barPlot.Bars)
+                    b.FillColor = Colors.OrangeRed;
+
+                plt.Axes.Bottom.TickGenerator = new NumericManual(
+                    Enumerable.Range(0, etiquetas.Length).Select(i => (double)i).ToArray(),
+                    etiquetas
+                );
+
+                plt.Title("Ventas por método de pago");
+                plt.YLabel("Cantidad de ventas");
+                plt.Axes.SetLimits(0, double.NaN, 0, double.NaN);
             }
             else
             {
-                plt.Plot.Title("Sin datos para graficar");
+                plt.Title("Sin datos para graficar");
             }
 
-            plt.Plot.SetAxisLimits(yMin: 0);
-            plt.Refresh();
-
-            panelGrafico.Controls.Add(plt);
+            formsPlot.Refresh();
+            panelGrafico.Controls.Add(formsPlot);
         }
 
     }
