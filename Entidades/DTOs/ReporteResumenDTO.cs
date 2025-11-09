@@ -16,5 +16,11 @@ namespace Entidades.DTOs
         // Nuevos campos para mostrar gráficos opcionales
         public Dictionary<string, int>? VentasPorProducto { get; set; }
         public Dictionary<string, int>? VentasPorMetodoPago { get; set; }
+
+        //Nuevos campos para mostrar los reportes por Caja
+        public int? CajaId { get; set; }
+        public decimal TotalVentasCaja { get; set; }
+        public string MetodoPagoMasUsadoCaja { get; set; } = string.Empty;
+
     }
 }

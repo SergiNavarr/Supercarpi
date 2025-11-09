@@ -1,8 +1,9 @@
 ﻿using Entidades.DTOs;
+using Entidades.Models;
 using Negocio.Interfaces;
 using ScottPlot;
-using ScottPlot.WinForms;
 using ScottPlot.TickGenerators;
+using ScottPlot.WinForms;
 using System;
 using System.Collections.Generic;
 using System.ComponentModel;
@@ -19,14 +20,25 @@ namespace Interfaz
     public partial class FormReportes : Form
     {
         private readonly IReporteService _reporteService;
-
-        public FormReportes(IReporteService reporteService)
+        private readonly ICajaService _cajaService;
+        private FormsPlot formsPlot1;
+        public FormReportes(IReporteService reporteService, ICajaService cajaService)
         {
             InitializeComponent();
             _reporteService = reporteService;
+            _cajaService = cajaService;
+            //InicializarGrafico();
         }
+        // private void InicializarGrafico()
+        //{
+        //formsPlot1 = new FormsPlot
+        //{
+        // Dock = DockStyle.Fill
+        //};
+        //panelGrafico.Controls.Add(formsPlot1);
+        // }
 
-        private void FormReportes_Load(object sender, EventArgs e)
+        private async void FormReportes_Load(object sender, EventArgs e)
         {
             dtpDesde.Value = DateTime.Now.AddDays(-30);
             dtpHasta.Value = DateTime.Now;
@@ -37,26 +49,64 @@ namespace Interfaz
                 "Ventas por método de pago"
             });
             cbTipoGrafico.SelectedIndex = 0;
+
+            await CargarCajasAsync();
         }
 
+        // Carga las cajas activas desde el servicio de negocio
+        private async Task CargarCajasAsync()
+        {
+            try
+            {
+                var cajas = await _cajaService.ObtenerCajas();
+
+                if (cajas == null || !cajas.Any())
+                {
+                    MessageBox.Show("No se encontraron cajas activas.", "Aviso",
+                        MessageBoxButtons.OK, MessageBoxIcon.Information);
+                    return;
+                }
+
+                cbCaja.DataSource = cajas;
+                cbCaja.DisplayMember = "Numero"; // mostramos el número de caja
+                cbCaja.ValueMember = "CajaId";
+                cbCaja.SelectedIndex = -1;
+            }
+            catch (Exception ex)
+            {
+                MessageBox.Show($"Error al cargar las cajas: {ex.Message}",
+                    "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
+            }
+        }
         private async void btnGenerar_Click(object sender, EventArgs e)
         {
-            DateTime desde = dtpDesde.Value;
-            DateTime hasta = dtpHasta.Value;
-            int? empleadoId = string.IsNullOrWhiteSpace(txtEmpleadoId.Text)
-                ? null
-                : int.Parse(txtEmpleadoId.Text);
-
-            var reporte = await _reporteService.GenerarReporteVentasAsync(desde, hasta, empleadoId);
-
-            if (reporte == null)
+            try
             {
-                MessageBox.Show("No se encontraron datos en el periodo seleccionado.");
-                return;
-            }
+                DateTime desde = dtpDesde.Value;
+                DateTime hasta = dtpHasta.Value;
 
-            MostrarResumen(reporte);
-            MostrarGrafico(reporte);
+                int? empleadoId = string.IsNullOrWhiteSpace(txtEmpleadoId.Text)
+                    ? null
+                    : int.Parse(txtEmpleadoId.Text);
+
+                int? cajaId = cbCaja.SelectedValue as int?;
+
+                var reporte = await _reporteService.GenerarReporteVentasAsync(desde, hasta, empleadoId, cajaId);
+
+                if (reporte == null)
+                {
+                    MessageBox.Show("No se encontraron datos en el periodo seleccionado.");
+                    return;
+                }
+
+                MostrarResumen(reporte);
+                MostrarGrafico(reporte);
+            }
+            catch (Exception ex)
+            {
+                MessageBox.Show($"Error al generar el reporte: {ex.Message}",
+                    "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
+            }
         }
 
         private void MostrarResumen(ReporteResumenDTO reporte)
@@ -71,6 +121,7 @@ namespace Interfaz
         {
             panelGrafico.Controls.Clear();
 
+
             var formsPlot = new FormsPlot { Dock = DockStyle.Fill };
             var plt = formsPlot.Plot;
 
@@ -81,21 +132,17 @@ namespace Interfaz
                 var valores = reporte.VentasPorProducto.Values.Select(v => (double)v).ToArray();
 
                 var barPlot = plt.Add.Bars(valores);
-
-                // color uniforme (loop sobre cada barra)
                 foreach (var b in barPlot.Bars)
                     b.FillColor = Colors.SteelBlue;
 
-                // etiquetas del eje X
                 plt.Axes.Bottom.TickGenerator = new NumericManual(
-                Enumerable.Range(0, etiquetas.Length).Select(i => (double)i).ToArray(),
+                    Enumerable.Range(0, etiquetas.Length).Select(i => (double)i).ToArray(),
                     etiquetas
                 );
 
                 plt.Title("Ventas por producto");
                 plt.YLabel("Cantidad vendida");
                 plt.Axes.SetLimits(0, double.NaN, 0, double.NaN);
-
             }
             else if (cbTipoGrafico.SelectedItem?.ToString() == "Ventas por método de pago" &&
                      reporte.VentasPorMetodoPago?.Any() == true)
@@ -125,5 +172,11 @@ namespace Interfaz
             panelGrafico.Controls.Add(formsPlot);
         }
 
+        private void label4_Click(object sender, EventArgs e)
+        {
+
+        }
     }
+
 }
+

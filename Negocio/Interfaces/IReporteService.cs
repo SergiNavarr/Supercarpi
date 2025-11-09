@@ -9,6 +9,8 @@ namespace Negocio.Interfaces
 {
     public interface IReporteService
     {
-        Task<ReporteResumenDTO> GenerarReporteVentasAsync(DateTime desde, DateTime hasta, int? empleadoId);
+        Task<ReporteResumenDTO> GenerarReporteVentasAsync(DateTime desde, DateTime hasta, int? empleadoId, int? cajaId);
     }
 }
+
+

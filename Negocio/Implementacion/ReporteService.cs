@@ -18,9 +18,10 @@ namespace Negocio.Implementacion
             _reporteRepository = reporteRepository;
         }
 
-        public async Task<ReporteResumenDTO> GenerarReporteVentasAsync(DateTime desde, DateTime hasta, int? empleadoId)
+        public async Task<ReporteResumenDTO> GenerarReporteVentasAsync(DateTime desde, DateTime hasta, int? empleadoId, int? cajaId)
         {
-            return await _reporteRepository.ObtenerReporteVentasAsync(desde, hasta, empleadoId);
+            return await _reporteRepository.ObtenerReporteVentasAsync(desde, hasta, empleadoId, cajaId);
         }
+
     }
 }
