@@ -62,11 +62,11 @@
             // CBCategoria
             // 
             CBCategoria.FormattingEnabled = true;
+            CBCategoria.Items.AddRange(new object[] { "Supercarpi_db" });
             CBCategoria.Location = new Point(322, 116);
             CBCategoria.Name = "CBCategoria";
             CBCategoria.Size = new Size(257, 23);
             CBCategoria.TabIndex = 14;
-            
             // 
             // label1
             // 
