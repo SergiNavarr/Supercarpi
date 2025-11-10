@@ -125,11 +125,7 @@ namespace Datos.Implementacion
                 ResumenPorCaja = resumenPorCaja
             };
         }
-
-
     }
-
-
 }
 
 

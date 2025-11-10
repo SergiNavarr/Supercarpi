@@ -16,5 +16,7 @@ namespace Negocio.Interfaces
         Task<bool> Eliminar(int id);
         Task<Empleado> ObtenerPorCredenciales(string dni, string password);
         Task<Empleado> ObtenerPorDni(string dni);
+
+        Task<List<Empleado>> ObtenerCajeros();
     }
 }

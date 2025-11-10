@@ -1,5 +1,6 @@
 ﻿using Entidades.DTOs;
 using Entidades.Models;
+using Negocio.Implementacion;
 using Negocio.Interfaces;
 using ScottPlot;
 using ScottPlot.TickGenerators;
@@ -22,15 +23,16 @@ namespace Interfaz
     {
         private readonly IReporteService _reporteService;
         private readonly ICajaService _cajaService;
+        private readonly IEmpleadoService _empleadoService;
         private FormsPlot formsPlot1;
-        public FormReportes(IReporteService reporteService, ICajaService cajaService)
+        public FormReportes(IReporteService reporteService, ICajaService cajaService, IEmpleadoService empleadoService)
         {
             InitializeComponent();
             _reporteService = reporteService;
             _cajaService = cajaService;
-            
+            _empleadoService = empleadoService;
         }
-        
+
 
         private async void FormReportes_Load(object sender, EventArgs e)
         {
@@ -45,6 +47,7 @@ namespace Interfaz
             cbTipoGrafico.SelectedIndex = 0;
 
             await CargarCajasAsync();
+            await CargarCajerosAsync();
         }
 
         // Carga las cajas activas desde el servicio de negocio
@@ -60,8 +63,11 @@ namespace Interfaz
                         MessageBoxButtons.OK, MessageBoxIcon.Information);
                     return;
                 }
+                cajas.Insert(0, new Caja { CajaId = 0, Numero = -1 });
 
-                cbCaja.DataSource = cajas;
+                cbCaja.DataSource = cajas
+                    .Select(c => new { c.CajaId, Texto = c.CajaId == 0 ? "(Todas)" : $"Caja {c.Numero}" })
+                    .ToList();
                 cbCaja.DisplayMember = "Numero"; // mostramos el número de caja
                 cbCaja.ValueMember = "CajaId";
                 cbCaja.SelectedIndex = -1;
@@ -72,6 +78,37 @@ namespace Interfaz
                     "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
             }
         }
+
+        private async Task CargarCajerosAsync()
+        {
+            try
+            {
+                var cajeros = await _empleadoService.ObtenerCajeros();
+
+                // Agregar opción "Todos"
+                cajeros.Insert(0, new Empleado { EmpleadoId = 0, Nombre = "(Todos)", Apellido = "" });
+
+                // Crear lista para el ComboBox
+                var listaCombo = cajeros
+                    .Select(c => new {
+                        c.EmpleadoId,
+                        NombreCompleto = $"{c.Nombre} {c.Apellido}".Trim()
+                    })
+                    .ToList();
+
+                // Asignar al combo
+                cbCajero.DataSource = listaCombo;
+                cbCajero.DisplayMember = "NombreCompleto"; 
+                cbCajero.ValueMember = "EmpleadoId";
+                cbCajero.SelectedIndex = -1;
+            }
+            catch (Exception ex)
+            {
+                MessageBox.Show($"Error al cargar cajeros: {ex.Message}",
+                    "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
+            }
+        }
+
         private async void btnGenerar_Click(object sender, EventArgs e)
         {
             try
@@ -79,11 +116,14 @@ namespace Interfaz
                 DateTime desde = dtpDesde.Value;
                 DateTime hasta = dtpHasta.Value;
 
-                int? empleadoId = string.IsNullOrWhiteSpace(txtEmpleadoId.Text)
-                    ? null
-                    : int.Parse(txtEmpleadoId.Text);
+                int? empleadoId = cbCajero.SelectedValue is int idCajero && idCajero != 0
+                    ? idCajero
+    :               null;
 
-                int? cajaId = cbCaja.SelectedValue as int?;
+
+                int? cajaId = cbCaja.SelectedValue is int idCaja && idCaja != 0
+                    ? idCaja
+                    : null;
 
                 var reporte = await _reporteService.GenerarReporteVentasAsync(desde, hasta, empleadoId, cajaId);
 
@@ -153,32 +193,32 @@ namespace Interfaz
             if (cbTipoGrafico.SelectedItem?.ToString() == "Ventas por producto" &&
                 reporte.VentasPorProducto?.Any() == true)
             {
-                // 🔹 Tomar solo los 5 productos más vendidos
+                // Tomar solo los 5 productos más vendidos
                 var topProductos = reporte.VentasPorProducto
                     .OrderByDescending(v => v.Value)
                     .Take(5)
                     .ToDictionary(kv => kv.Key, kv => kv.Value);
 
-                // 🔹 Generar etiquetas cortas y valores
+                // Generar etiquetas cortas y valores
                 var etiquetas = topProductos.Keys.Select((p, i) => $"P{i + 1}").ToArray();
                 var valores = topProductos.Values.Select(v => (double)v).ToArray();
 
-                // 🔹 Agregar gráfico de barras
+                // Agregar gráfico de barras
                 var barPlot = plt.Add.Bars(valores);
                 foreach (var b in barPlot.Bars)
                     b.FillColor = Colors.SteelBlue;
 
-                // 🔹 Etiquetas alineadas con las barras
+                // Etiquetas alineadas con las barras
                 plt.Axes.Bottom.TickGenerator = new NumericManual(
                     Enumerable.Range(0, etiquetas.Length).Select(i => (double)i).ToArray(),
                     etiquetas
                 );
 
-                // 🔹 Títulos
+                // Títulos
                 plt.Title("Ventas por producto (Top 5)");
                 plt.YLabel("Cantidad vendida");
 
-                // 🔹 Leyenda en ListBox (P1 → Nombre completo)
+                // Leyenda en ListBox (P1 → Nombre completo)
                 int index = 1;
                 foreach (var kv in topProductos)
                 {
@@ -186,7 +226,7 @@ namespace Interfaz
                     index++;
                 }
 
-                // 🔹 Ajustar límites automáticos
+                // Ajustar límites automáticos
                 plt.Axes.SetLimits(0, etiquetas.Length, 0, double.NaN);
             }
             else if (cbTipoGrafico.SelectedItem?.ToString() == "Ventas por método de pago" &&
