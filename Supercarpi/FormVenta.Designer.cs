@@ -29,11 +29,6 @@
         private void InitializeComponent()
         {
             dgvVenta = new DataGridView();
-            ProductoId = new DataGridViewTextBoxColumn();
-            Nombre = new DataGridViewTextBoxColumn();
-            PrecioUnitario = new DataGridViewTextBoxColumn();
-            Cantidad = new DataGridViewTextBoxColumn();
-            Subtotal = new DataGridViewTextBoxColumn();
             LTitulo = new Label();
             LCodigo = new Label();
             TBCodigo = new TextBox();
@@ -47,6 +42,12 @@
             BtnAgregar = new Button();
             BtnAbrirCaja = new Button();
             BtnCerrarCaja = new Button();
+            ProductoId = new DataGridViewTextBoxColumn();
+            Nombre = new DataGridViewTextBoxColumn();
+            PrecioUnitario = new DataGridViewTextBoxColumn();
+            Cantidad = new DataGridViewTextBoxColumn();
+            Acciones = new DataGridViewButtonColumn();
+            Subtotal = new DataGridViewTextBoxColumn();
             ((System.ComponentModel.ISupportInitialize)dgvVenta).BeginInit();
             SuspendLayout();
             // 
@@ -54,46 +55,14 @@
             // 
             dgvVenta.AutoSizeColumnsMode = DataGridViewAutoSizeColumnsMode.Fill;
             dgvVenta.ColumnHeadersHeightSizeMode = DataGridViewColumnHeadersHeightSizeMode.AutoSize;
-            dgvVenta.Columns.AddRange(new DataGridViewColumn[] { ProductoId, Nombre, PrecioUnitario, Cantidad, Subtotal });
+            dgvVenta.Columns.AddRange(new DataGridViewColumn[] { ProductoId, Nombre, PrecioUnitario, Cantidad, Acciones, Subtotal });
             dgvVenta.Enabled = false;
             dgvVenta.Location = new Point(12, 44);
             dgvVenta.Name = "dgvVenta";
             dgvVenta.RowHeadersWidth = 51;
             dgvVenta.Size = new Size(1025, 365);
             dgvVenta.TabIndex = 0;
-            // 
-            // ProductoId
-            // 
-            ProductoId.DataPropertyName = "ProductoId";
-            ProductoId.HeaderText = "Codigo";
-            ProductoId.MinimumWidth = 6;
-            ProductoId.Name = "ProductoId";
-            ProductoId.Resizable = DataGridViewTriState.True;
-            // 
-            // Nombre
-            // 
-            Nombre.DataPropertyName = "Producto.Nombre";
-            Nombre.HeaderText = "Producto";
-            Nombre.MinimumWidth = 6;
-            Nombre.Name = "Nombre";
-            // 
-            // PrecioUnitario
-            // 
-            PrecioUnitario.HeaderText = "Precio Unitario";
-            PrecioUnitario.MinimumWidth = 6;
-            PrecioUnitario.Name = "PrecioUnitario";
-            // 
-            // Cantidad
-            // 
-            Cantidad.HeaderText = "Cantidad";
-            Cantidad.MinimumWidth = 6;
-            Cantidad.Name = "Cantidad";
-            // 
-            // Subtotal
-            // 
-            Subtotal.HeaderText = "Subtotal";
-            Subtotal.MinimumWidth = 6;
-            Subtotal.Name = "Subtotal";
+            dgvVenta.CellClick += dgvVenta_CellClick;
             // 
             // LTitulo
             // 
@@ -258,6 +227,46 @@
             BtnCerrarCaja.Visible = false;
             BtnCerrarCaja.Click += BtnCerrarCaja_Click;
             // 
+            // ProductoId
+            // 
+            ProductoId.DataPropertyName = "ProductoId";
+            ProductoId.HeaderText = "Codigo";
+            ProductoId.MinimumWidth = 6;
+            ProductoId.Name = "ProductoId";
+            ProductoId.Resizable = DataGridViewTriState.True;
+            // 
+            // Nombre
+            // 
+            Nombre.DataPropertyName = "Producto.Nombre";
+            Nombre.HeaderText = "Producto";
+            Nombre.MinimumWidth = 6;
+            Nombre.Name = "Nombre";
+            // 
+            // PrecioUnitario
+            // 
+            PrecioUnitario.HeaderText = "Precio Unitario";
+            PrecioUnitario.MinimumWidth = 6;
+            PrecioUnitario.Name = "PrecioUnitario";
+            // 
+            // Cantidad
+            // 
+            Cantidad.HeaderText = "Cantidad";
+            Cantidad.MinimumWidth = 6;
+            Cantidad.Name = "Cantidad";
+            // 
+            // Acciones
+            // 
+            Acciones.HeaderText = "Cant.";
+            Acciones.Name = "Acciones";
+            Acciones.Text = "+ / -";
+            Acciones.UseColumnTextForButtonValue = true;
+            // 
+            // Subtotal
+            // 
+            Subtotal.HeaderText = "Subtotal";
+            Subtotal.MinimumWidth = 6;
+            Subtotal.Name = "Subtotal";
+            // 
             // FormVenta
             // 
             AutoScaleDimensions = new SizeF(7F, 15F);
@@ -309,6 +318,7 @@
         private DataGridViewTextBoxColumn Nombre;
         private DataGridViewTextBoxColumn PrecioUnitario;
         private DataGridViewTextBoxColumn Cantidad;
+        private DataGridViewButtonColumn Acciones;
         private DataGridViewTextBoxColumn Subtotal;
     }
 }

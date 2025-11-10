@@ -8,6 +8,7 @@ using System.Collections.Generic;
 using System.ComponentModel;
 using System.Data;
 using System.Drawing;
+using System.Globalization;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
@@ -54,6 +55,32 @@ namespace Interfaz
                 return;
             }
 
+            //Verificar stock antes de registrar
+            foreach (var d in DetallesVenta)
+            {
+                var productoBD = await _productoService.ObtenerPorId(d.ProductoId);
+
+                if (productoBD == null)
+                {
+                    MessageBox.Show($"El producto con ID {d.ProductoId} ya no existe.");
+                    return;
+                }
+
+                if (d.Cantidad > productoBD.StockActual)
+                {
+                    MessageBox.Show(
+                        $"No hay suficiente stock para el producto:\n" +
+                        $"{productoBD.Nombre}\n" +
+                        $"Stock disponible: {productoBD.StockActual}\n" +
+                        $"Cantidad solicitada: {d.Cantidad}",
+                        "Stock insuficiente",
+                        MessageBoxButtons.OK,
+                        MessageBoxIcon.Warning
+                    );
+                    return;
+                }
+            }
+
             var venta = new Venta
             {
                 EmpleadoId = empleado.EmpleadoId,
@@ -64,13 +91,14 @@ namespace Interfaz
 
             var pago = new Pago
             {
-                VentaId = venta.VentaId, // se setea al guardar
+                VentaId = venta.VentaId,
                 MetodoPagoId = (int)CBMetodoPago.SelectedValue,
                 Monto = venta.Total
             };
 
             PagoTarjeta pagoTarjeta = null;
-            if(pago.MetodoPagoId == 2 || pago.MetodoPagoId == 3) {
+            if (pago.MetodoPagoId == 2 || pago.MetodoPagoId == 3)
+            {
                 using (var formTarjeta = new FormPagoTarjeta())
                 {
                     var resultado = formTarjeta.ShowDialog();
@@ -305,52 +333,150 @@ namespace Interfaz
 
         private async void FormVenta_FormClosing(object sender, FormClosingEventArgs e)
         {
-            if(CajaActual != 0) 
-            await _cajaService.CerrarCaja(CajaActual);
+            if (CajaActual != 0)
+            {
+                // Detener el cierre temporalmente
+                e.Cancel = true;
+
+                try
+                {
+                    await _cajaService.CerrarCaja(CajaActual);
+                }
+                catch (Exception ex)
+                {
+                    MessageBox.Show($"Error al cerrar la caja automáticamente: {ex.Message}");
+                }
+
+                CajaActual = 0;
+
+                //cerrar la app manualmente
+                Application.Exit();
+            }
         }
+
 
         private void GenerarFacturaPDF(Venta venta, List<DetalleVenta> detalles, Empleado empleado)
         {
             string folderPath = @"C:\Supercarpi\Facturas";
             Directory.CreateDirectory(folderPath);
 
-            string fileName = $"{folderPath}\\Factura_{venta.VentaId}.pdf";
+            // Generar número de factura
+            string numeroFactura = $"FACT-{venta.VentaId.ToString().PadLeft(6, '0')}";
+            string fileName = $"{folderPath}\\{numeroFactura}.pdf";
 
-            Document doc = new Document(PageSize.A4);
+            Document doc = new Document(PageSize.A4, 40, 40, 20, 20);
             PdfWriter.GetInstance(doc, new FileStream(fileName, FileMode.Create));
             doc.Open();
 
-            // Encabezado
-            doc.Add(new Paragraph("SUPERCARPI - Ticket de Venta"));
-            doc.Add(new Paragraph($"Fecha: {venta.Fecha}"));
-            doc.Add(new Paragraph($"Cajero: {empleado.Nombre} {empleado.Apellido}"));
-            doc.Add(new Paragraph($"Caja: {venta.CajaId}"));
+            // ===== FUENTES =====
+            var tituloFont = FontFactory.GetFont(FontFactory.HELVETICA_BOLD, 18);
+            var normalFont = FontFactory.GetFont(FontFactory.HELVETICA, 11);
+            var boldFont = FontFactory.GetFont(FontFactory.HELVETICA_BOLD, 11);
+
+            // ===== ENCABEZADO =====
+            Paragraph titulo = new Paragraph("SUPERCARPI", tituloFont);
+            titulo.Alignment = Element.ALIGN_CENTER;
+            doc.Add(titulo);
+
+            doc.Add(new Paragraph(" "));
+            doc.Add(new Paragraph($"Factura N°: {numeroFactura}", boldFont));
+            doc.Add(new Paragraph($"Fecha: {venta.Fecha:dd/MM/yyyy HH:mm}", normalFont));
+            doc.Add(new Paragraph($"Cajero: {empleado.Nombre} {empleado.Apellido}", normalFont));
+            doc.Add(new Paragraph($"Caja: {venta.CajaId}", normalFont));
             doc.Add(new Paragraph("--------------------------------------------------"));
 
-            // Tabla productos
+            // ===== TABLA DE PRODUCTOS =====
             PdfPTable table = new PdfPTable(4);
-            table.AddCell("Producto");
-            table.AddCell("Precio");
-            table.AddCell("Cantidad");
-            table.AddCell("Subtotal");
+            table.WidthPercentage = 100;
+            table.SetWidths(new float[] { 45, 15, 15, 25 });
 
+            // Encabezados
+            PdfPCell c1 = new PdfPCell(new Phrase("Producto", boldFont));
+            PdfPCell c2 = new PdfPCell(new Phrase("Precio", boldFont));
+            PdfPCell c3 = new PdfPCell(new Phrase("Cant.", boldFont));
+            PdfPCell c4 = new PdfPCell(new Phrase("Subtotal", boldFont));
+
+            c1.HorizontalAlignment = c2.HorizontalAlignment = c3.HorizontalAlignment =
+                c4.HorizontalAlignment = Element.ALIGN_CENTER;
+
+            table.AddCell(c1);
+            table.AddCell(c2);
+            table.AddCell(c3);
+            table.AddCell(c4);
+
+            // Filas
             foreach (var d in detalles)
             {
                 table.AddCell(d.Producto.Nombre);
-                table.AddCell(d.PrecioUnitario.ToString("C2"));
+                table.AddCell(d.PrecioUnitario.ToString("C2", new CultureInfo("es-AR")));
                 table.AddCell(d.Cantidad.ToString());
-                table.AddCell(d.Subtotal.ToString("C2"));
+                table.AddCell(d.Subtotal.ToString("C2", new CultureInfo("es-AR")));
             }
 
             doc.Add(table);
 
             doc.Add(new Paragraph("--------------------------------------------------"));
-            doc.Add(new Paragraph($"TOTAL: {venta.Total.ToString("C2")}"));
-            doc.Add(new Paragraph("Gracias por su compra!"));
+            Paragraph total = new Paragraph($"TOTAL: {venta.Total.ToString("C2", new CultureInfo("es-AR"))}", boldFont);
+            total.Alignment = Element.ALIGN_RIGHT;
+            doc.Add(total);
+
+            doc.Add(new Paragraph(" "));
+            doc.Add(new Paragraph("¡Gracias por su compra! Supercarpi te espera siempre", normalFont));
 
             doc.Close();
 
             MessageBox.Show($"Factura generada en: {fileName}");
+        }
+
+
+        // Esto es para manejar los clicks en la columna de acciones (+/-)
+        private void dgvVenta_CellClick(object sender, DataGridViewCellEventArgs e)
+        {
+            if (e.RowIndex < 0) return;
+
+            // Verificar si es la columna de acciones
+            if (dgvVenta.Columns[e.ColumnIndex].Name == "Acciones")
+            {
+                var detalle = DetallesVenta[e.RowIndex];
+
+                var clickPos = dgvVenta.GetCellDisplayRectangle(e.ColumnIndex, e.RowIndex, false);
+                var mouseX = dgvVenta.PointToClient(Cursor.Position).X - clickPos.Left;
+
+                // SUMAR
+                if (mouseX < (clickPos.Width / 2))
+                {
+                    detalle.Cantidad++;
+                }
+                else
+                {
+                    // RESTAR
+                    if (detalle.Cantidad > 1)
+                    {
+                        detalle.Cantidad--;
+                    }
+                    else
+                    {
+                        // Si llega a 0, eliminar de la lista y grilla
+                        DetallesVenta.RemoveAt(e.RowIndex);
+                        dgvVenta.Rows.RemoveAt(e.RowIndex);
+                    }
+                }
+
+                // Si el producto sigue en la lista, actualizar subtotal y grilla
+                if (e.RowIndex < DetallesVenta.Count)
+                {
+                    detalle.Subtotal = detalle.Cantidad * detalle.PrecioUnitario;
+
+                    dgvVenta.Rows[e.RowIndex].Cells["Cantidad"].Value = detalle.Cantidad;
+                    dgvVenta.Rows[e.RowIndex].Cells["Subtotal"].Value = detalle.Subtotal.ToString("N2");
+                }
+
+                // Actualizar totales en pantalla
+                Total = DetallesVenta.Sum(d => d.Subtotal);
+                LTotal.Text = $"TOTAL: ${Total:N2}";
+                LItems.Text = $"ITEMS: {DetallesVenta.Sum(d => d.Cantidad)}";
+
+            }
         }
 
     }

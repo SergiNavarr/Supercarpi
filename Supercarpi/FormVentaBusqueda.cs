@@ -35,6 +35,18 @@ namespace Interfaz
             var resultados = await _productoService.BuscarPorNombre(filtro);
 
             dgvResultados.DataSource = resultados;
+
+            string[] columnasOcultar =
+            {
+                "Descripcion", "Stock", "CategoriaId", "MarcaId", "ImagenUrl",
+                "EsActivo", "Categoria", "Marca", "DetalleVenta", "DetallePedidos"
+            };
+
+            foreach (var colName in columnasOcultar)
+            {
+                if (dgvResultados.Columns.Contains(colName))
+                    dgvResultados.Columns[colName].Visible = false;
+            }
         }
 
         private void dgvResultados_CellDoubleClick(object sender, DataGridViewCellEventArgs e)
@@ -48,4 +60,3 @@ namespace Interfaz
         }
     }
 }
-

@@ -31,7 +31,7 @@ namespace Interfaz
             try
             {
                 // 🔹 Cargar solo las cajas cerradas y activas
-                var cajas = await _cajaService.ObtenerCajasCerradas();
+                var cajas = await _cajaService.ObtenerCajas();
 
                 if (cajas == null || cajas.Count == 0)
                 {
@@ -42,7 +42,7 @@ namespace Interfaz
                 dgvCajas.DataSource = cajas;
 
                 // Ocultar columnas que no queremos mostrar
-                dgvCajas.Columns["Abierto"].Visible = false;
+                dgvCajas.Columns["Abierto"].Visible = true;
                 dgvCajas.Columns["EsActivo"].Visible = false;
                 dgvCajas.Columns["Venta"].Visible = false;
 
@@ -77,6 +77,42 @@ namespace Interfaz
                 {
                     MessageBox.Show($"No se pudo abrir la caja: {ex.Message}");
                 }
+            }
+        }
+
+        private void BtnCancelar_Click(object sender, EventArgs e)
+        {
+            DialogResult = DialogResult.Cancel;
+            Close();
+        }
+
+        private async void BtnSeleccionar_Click(object sender, EventArgs e)
+        {
+            if (dgvCajas.SelectedRows.Count == 0)
+            {
+                MessageBox.Show("Seleccione una caja para continuar.", "Aviso", MessageBoxButtons.OK, MessageBoxIcon.Warning);
+                return;
+            }
+
+            try
+            {
+                // Tomar la caja seleccionada del grid
+                var row = dgvCajas.SelectedRows[0];
+                Caja caja = (Caja)row.DataBoundItem;
+
+                // Intentar abrir la caja
+                var cajaAbierta = await _cajaService.AbrirCaja(caja.Numero);
+
+                CajaSeleccionada = cajaAbierta;
+
+                MessageBox.Show($"Caja N° {cajaAbierta.Numero} abierta correctamente.");
+
+                DialogResult = DialogResult.OK;
+                Close();
+            }
+            catch (Exception ex)
+            {
+                MessageBox.Show($"No se pudo abrir la caja: {ex.Message}");
             }
         }
     }
