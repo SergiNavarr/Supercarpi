@@ -131,5 +131,15 @@ namespace Negocio.Implementacion
 
             return empleadoEncontrado;
         }
+
+        public async Task<List<Empleado>> ObtenerCajeros()
+        {
+            var query = await _repoEmpleado.Consultar(e => e.RolId == 2 && e.EsActivo);
+            return query
+                .AsNoTracking()
+                .Include(e => e.Rol)
+                .ToList();
+        }
+
     }
 }

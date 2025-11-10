@@ -52,6 +52,8 @@
             Metodo_mas_usado = new DataGridViewTextBoxColumn();
             label2 = new Label();
             label3 = new Label();
+            cbCajero = new ComboBox();
+            LBCajero = new Label();
             panelFechas.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)dgvResumenGeneral).BeginInit();
             ((System.ComponentModel.ISupportInitialize)dgvResumenCajas).BeginInit();
@@ -62,7 +64,7 @@
             label1.AutoSize = true;
             label1.Font = new Font("Century Gothic", 21F, FontStyle.Bold, GraphicsUnit.Point, 0);
             label1.ForeColor = SystemColors.ButtonHighlight;
-            label1.Location = new Point(43, 33);
+            label1.Location = new Point(43, 24);
             label1.Name = "label1";
             label1.Size = new Size(296, 34);
             label1.TabIndex = 0;
@@ -71,6 +73,8 @@
             // panelFechas
             // 
             panelFechas.BackColor = Color.Teal;
+            panelFechas.Controls.Add(LBCajero);
+            panelFechas.Controls.Add(cbCajero);
             panelFechas.Controls.Add(cbCaja);
             panelFechas.Controls.Add(lCaja);
             panelFechas.Controls.Add(cbTipoGrafico);
@@ -88,7 +92,7 @@
             // cbCaja
             // 
             cbCaja.FormattingEnabled = true;
-            cbCaja.Location = new Point(572, 21);
+            cbCaja.Location = new Point(179, 87);
             cbCaja.Name = "cbCaja";
             cbCaja.Size = new Size(121, 23);
             cbCaja.TabIndex = 11;
@@ -98,7 +102,7 @@
             lCaja.AutoSize = true;
             lCaja.Font = new Font("Century Gothic", 12F, FontStyle.Regular, GraphicsUnit.Point, 0);
             lCaja.ForeColor = SystemColors.ButtonHighlight;
-            lCaja.Location = new Point(405, 25);
+            lCaja.Location = new Point(12, 89);
             lCaja.Name = "lCaja";
             lCaja.Size = new Size(161, 21);
             lCaja.TabIndex = 10;
@@ -108,7 +112,7 @@
             // cbTipoGrafico
             // 
             cbTipoGrafico.FormattingEnabled = true;
-            cbTipoGrafico.Location = new Point(168, 86);
+            cbTipoGrafico.Location = new Point(464, 87);
             cbTipoGrafico.Name = "cbTipoGrafico";
             cbTipoGrafico.Size = new Size(178, 23);
             cbTipoGrafico.TabIndex = 9;
@@ -118,7 +122,7 @@
             lTipoReporte.AutoSize = true;
             lTipoReporte.Font = new Font("Century Gothic", 12F);
             lTipoReporte.ForeColor = SystemColors.ButtonHighlight;
-            lTipoReporte.Location = new Point(28, 88);
+            lTipoReporte.Location = new Point(324, 89);
             lTipoReporte.Name = "lTipoReporte";
             lTipoReporte.Size = new Size(142, 21);
             lTipoReporte.TabIndex = 8;
@@ -131,7 +135,7 @@
             btnGenerar.FlatStyle = FlatStyle.Flat;
             btnGenerar.Font = new Font("Century Gothic", 9.75F);
             btnGenerar.ForeColor = SystemColors.ButtonHighlight;
-            btnGenerar.Location = new Point(370, 80);
+            btnGenerar.Location = new Point(648, 81);
             btnGenerar.Name = "btnGenerar";
             btnGenerar.Size = new Size(114, 32);
             btnGenerar.TabIndex = 6;
@@ -142,7 +146,7 @@
             // dtpHasta
             // 
             dtpHasta.Format = DateTimePickerFormat.Short;
-            dtpHasta.Location = new Point(264, 22);
+            dtpHasta.Location = new Point(680, 28);
             dtpHasta.Name = "dtpHasta";
             dtpHasta.Size = new Size(82, 23);
             dtpHasta.TabIndex = 5;
@@ -150,7 +154,7 @@
             // dtpDesde
             // 
             dtpDesde.Format = DateTimePickerFormat.Short;
-            dtpDesde.Location = new Point(97, 23);
+            dtpDesde.Location = new Point(513, 29);
             dtpDesde.Name = "dtpDesde";
             dtpDesde.Size = new Size(84, 23);
             dtpDesde.TabIndex = 4;
@@ -160,7 +164,7 @@
             LHasta.AutoSize = true;
             LHasta.Font = new Font("Century Gothic", 12F, FontStyle.Regular, GraphicsUnit.Point, 0);
             LHasta.ForeColor = SystemColors.ButtonHighlight;
-            LHasta.Location = new Point(198, 25);
+            LHasta.Location = new Point(614, 31);
             LHasta.Name = "LHasta";
             LHasta.Size = new Size(60, 21);
             LHasta.TabIndex = 3;
@@ -171,7 +175,7 @@
             LDesde.AutoSize = true;
             LDesde.Font = new Font("Century Gothic", 12F, FontStyle.Regular, GraphicsUnit.Point, 0);
             LDesde.ForeColor = SystemColors.ButtonHighlight;
-            LDesde.Location = new Point(28, 23);
+            LDesde.Location = new Point(444, 29);
             LDesde.Name = "LDesde";
             LDesde.Size = new Size(63, 21);
             LDesde.TabIndex = 2;
@@ -271,6 +275,25 @@
             label3.TabIndex = 45;
             label3.Text = "Resumen de Cajas:";
             // 
+            // cbCajero
+            // 
+            cbCajero.FormattingEnabled = true;
+            cbCajero.Location = new Point(193, 31);
+            cbCajero.Name = "cbCajero";
+            cbCajero.Size = new Size(107, 23);
+            cbCajero.TabIndex = 12;
+            // 
+            // LBCajero
+            // 
+            LBCajero.AutoSize = true;
+            LBCajero.Font = new Font("Century Gothic", 12F, FontStyle.Regular, GraphicsUnit.Point, 0);
+            LBCajero.ForeColor = SystemColors.ButtonHighlight;
+            LBCajero.Location = new Point(12, 31);
+            LBCajero.Name = "LBCajero";
+            LBCajero.Size = new Size(176, 21);
+            LBCajero.TabIndex = 13;
+            LBCajero.Text = "Cajero Seleccionado:";
+            // 
             // FormReportes
             // 
             AutoScaleDimensions = new SizeF(7F, 15F);
@@ -322,5 +345,7 @@
         private DataGridViewTextBoxColumn nro_caja;
         private DataGridViewTextBoxColumn Monto_total;
         private DataGridViewTextBoxColumn Metodo_mas_usado;
+        private Label LBCajero;
+        private ComboBox cbCajero;
     }
 }
