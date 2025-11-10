@@ -119,6 +119,26 @@ namespace Interfaz
         {
             this.MaximizedBounds = Screen.FromHandle(this.Handle).WorkingArea;
             AplicarPermisosPorRol();
+            if (empleado != null)
+            {
+                // 🔹 Obtener nombre del rol según el RolId
+                string nombreRol = empleado.Rol?.Nombre ?? empleado.RolId switch
+                {
+                    1 => "Administrador",
+                    2 => "Cajero",
+                    3 => "Repositor",
+                    _ => "Desconocido"
+                };
+
+                // 🔹 Mostrar info del empleado en el label
+                lblEmpleadoActual.Text = $"Empleado:  {empleado.Nombre} {empleado.Apellido}  |   ID: {empleado.EmpleadoId}  |  Rol: {nombreRol}";
+            }
+            else
+            {
+                lblEmpleadoActual.Text = "Empleado: No logueado";
+            }
+
+
         }
 
         private void AplicarPermisosPorRol()
@@ -135,7 +155,7 @@ namespace Interfaz
                     btnUsuario.Enabled = true;
                     btnProductos.Enabled = true;
                     btnVentas.Enabled = false;
-                    btnProveedores.Enabled = true;
+                    
                     btnReportes.Enabled = true;
                     btnBackUp.Enabled = true;
                     break;
@@ -153,7 +173,6 @@ namespace Interfaz
                     btnUsuario.Enabled = false;
                     btnProductos.Enabled = false;
                     btnVentas.Enabled = true;
-                    btnProveedores.Enabled = false;
                     btnReportes.Enabled = false;
                     btnBackUp.Enabled = false;
                     break;
@@ -163,7 +182,6 @@ namespace Interfaz
                     btnUsuario.Enabled = false;
                     btnProductos.Enabled = false;
                     btnVentas.Enabled = false;
-                    btnProveedores.Enabled = false;
                     btnReportes.Enabled = false;
                     btnBackUp.Enabled = false;
                     break;
