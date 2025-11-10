@@ -58,7 +58,7 @@ namespace Datos.Implementacion
                 .OrderByDescending(x => x.Cantidad)
                 .FirstOrDefault()?.Producto ?? "N/A";
 
-            // Método de pago más usado (en el conjunto filtrado)
+            // Método de pago más usado (global)
             var metodoMasUsado = ventas
                 .SelectMany(v => v.Pagos)
                 .GroupBy(p => p.MetodoPago.Nombre)
@@ -66,24 +66,36 @@ namespace Datos.Implementacion
                 .OrderByDescending(x => x.Cantidad)
                 .FirstOrDefault()?.Metodo ?? "N/A";
 
-            // Totales específicos por la caja seleccionada (si se pidió)
+            // 🔹 Crear resumen por caja
+            var resumenPorCaja = ventas
+                .GroupBy(v => v.CajaId)
+                .Select(g => new ReporteCajaDTO
+                {
+                    CajaId = g.Key ,
+                    MontoTotal = g.Sum(v => v.Total),
+                    MetodoPagoMasUsado = g.SelectMany(v => v.Pagos)
+                                          .GroupBy(p => p.MetodoPago.Nombre)
+                                          .OrderByDescending(pg => pg.Count())
+                                          .Select(pg => pg.Key)
+                                          .FirstOrDefault() ?? "N/A"
+                })
+                .ToList();
+
+            // 🔹 Si se seleccionó una caja específica, calcular sus totales
             decimal totalPorCaja = 0m;
             string metodoMasUsadoCaja = "N/A";
 
             if (cajaId.HasValue)
             {
-                var ventasCaja = ventas.Where(v => v.CajaId == cajaId.Value).ToList();
-                totalPorCaja = ventasCaja.Sum(v => v.Total);
-
-                metodoMasUsadoCaja = ventasCaja
-                    .SelectMany(v => v.Pagos)
-                    .GroupBy(p => p.MetodoPago.Nombre)
-                    .OrderByDescending(g => g.Count())
-                    .Select(g => g.Key)
-                    .FirstOrDefault() ?? "N/A";
+                var cajaResumen = resumenPorCaja.FirstOrDefault(r => r.CajaId == cajaId.Value);
+                if (cajaResumen != null)
+                {
+                    totalPorCaja = cajaResumen.MontoTotal;
+                    metodoMasUsadoCaja = cajaResumen.MetodoPagoMasUsado;
+                }
             }
 
-            // Datos para gráficos (opcional)
+            // Datos para gráficos
             var ventasPorProducto = ventas
                 .SelectMany(v => v.DetalleVenta)
                 .GroupBy(dv => dv.Producto.Nombre)
@@ -94,21 +106,26 @@ namespace Datos.Implementacion
                 .GroupBy(p => p.MetodoPago.Nombre)
                 .ToDictionary(g => g.Key, g => g.Count());
 
+            // 🔹 Retornar todo junto
             return new ReporteResumenDTO
             {
                 TotalVentas = totalVentas,
                 RecaudacionTotal = recaudacionTotal,
                 ProductoMasVendido = productoMasVendido,
                 MetodoPagoMasUsado = metodoMasUsado,
-                // Si tu DTO no tiene estos campos, agrégalos como opcionales:
                 VentasPorProducto = ventasPorProducto,
                 VentasPorMetodoPago = ventasPorMetodoPago,
-                // Campos por caja que sugerimos agregar al DTO:
+
+                // Datos específicos si hay filtro de caja
                 CajaId = cajaId,
                 TotalVentasCaja = totalPorCaja,
-                MetodoPagoMasUsadoCaja = metodoMasUsadoCaja
+                MetodoPagoMasUsadoCaja = metodoMasUsadoCaja,
+
+                // 🔹 Resumen completo por todas las cajas encontradas
+                ResumenPorCaja = resumenPorCaja
             };
         }
+
 
     }
 

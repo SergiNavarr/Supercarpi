@@ -4,6 +4,7 @@ using Negocio.Interfaces;
 using ScottPlot;
 using ScottPlot.TickGenerators;
 using ScottPlot.WinForms;
+
 using System;
 using System.Collections.Generic;
 using System.ComponentModel;
@@ -27,16 +28,9 @@ namespace Interfaz
             InitializeComponent();
             _reporteService = reporteService;
             _cajaService = cajaService;
-            //InicializarGrafico();
+            
         }
-        // private void InicializarGrafico()
-        //{
-        //formsPlot1 = new FormsPlot
-        //{
-        // Dock = DockStyle.Fill
-        //};
-        //panelGrafico.Controls.Add(formsPlot1);
-        // }
+        
 
         private async void FormReportes_Load(object sender, EventArgs e)
         {
@@ -111,16 +105,47 @@ namespace Interfaz
 
         private void MostrarResumen(ReporteResumenDTO reporte)
         {
-            lblTotalVentas.Text = $"Total de ventas: {reporte.TotalVentas}";
-            lblRecaudacion.Text = $"Recaudación total: ${reporte.RecaudacionTotal:F2}";
-            lblMetodoPago.Text = $"Método de pago más utilizado: {reporte.MetodoPagoMasUsado}";
-            lblProducto.Text = $"Producto más vendido: {reporte.ProductoMasVendido}";
+            // Limpiar grillas antes de volver a cargar
+            dgvResumenGeneral.Rows.Clear();
+            dgvResumenCajas.Rows.Clear();
+            dgvResumenGeneral.Rows.Clear();
+
+            // Agregar una sola fila vacía
+            int fila = dgvResumenGeneral.Rows.Add();
+
+            // Cargar datos en las columnas ya definidas en el diseñador
+            dgvResumenGeneral.Rows[fila].Cells["Total_Ventas"].Value = reporte.TotalVentas;
+            dgvResumenGeneral.Rows[fila].Cells["Total_Recaudacion"].Value = $"${reporte.RecaudacionTotal:F2}";
+            dgvResumenGeneral.Rows[fila].Cells["Metodo_pago_mas_usado"].Value = reporte.MetodoPagoMasUsado;
+            dgvResumenGeneral.Rows[fila].Cells["Producto_mas_vendido"].Value = reporte.ProductoMasVendido;
+
+
+            // --- RESUMEN POR CAJA ---
+            if (reporte.ResumenPorCaja != null && reporte.ResumenPorCaja.Any())
+            {
+                foreach (var caja in reporte.ResumenPorCaja)
+                {
+                    int filaCaja = dgvResumenCajas.Rows.Add();
+                    dgvResumenCajas.Rows[filaCaja].Cells["nro_caja"].Value = caja.CajaId;
+                    dgvResumenCajas.Rows[filaCaja].Cells["Monto_total"].Value = $"${caja.MontoTotal:F2}";
+                    dgvResumenCajas.Rows[filaCaja].Cells["Metodo_mas_usado"].Value = caja.MetodoPagoMasUsado;
+                }
+            }
+            else
+            {
+                // Si no hay datos, mostramos una fila vacía con "Sin datos"
+               
+                dgvResumenCajas.Rows[fila].Cells["nro_caja"].Value = "-";
+                dgvResumenCajas.Rows[fila].Cells["Monto_total"].Value = "-";
+                dgvResumenCajas.Rows[fila].Cells["Metodo_mas_usado"].Value = "Sin datos";
+            }
         }
+
 
         private void MostrarGrafico(ReporteResumenDTO reporte)
         {
             panelGrafico.Controls.Clear();
-
+            lstLeyenda.Items.Clear();
 
             var formsPlot = new FormsPlot { Dock = DockStyle.Fill };
             var plt = formsPlot.Plot;
@@ -128,21 +153,41 @@ namespace Interfaz
             if (cbTipoGrafico.SelectedItem?.ToString() == "Ventas por producto" &&
                 reporte.VentasPorProducto?.Any() == true)
             {
-                var etiquetas = reporte.VentasPorProducto.Keys.ToArray();
-                var valores = reporte.VentasPorProducto.Values.Select(v => (double)v).ToArray();
+                // 🔹 Tomar solo los 5 productos más vendidos
+                var topProductos = reporte.VentasPorProducto
+                    .OrderByDescending(v => v.Value)
+                    .Take(5)
+                    .ToDictionary(kv => kv.Key, kv => kv.Value);
 
+                // 🔹 Generar etiquetas cortas y valores
+                var etiquetas = topProductos.Keys.Select((p, i) => $"P{i + 1}").ToArray();
+                var valores = topProductos.Values.Select(v => (double)v).ToArray();
+
+                // 🔹 Agregar gráfico de barras
                 var barPlot = plt.Add.Bars(valores);
                 foreach (var b in barPlot.Bars)
                     b.FillColor = Colors.SteelBlue;
 
+                // 🔹 Etiquetas alineadas con las barras
                 plt.Axes.Bottom.TickGenerator = new NumericManual(
                     Enumerable.Range(0, etiquetas.Length).Select(i => (double)i).ToArray(),
                     etiquetas
                 );
 
-                plt.Title("Ventas por producto");
+                // 🔹 Títulos
+                plt.Title("Ventas por producto (Top 5)");
                 plt.YLabel("Cantidad vendida");
-                plt.Axes.SetLimits(0, double.NaN, 0, double.NaN);
+
+                // 🔹 Leyenda en ListBox (P1 → Nombre completo)
+                int index = 1;
+                foreach (var kv in topProductos)
+                {
+                    lstLeyenda.Items.Add($"P{index} → {kv.Key}");
+                    index++;
+                }
+
+                // 🔹 Ajustar límites automáticos
+                plt.Axes.SetLimits(0, etiquetas.Length, 0, double.NaN);
             }
             else if (cbTipoGrafico.SelectedItem?.ToString() == "Ventas por método de pago" &&
                      reporte.VentasPorMetodoPago?.Any() == true)
@@ -161,7 +206,7 @@ namespace Interfaz
 
                 plt.Title("Ventas por método de pago");
                 plt.YLabel("Cantidad de ventas");
-                plt.Axes.SetLimits(0, double.NaN, 0, double.NaN);
+                plt.Axes.SetLimits(0, etiquetas.Length, 0, double.NaN);
             }
             else
             {
