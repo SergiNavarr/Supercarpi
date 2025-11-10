@@ -144,7 +144,7 @@ namespace Interfaz
                     btnUsuario.Enabled = false;
                     btnProductos.Enabled = true;
                     btnVentas.Enabled = false;
-                    btnProveedores.Enabled = true;
+                    //btnProveedores.Enabled = true;
                     btnReportes.Enabled = false;
                     btnBackUp.Enabled = false;
                     break;

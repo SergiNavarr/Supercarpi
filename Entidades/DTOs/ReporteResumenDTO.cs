@@ -12,7 +12,7 @@ namespace Entidades.DTOs
         public decimal RecaudacionTotal { get; set; }
         public string MetodoPagoMasUsado { get; set; } = string.Empty;
         public string ProductoMasVendido { get; set; } = string.Empty;
-
+        public List<ReporteCajaDTO> ResumenPorCaja { get; set; } = new();
         // Nuevos campos para mostrar gráficos opcionales
         public Dictionary<string, int>? VentasPorProducto { get; set; }
         public Dictionary<string, int>? VentasPorMetodoPago { get; set; }
@@ -22,5 +22,11 @@ namespace Entidades.DTOs
         public decimal TotalVentasCaja { get; set; }
         public string MetodoPagoMasUsadoCaja { get; set; } = string.Empty;
 
+    }
+    public class ReporteCajaDTO
+    {
+        public int CajaId { get; set; }
+        public decimal MontoTotal { get; set; }
+        public string MetodoPagoMasUsado { get; set; } = string.Empty;
     }
 }
