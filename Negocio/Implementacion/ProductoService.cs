@@ -46,12 +46,27 @@ namespace Negocio.Implementacion
 
         public async Task<bool> EliminarProducto(int idProducto)
         {
-            var producto = await ObtenerPorId(idProducto);
-            if (producto == null)
-                return false;
+            try
+            {
+                // Buscar el producto
+                var producto = await _productoRepositorio.Obtener(p => p.ProductoId == idProducto);
 
-            return await _productoRepositorio.Eliminar(producto);
+                if (producto == null)
+                    throw new Exception("El producto no existe");
+
+                // Eliminación lógica
+                producto.EsActivo = false;
+
+                // Guardar cambios
+                bool editado = await _productoRepositorio.Editar(producto);
+                return editado;
+            }
+            catch (Exception ex)
+            {
+                throw new Exception("No se pudo eliminar el producto", ex);
+            }
         }
+
 
 
 

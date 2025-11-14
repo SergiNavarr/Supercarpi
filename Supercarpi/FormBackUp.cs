@@ -14,10 +14,7 @@ namespace Interfaz
 {
     public partial class FormBackUp : Form
     {
-        public FormBackUp()
-        {
-            InitializeComponent();
-        }
+        
 
         //Campo privado para almacenar la referencia del servicio
         private readonly IBackupService _backupService;

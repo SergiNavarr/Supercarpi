@@ -43,14 +43,13 @@
             btnReportes = new Button();
             panel4 = new Panel();
             btnUsuario = new Button();
-            panel3 = new Panel();
-            btnProveedores = new Button();
             panel2 = new Panel();
             btnVentas = new Button();
             panel1 = new Panel();
             btnProductos = new Button();
             PBLogo = new PictureBox();
             panelContenedor = new Panel();
+            lblEmpleadoActual = new Label();
             BarraTitulo.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)PBContraer).BeginInit();
             ((System.ComponentModel.ISupportInitialize)PBCerrar).BeginInit();
@@ -63,6 +62,7 @@
             // BarraTitulo
             // 
             BarraTitulo.BackColor = Color.FromArgb(0, 80, 200);
+            BarraTitulo.Controls.Add(lblEmpleadoActual);
             BarraTitulo.Controls.Add(PBContraer);
             BarraTitulo.Controls.Add(PBCerrar);
             BarraTitulo.Controls.Add(PBMaximizar);
@@ -152,8 +152,6 @@
             panelMenu.Controls.Add(btnReportes);
             panelMenu.Controls.Add(panel4);
             panelMenu.Controls.Add(btnUsuario);
-            panelMenu.Controls.Add(panel3);
-            panelMenu.Controls.Add(btnProveedores);
             panelMenu.Controls.Add(panel2);
             panelMenu.Controls.Add(btnVentas);
             panelMenu.Controls.Add(panel1);
@@ -168,7 +166,7 @@
             // panel6
             // 
             panel6.BackColor = Color.FromArgb(0, 80, 200);
-            panel6.Location = new Point(0, 426);
+            panel6.Location = new Point(0, 390);
             panel6.Name = "panel6";
             panel6.Size = new Size(5, 30);
             panel6.TabIndex = 4;
@@ -182,7 +180,7 @@
             btnBackUp.ForeColor = SystemColors.ControlLightLight;
             btnBackUp.Image = (Image)resources.GetObject("btnBackUp.Image");
             btnBackUp.ImageAlign = ContentAlignment.MiddleLeft;
-            btnBackUp.Location = new Point(0, 426);
+            btnBackUp.Location = new Point(0, 390);
             btnBackUp.Name = "btnBackUp";
             btnBackUp.Size = new Size(204, 32);
             btnBackUp.TabIndex = 6;
@@ -193,7 +191,7 @@
             // panel5
             // 
             panel5.BackColor = Color.FromArgb(0, 80, 200);
-            panel5.Location = new Point(0, 375);
+            panel5.Location = new Point(0, 337);
             panel5.Name = "panel5";
             panel5.Size = new Size(5, 32);
             panel5.TabIndex = 3;
@@ -207,7 +205,7 @@
             btnReportes.ForeColor = SystemColors.ControlLightLight;
             btnReportes.Image = Properties.Resources.reportes;
             btnReportes.ImageAlign = ContentAlignment.MiddleLeft;
-            btnReportes.Location = new Point(4, 375);
+            btnReportes.Location = new Point(3, 337);
             btnReportes.Name = "btnReportes";
             btnReportes.Size = new Size(202, 32);
             btnReportes.TabIndex = 5;
@@ -239,31 +237,6 @@
             btnUsuario.Text = "Usuario";
             btnUsuario.UseVisualStyleBackColor = true;
             btnUsuario.Click += btnUsuario_Click;
-            // 
-            // panel3
-            // 
-            panel3.BackColor = Color.FromArgb(0, 80, 200);
-            panel3.Location = new Point(0, 326);
-            panel3.Name = "panel3";
-            panel3.Size = new Size(5, 32);
-            panel3.TabIndex = 2;
-            // 
-            // btnProveedores
-            // 
-            btnProveedores.FlatAppearance.BorderSize = 0;
-            btnProveedores.FlatAppearance.MouseOverBackColor = Color.FromArgb(0, 80, 200);
-            btnProveedores.FlatStyle = FlatStyle.Flat;
-            btnProveedores.Font = new Font("Century Gothic", 11.25F, FontStyle.Regular, GraphicsUnit.Point, 0);
-            btnProveedores.ForeColor = SystemColors.ControlLightLight;
-            btnProveedores.Image = Properties.Resources.compras;
-            btnProveedores.ImageAlign = ContentAlignment.MiddleLeft;
-            btnProveedores.Location = new Point(3, 326);
-            btnProveedores.Name = "btnProveedores";
-            btnProveedores.Size = new Size(202, 32);
-            btnProveedores.TabIndex = 3;
-            btnProveedores.Text = "Provedores";
-            btnProveedores.UseVisualStyleBackColor = true;
-            btnProveedores.Click += btnProveedores_Click;
             // 
             // panel2
             // 
@@ -334,6 +307,17 @@
             panelContenedor.Size = new Size(1089, 576);
             panelContenedor.TabIndex = 2;
             // 
+            // lblEmpleadoActual
+            // 
+            lblEmpleadoActual.AutoSize = true;
+            lblEmpleadoActual.Font = new Font("Century Gothic", 11.25F, FontStyle.Regular, GraphicsUnit.Point, 0);
+            lblEmpleadoActual.ForeColor = SystemColors.ButtonHighlight;
+            lblEmpleadoActual.Location = new Point(12, 9);
+            lblEmpleadoActual.Name = "lblEmpleadoActual";
+            lblEmpleadoActual.Size = new Size(100, 20);
+            lblEmpleadoActual.TabIndex = 7;
+            lblEmpleadoActual.Text = "Bienvenido: ";
+            // 
             // Inicio
             // 
             AutoScaleDimensions = new SizeF(7F, 15F);
@@ -348,6 +332,7 @@
             Text = "Inicio";
             Load += Inicio_Load;
             BarraTitulo.ResumeLayout(false);
+            BarraTitulo.PerformLayout();
             ((System.ComponentModel.ISupportInitialize)PBContraer).EndInit();
             ((System.ComponentModel.ISupportInitialize)PBCerrar).EndInit();
             ((System.ComponentModel.ISupportInitialize)PBMaximizar).EndInit();
@@ -365,10 +350,8 @@
         private PictureBox PBLogo;
         private Button btnProductos;
         private Panel panel1;
-        private Button btnProveedores;
         private Panel panel2;
         private Button btnVentas;
-        private Panel panel3;
         private Panel panel6;
         private Button btnBackUp;
         private Panel panel5;
@@ -382,5 +365,6 @@
         private PictureBox PBCerrar;
         private PictureBox PBMaximizar;
         private PictureBox PBMinimizar;
+        private Label lblEmpleadoActual;
     }
 }

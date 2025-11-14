@@ -128,6 +128,7 @@ namespace Interfaz
             txtStockProducto.Clear();
             txtImagenUrl.Clear();
             CBCategoria.SelectedIndex = -1;
+            pbProducto.Image= null;
         }
 
         private void HabilitarCampos()
@@ -250,23 +251,31 @@ namespace Interfaz
 
                 // --- Imagen del producto ---
                 string rutaRelativa = fila.Cells["ImagenUrl"].Value?.ToString();
-                if (!string.IsNullOrEmpty(rutaRelativa))
+
+                if (string.IsNullOrWhiteSpace(rutaRelativa))
                 {
-                    string rutaCompleta = Path.Combine(Application.StartupPath, rutaRelativa);
-                    if (File.Exists(rutaCompleta))
-                    {
-                        pbProducto.Image = Image.FromFile(rutaCompleta);
-                        pbProducto.SizeMode = PictureBoxSizeMode.Zoom;
-                    }
-                    else
-                    {
-                        MostrarImagenPorDefecto();
-                    }
+                    MostrarImagenPorDefecto();
+                    return;
+                }
+
+                var rel = rutaRelativa.TrimStart('\\', '/').Replace('/', '\\');
+
+                // <solución>\Interfaz\Images\Productos\...
+                string rutaProyectoInterfaz = Path.GetFullPath(
+                    Path.Combine(AppDomain.CurrentDomain.BaseDirectory, @"..\..\..\", rel)
+                );
+
+                if (File.Exists(rutaProyectoInterfaz))
+                {
+                    pbProducto.Image?.Dispose();
+                    pbProducto.Image = Image.FromFile(rutaProyectoInterfaz);
+                    pbProducto.SizeMode = PictureBoxSizeMode.Zoom;
                 }
                 else
                 {
                     MostrarImagenPorDefecto();
                 }
+
             }
         }
 
@@ -286,6 +295,8 @@ namespace Interfaz
             btnCrear.Visible = false;
             btnEditar.Visible = false;
             btnEliminar.Visible = false;
+            pbProducto.Image = null;
+
         }
 
         private void btnCancelar_Click(object sender, EventArgs e)
@@ -365,6 +376,7 @@ namespace Interfaz
                 if (eliminado)
                 {
                     MessageBox.Show("Producto eliminado correctamente.");
+                    LimpiarCampos();
                     await CargarProductos(); // refrescar la grilla
                 }
                 else
@@ -475,7 +487,7 @@ namespace Interfaz
 
         private void MostrarImagenPorDefecto()
         {
-            string rutaDefault = Path.Combine(Application.StartupPath, "Imagenes", "Productos", "default.png");
+            string rutaDefault = Path.Combine(Application.StartupPath, "Images", "Productos", "default.png");
 
             if (File.Exists(rutaDefault))
             {

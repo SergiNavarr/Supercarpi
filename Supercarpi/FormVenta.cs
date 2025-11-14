@@ -273,8 +273,17 @@ namespace Interfaz
                     Subtotal = producto.PrecioUnitario
                 };
                 DetallesVenta.Add(detalle);
-                dgvVenta.Rows.Add(producto.ProductoId, producto.Nombre, detalle.PrecioUnitario, detalle.Cantidad, detalle.Subtotal);
+
+                dgvVenta.Rows.Add(
+                    producto.ProductoId,
+                    producto.Nombre,
+                    detalle.PrecioUnitario.ToString("N2"),
+                    detalle.Cantidad,
+                    "",
+                    detalle.Subtotal.ToString("N2")
+                );
             }
+
 
             Total = DetallesVenta.Sum(d => d.Subtotal);
             LTotal.Text = $"TOTAL: ${Total}";
