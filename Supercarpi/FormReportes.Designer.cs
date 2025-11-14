@@ -30,6 +30,8 @@
         {
             label1 = new Label();
             panelFechas = new Panel();
+            LBCajero = new Label();
+            cbCajero = new ComboBox();
             cbCaja = new ComboBox();
             lCaja = new Label();
             cbTipoGrafico = new ComboBox();
@@ -52,8 +54,7 @@
             Metodo_mas_usado = new DataGridViewTextBoxColumn();
             label2 = new Label();
             label3 = new Label();
-            cbCajero = new ComboBox();
-            LBCajero = new Label();
+            btnVentas = new Button();
             panelFechas.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)dgvResumenGeneral).BeginInit();
             ((System.ComponentModel.ISupportInitialize)dgvResumenCajas).BeginInit();
@@ -73,6 +74,7 @@
             // panelFechas
             // 
             panelFechas.BackColor = Color.Teal;
+            panelFechas.Controls.Add(btnVentas);
             panelFechas.Controls.Add(LBCajero);
             panelFechas.Controls.Add(cbCajero);
             panelFechas.Controls.Add(cbCaja);
@@ -86,8 +88,27 @@
             panelFechas.Controls.Add(LDesde);
             panelFechas.Location = new Point(43, 70);
             panelFechas.Name = "panelFechas";
-            panelFechas.Size = new Size(783, 130);
+            panelFechas.Size = new Size(995, 130);
             panelFechas.TabIndex = 2;
+            // 
+            // LBCajero
+            // 
+            LBCajero.AutoSize = true;
+            LBCajero.Font = new Font("Century Gothic", 12F, FontStyle.Regular, GraphicsUnit.Point, 0);
+            LBCajero.ForeColor = SystemColors.ButtonHighlight;
+            LBCajero.Location = new Point(12, 31);
+            LBCajero.Name = "LBCajero";
+            LBCajero.Size = new Size(176, 21);
+            LBCajero.TabIndex = 13;
+            LBCajero.Text = "Cajero Seleccionado:";
+            // 
+            // cbCajero
+            // 
+            cbCajero.FormattingEnabled = true;
+            cbCajero.Location = new Point(193, 31);
+            cbCajero.Name = "cbCajero";
+            cbCajero.Size = new Size(107, 23);
+            cbCajero.TabIndex = 12;
             // 
             // cbCaja
             // 
@@ -135,11 +156,11 @@
             btnGenerar.FlatStyle = FlatStyle.Flat;
             btnGenerar.Font = new Font("Century Gothic", 9.75F);
             btnGenerar.ForeColor = SystemColors.ButtonHighlight;
-            btnGenerar.Location = new Point(648, 81);
+            btnGenerar.Location = new Point(680, 81);
             btnGenerar.Name = "btnGenerar";
             btnGenerar.Size = new Size(114, 32);
             btnGenerar.TabIndex = 6;
-            btnGenerar.Text = "Generar";
+            btnGenerar.Text = "Ver Reporte";
             btnGenerar.UseVisualStyleBackColor = false;
             btnGenerar.Click += btnGenerar_Click;
             // 
@@ -275,24 +296,20 @@
             label3.TabIndex = 45;
             label3.Text = "Resumen de Cajas:";
             // 
-            // cbCajero
+            // btnVentas
             // 
-            cbCajero.FormattingEnabled = true;
-            cbCajero.Location = new Point(193, 31);
-            cbCajero.Name = "cbCajero";
-            cbCajero.Size = new Size(107, 23);
-            cbCajero.TabIndex = 12;
-            // 
-            // LBCajero
-            // 
-            LBCajero.AutoSize = true;
-            LBCajero.Font = new Font("Century Gothic", 12F, FontStyle.Regular, GraphicsUnit.Point, 0);
-            LBCajero.ForeColor = SystemColors.ButtonHighlight;
-            LBCajero.Location = new Point(12, 31);
-            LBCajero.Name = "LBCajero";
-            LBCajero.Size = new Size(176, 21);
-            LBCajero.TabIndex = 13;
-            LBCajero.Text = "Cajero Seleccionado:";
+            btnVentas.BackColor = Color.FromArgb(0, 80, 200);
+            btnVentas.FlatAppearance.BorderSize = 0;
+            btnVentas.FlatStyle = FlatStyle.Flat;
+            btnVentas.Font = new Font("Century Gothic", 9.75F);
+            btnVentas.ForeColor = SystemColors.ButtonHighlight;
+            btnVentas.Location = new Point(844, 81);
+            btnVentas.Name = "btnVentas";
+            btnVentas.Size = new Size(114, 32);
+            btnVentas.TabIndex = 14;
+            btnVentas.Text = "Ver Ventas";
+            btnVentas.UseVisualStyleBackColor = false;
+            btnVentas.Click += btnVentas_Click;
             // 
             // FormReportes
             // 
@@ -347,5 +364,6 @@
         private DataGridViewTextBoxColumn Metodo_mas_usado;
         private Label LBCajero;
         private ComboBox cbCajero;
+        private Button btnVentas;
     }
 }

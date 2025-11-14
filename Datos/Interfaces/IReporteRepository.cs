@@ -11,5 +11,7 @@ namespace Datos.Interfaces
     public interface IReporteRepository
     {
         Task<ReporteResumenDTO> ObtenerReporteVentasAsync(DateTime desde, DateTime hasta, int? empleadoId, int? cajaId);
+        Task<List<Venta>> ObtenerVentasListAsync(DateTime desde, DateTime hasta, int? empleadoId, int? cajaId);
+
     }
 }

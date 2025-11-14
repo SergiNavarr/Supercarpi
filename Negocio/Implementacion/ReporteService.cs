@@ -1,11 +1,12 @@
-﻿using System;
+﻿using Datos.Interfaces;
+using Entidades.DTOs;
+using Entidades.Models;
+using Negocio.Interfaces;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
-using Datos.Interfaces;
-using Entidades.DTOs;
-using Negocio.Interfaces;
 
 namespace Negocio.Implementacion
 {
@@ -23,5 +24,9 @@ namespace Negocio.Implementacion
             return await _reporteRepository.ObtenerReporteVentasAsync(desde, hasta, empleadoId, cajaId);
         }
 
+        public async Task<List<Venta>> ObtenerVentasAsync(DateTime desde, DateTime hasta, int? empleadoId, int? cajaId)
+        {
+            return await _reporteRepository.ObtenerVentasListAsync(desde, hasta, empleadoId, cajaId);
+        }
     }
 }

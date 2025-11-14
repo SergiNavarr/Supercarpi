@@ -1,5 +1,7 @@
 ﻿using Entidades.DTOs;
 using Entidades.Models;
+using iTextSharp.text;
+using iTextSharp.text.pdf;
 using Negocio.Implementacion;
 using Negocio.Interfaces;
 using ScottPlot;
@@ -11,6 +13,7 @@ using System.Collections.Generic;
 using System.ComponentModel;
 using System.Data;
 using System.Drawing;
+using System.Globalization;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
@@ -90,7 +93,8 @@ namespace Interfaz
 
                 // Crear lista para el ComboBox
                 var listaCombo = cajeros
-                    .Select(c => new {
+                    .Select(c => new
+                    {
                         c.EmpleadoId,
                         NombreCompleto = $"{c.Nombre} {c.Apellido}".Trim()
                     })
@@ -98,7 +102,7 @@ namespace Interfaz
 
                 // Asignar al combo
                 cbCajero.DataSource = listaCombo;
-                cbCajero.DisplayMember = "NombreCompleto"; 
+                cbCajero.DisplayMember = "NombreCompleto";
                 cbCajero.ValueMember = "EmpleadoId";
                 cbCajero.SelectedIndex = -1;
             }
@@ -118,7 +122,7 @@ namespace Interfaz
 
                 int? empleadoId = cbCajero.SelectedValue is int idCajero && idCajero != 0
                     ? idCajero
-    :               null;
+    : null;
 
 
                 int? cajaId = cbCaja.SelectedValue is int idCaja && idCaja != 0
@@ -174,7 +178,7 @@ namespace Interfaz
             else
             {
                 // Si no hay datos, mostramos una fila vacía con "Sin datos"
-               
+
                 dgvResumenCajas.Rows[fila].Cells["nro_caja"].Value = "-";
                 dgvResumenCajas.Rows[fila].Cells["Monto_total"].Value = "-";
                 dgvResumenCajas.Rows[fila].Cells["Metodo_mas_usado"].Value = "Sin datos";
@@ -260,6 +264,125 @@ namespace Interfaz
         private void label4_Click(object sender, EventArgs e)
         {
 
+        }
+
+        private void GenerarReporteFacturasPDF(
+                List<Venta> ventas,
+                DateTime desde,
+                DateTime hasta,
+                string cajeroNombre,
+                string cajaNombre)
+        {
+            string folderPath = @"C:\Supercarpi\Reportes";
+            Directory.CreateDirectory(folderPath);
+
+            string nombreArchivo = $"ReporteFacturas_{desde:ddMMyyyy}_{hasta:ddMMyyyy}_{Guid.NewGuid()}.pdf";
+
+            string filePath = Path.Combine(folderPath, nombreArchivo);
+
+            Document doc = new Document(PageSize.A4, 40, 40, 20, 20);
+            PdfWriter.GetInstance(doc, new FileStream(filePath, FileMode.Create));
+
+            doc.Open();
+
+            var tituloFont = FontFactory.GetFont(FontFactory.HELVETICA_BOLD, 18);
+            var boldFont = FontFactory.GetFont(FontFactory.HELVETICA_BOLD, 11);
+            var normalFont = FontFactory.GetFont(FontFactory.HELVETICA, 11);
+
+            // ENCABEZADO
+            Paragraph titulo = new Paragraph("REPORTE DE FACTURAS - SUPERCARPI", tituloFont);
+            titulo.Alignment = Element.ALIGN_CENTER;
+            doc.Add(titulo);
+
+            doc.Add(new Paragraph(" "));
+            doc.Add(new Paragraph($"Desde: {desde:dd/MM/yyyy}  -  Hasta: {hasta:dd/MM/yyyy}", normalFont));
+            doc.Add(new Paragraph($"Cajero: {cajeroNombre}", normalFont));
+            doc.Add(new Paragraph($"Caja: {cajaNombre}", normalFont));
+            doc.Add(new Paragraph("--------------------------------------------------"));
+
+            // TABLA
+            PdfPTable tabla = new PdfPTable(5);
+            tabla.WidthPercentage = 100;
+            tabla.SetWidths(new float[] { 15, 15, 25, 20, 25 });
+
+            tabla.AddCell(new Phrase("Factura", boldFont));
+            tabla.AddCell(new Phrase("Fecha", boldFont));
+            tabla.AddCell(new Phrase("Cajero", boldFont));
+            tabla.AddCell(new Phrase("Caja", boldFont));
+            tabla.AddCell(new Phrase("Monto Total", boldFont));
+
+            foreach (var v in ventas)
+            {
+                string nroFactura = $"FACT-{v.VentaId.ToString().PadLeft(6, '0')}";
+
+                tabla.AddCell(nroFactura);
+                tabla.AddCell(v.Fecha.ToString("dd/MM/yyyy HH:mm"));
+                tabla.AddCell($"{v.Empleado.Nombre} {v.Empleado.Apellido}");
+                tabla.AddCell(v.CajaId.ToString());
+                tabla.AddCell(v.Total.ToString("C2", new CultureInfo("es-AR")));
+            }
+
+            doc.Add(tabla);
+
+            doc.Add(new Paragraph(" "));
+
+            doc.Close();
+
+            MessageBox.Show($"Reporte generado:\n{filePath}");
+        }
+
+
+        private async void btnVentas_Click(object sender, EventArgs e)
+        {
+            try
+            {
+                // 1) Obtener filtros
+                DateTime desde = dtpDesde.Value.Date;
+                DateTime hasta = dtpHasta.Value.Date.AddDays(1).AddSeconds(-1); // incluye todo el día
+
+                int? empleadoId = cbCajero.SelectedIndex > 0
+                    ? cbCajero.SelectedValue as int?
+                    : null;
+
+                int? cajaId = cbCaja.SelectedIndex > 0
+                    ? cbCaja.SelectedValue as int?
+                    : null;
+
+                // 2) Consultar ventas del repositorio
+                var ventas = await _reporteService.ObtenerVentasAsync(desde, hasta, empleadoId, cajaId);
+
+                if (ventas == null || !ventas.Any())
+                {
+                    MessageBox.Show("No se encontraron ventas en el período o filtros seleccionados.");
+                    return;
+                }
+                // 3) Identificar nombres de cajero/caja para el PDF
+                string nombreCajero =
+                    cbCajero.SelectedIndex <= 0
+                    ? "Todos"
+                    : cbCajero.Text;
+
+                string nombreCaja =
+                    cbCaja.SelectedIndex <= 0
+                    ? "Todas"
+                    : cbCaja.Text;
+                // 4) Generar el PDF completo
+                GenerarReporteFacturasPDF(
+                    ventas,
+                    desde,
+                    hasta,
+                    nombreCajero,
+                    nombreCaja
+                );
+
+                MessageBox.Show("Reporte PDF generado correctamente.", "Éxito",
+                    MessageBoxButtons.OK, MessageBoxIcon.Information);
+            }
+            catch (Exception ex)
+            {
+                MessageBox.Show($"Error al generar el reporte: {ex.Message}",
+                    "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
+            }
         }
     }
 

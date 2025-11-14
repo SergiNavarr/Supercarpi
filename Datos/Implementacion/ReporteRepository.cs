@@ -125,6 +125,33 @@ namespace Datos.Implementacion
                 ResumenPorCaja = resumenPorCaja
             };
         }
+
+        public async Task<List<Venta>> ObtenerVentasListAsync(DateTime desde, DateTime hasta, int? empleadoId, int? cajaId)
+        {
+            var query = _context.Venta
+                .Include(v => v.DetalleVenta)
+                    .ThenInclude(dv => dv.Producto)
+                .Include(v => v.Pagos)
+                    .ThenInclude(p => p.MetodoPago)
+                .Include(v => v.Empleado)
+                .AsQueryable();
+
+            // Filtrar rango de fechas
+            query = query.Where(v => v.Fecha.Date >= desde.Date && v.Fecha.Date <= hasta.Date);
+
+            // Filtrar por empleado si corresponde
+            if (empleadoId.HasValue)
+                query = query.Where(v => v.EmpleadoId == empleadoId.Value);
+
+            // Filtrar por caja si corresponde
+            if (cajaId.HasValue)
+                query = query.Where(v => v.CajaId == cajaId.Value);
+
+            return await query
+                .OrderBy(v => v.Fecha)
+                .ToListAsync();
+        }
+
     }
 }
 

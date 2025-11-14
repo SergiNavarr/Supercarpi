@@ -1,4 +1,5 @@
 ﻿using Entidades.DTOs;
+using Entidades.Models;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -10,6 +11,8 @@ namespace Negocio.Interfaces
     public interface IReporteService
     {
         Task<ReporteResumenDTO> GenerarReporteVentasAsync(DateTime desde, DateTime hasta, int? empleadoId, int? cajaId);
+        Task<List<Venta>> ObtenerVentasAsync(DateTime desde, DateTime hasta, int? empleadoId, int? cajaId);
+
     }
 }
 
